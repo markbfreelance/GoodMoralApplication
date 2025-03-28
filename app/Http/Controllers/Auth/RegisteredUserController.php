@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\StudentRegistration;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,37 +14,48 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
-    {
-        return view('auth.register');
-    }
+  /**
+   * Display the registration view.
+   */
+  public function create(): View
+  {
+    return view('auth.register');
+  }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+  /**
+   * Handle an incoming registration request.
+   *
+   * @throws \Illuminate\Validation\ValidationException
+   */
+  public function store(Request $request): RedirectResponse
+  {
+    $request->validate([
+      'fname' => ['required', 'string', 'max:255'],
+      'lname' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:student_registrations,email'],
+      'password' => ['required', 'confirmed', Rules\Password::defaults()],
+      'student_id' => ['required', 'string', 'max:20', 'unique:student_registrations'],
+      'account_type' => ['required', 'string', 'in:student,psg_officer'],
+      'year_level' => ['required', 'string', 'max:50'],
+      'organization' => ['nullable', 'string', 'max:50'],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = StudentRegistration::create([
+      'fname' => $request->fname,
+      'lname' => $request->lname,
+      'email' => $request->email,
+      'password' => Hash::make($request->password), // Always hash passwords
+      'student_id' => $request->student_id,
+      'status' => "1",
+      'account_type' => $request->account_type,
+      'year_level' => $request->year_level,
+      'organization' => $request->organization,
+    ]);
 
-        event(new Registered($user));
+    event(new Registered($user));
 
-        Auth::login($user);
+    Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
-    }
+    return redirect(route('dashboard', absolute: false));
+  }
 }

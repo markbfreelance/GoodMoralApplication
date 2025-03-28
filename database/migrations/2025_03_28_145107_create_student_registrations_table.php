@@ -13,17 +13,21 @@ return new class extends Migration
     {
         Schema::create('student_registrations', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
-            $table->string('Fname'); // First name of the student
-            $table->string('Lname'); // Last name of the student
-            $table->string('Email')->unique(); // Email (unique)
-            $table->string('Password'); // Password (hashed)
-            $table->string('Status'); // Password (hashed)
-            $table->string('AccountType')->nullable(); // Phone number (optional)
-            $table->string('YearLevel')->nullable(); // Year Level (e.g., 1st Year, 2nd Year)
+            $table->string('fname'); // First name of the student
+            $table->string('lname'); // Last name of the student
+            $table->string('student_id')->unique(); 
+            $table->string('email')->unique(); // Email (unique)
+            $table->string('password'); // Password (hashed)
+            $table->string('status'); // Password (hashed)
+            $table->string('organization')->nullable(); //Organization
+            $table->string('account_type')->nullable(); // Phone number (optional)
+            $table->string('year_level')->nullable(); // Year Level (e.g., 1st Year, 2nd Year)
             $table->timestamps(); // Created_at & updated_at
         });
     }
     /**
+     * 
+
      * Reverse the migrations.
      */
     public function down(): void
