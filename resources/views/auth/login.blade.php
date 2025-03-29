@@ -7,6 +7,23 @@
 
     <!-- Email Address -->
     <div>
+      <x-input-label for="account_type" :value="__('Seclect Account Type')" />
+      <select id="account_type"
+        name="account_type"
+        class="block mt-1 w-full border-gray-300 focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100 rounded-md shadow-sm">
+        <option value="" disabled selected>Select Acoount Type</option>
+        <option value="admin">Administrator</option>
+        <option value="registar">Registar</option>
+        <option value="dean">Dean</option>
+        <option value="psg_officer">PSG Officer</option>
+        <option value="alumni">Alumni</option>
+        <option value="student">Student</option>
+
+      </select>
+      <x-input-error :messages="$errors->get('account_type')" class="mt-2" />
+    </div>
+
+    <div class="mt-4">
       <x-input-label for="email" :value="__('Email')" />
       <x-text-input
         id="email"

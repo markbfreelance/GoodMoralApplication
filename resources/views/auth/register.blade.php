@@ -69,7 +69,7 @@
         type="text"
         name="year_level"
         :value="old('year_level')"
-        required placeholder="Year / Course " />
+        required placeholder="Year / Course" />
       <x-input-error :messages="$errors->get('year_level')" class="mt-2" />
     </div>
 

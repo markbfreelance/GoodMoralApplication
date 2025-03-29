@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\RoleAccount;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +28,10 @@ class LoginRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'email' => ['required', 'string', 'email', 'exists:role_accounts,email'], // ✅ Match DB column
+      'email' => ['required', 'string', 'email', 'exists:role_account,email'], // ✅ Match DB column
       'password' => ['required', 'string'],
     ];
   }
-
   /**
    * Attempt to authenticate the request's credentials.
    *
@@ -40,19 +40,19 @@ class LoginRequest extends FormRequest
   public function authenticate(): void
   {
     $this->ensureIsNotRateLimited();
-    
-    $user = \App\Models\StudentRegistration::where('email', strtolower($this->email))->first();
 
-    // ✅ Check if user exists and status is 1
+    $user = RoleAccount::where('email', strtolower($this->email))->first();
 
-    if (!$user || $user->Status != 0) {
+    // ✅ Check if user exists and status is 1 (Approved)
+    if (!$user || $user->status != 1) {
       throw ValidationException::withMessages([
-          'email' => $user ? 'Your account has not been approved yet.' : trans('auth.failed'),
+        'email' => $user ? 'Your account has not been approved yet.' : trans('auth.failed'),
       ]);
-  }
+    }
 
-    if (! Auth::attempt([
-      'Email' => strtolower($this->email), // ✅ Match DB column name (Email)
+    // ✅ Authenticate user
+    if (!Auth::attempt([
+      'email' => strtolower($this->email), // ✅ Match database column names
       'password' => $this->password,
     ], $this->boolean('remember'))) {
       RateLimiter::hit($this->throttleKey());
@@ -62,6 +62,7 @@ class LoginRequest extends FormRequest
       ]);
     }
 
+    // ✅ Clear rate limiter
     RateLimiter::clear($this->throttleKey());
   }
   /**

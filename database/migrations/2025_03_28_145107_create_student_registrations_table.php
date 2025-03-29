@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password'); // Password (hashed)
             $table->string('status'); // Password (hashed)
             $table->string('account_type')->nullable(); // Phone number (optional)
-            $table->string('year_level')->nullable(); // Year Level (e.g., 1st Year, 2nd Year)
+            $table->string('year_level')->nullable()->default('N/A'); // Year Level (e.g., 1st Year, 2nd Year)
             $table->timestamps(); // Created_at & updated_at
         });
     }
