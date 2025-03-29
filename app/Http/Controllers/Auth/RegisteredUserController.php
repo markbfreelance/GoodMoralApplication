@@ -37,9 +37,8 @@ class RegisteredUserController extends Controller
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:student_registrations,email'],
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
       'student_id' => ['required', 'string', 'max:20', 'unique:student_registrations'],
-      'account_type' => ['required', 'string', 'in:student,psg_officer'],
+      'account_type' => ['required', 'string', 'in:student,alumni'],
       'year_level' => ['required', 'string', 'max:50'],
-      'organization' => ['nullable', 'string', 'max:50'],
     ]);
 
     $user = StudentRegistration::create([

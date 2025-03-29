@@ -46,21 +46,6 @@
       <x-input-error :messages="$errors->get('account_type')" class="mt-2" />
     </div>
 
-    <!-- Additional inputs (shown only if PSG Officer is selected) -->
-    <div class="mt-4" x-data="{ show: false }" x-on:account-type-changed.window="show = ($event.detail === 'psg_officer')">
-      <template x-if="show">
-        <div>
-          <x-input-label for="organization" :value="__('Organization')" />
-          <x-text-input
-            id="organization"
-            class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
-            type="text"
-            name="organization"
-            placeholder="Enter Organization" />
-          <x-input-error :messages="$errors->get('organization')" class="mt-2" />
-        </div>
-      </template>
-    </div>
     <!-- Student ID  -->
     <div class="mt-4">
       <x-input-label for="student_id" :value="__('Student ID')" />
