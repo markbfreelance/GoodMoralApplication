@@ -52,7 +52,7 @@
   <main class="bg-custom flex flex-col items-center justify-center flex-grow text-center relative">
     <div class="bg-white/60 backdrop-blur-sm absolute inset-0 w-full h-full"></div>
     <section class="relative z-10 max-w-5xl p-10 text-center">
-      <h1 class="text-6xl font-extrabold text-gray-900 mb-6">Good Moral Application</h1>
+      <h1 class="text-6xl font-extrabold text-gray-900 mb-6 tracking-tighter">GOOD MORAL APPLICATION</h1>
       <p class="text-xl text-gray-700 leading-relaxed mb-8">
         Upholding strong values and integrity is at the heart of our community.
         Join us in fostering a culture of ethical excellence and accountability.
