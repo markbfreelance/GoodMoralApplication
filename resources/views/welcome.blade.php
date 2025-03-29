@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   @endif
 </head>
-
+:>
 <style>
   .bg-custom {
     background: url('{{ asset("/images/backgrounds/spup-logo.png") }}') center/contain no-repeat;
