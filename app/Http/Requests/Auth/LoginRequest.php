@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'email' => ['required', 'string', 'email', 'exists:student_registrations,email'], // ✅ Match DB column
+      'email' => ['required', 'string', 'email', 'exists:role_accounts,email'], // ✅ Match DB column
       'password' => ['required', 'string'],
     ];
   }

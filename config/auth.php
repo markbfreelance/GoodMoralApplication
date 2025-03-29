@@ -62,8 +62,10 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\StudentRegistration::class, // ✅ Set to your model
+            'model' => App\Models\RoleAccount::class, // ✅ Set to your model
         ],
+
+        
 
         // 'users' => [
         //     'driver' => 'database',

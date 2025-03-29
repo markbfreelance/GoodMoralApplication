@@ -8,24 +8,23 @@ use Illuminate\Notifications\Notifiable;
 
 class StudentRegistration extends Authenticatable
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $table = 'student_registrations';
+  protected $table = 'student_registrations';
 
-    protected $fillable = [
-        'fname',
-        'lname',
-        'email',
-        'password',
-        'status',
-        'student_id',
-        'organization',
-        'account_type',
-        'year_level',
-    ];
-    
+  protected $fillable = [
+    'fname',
+    'lname',
+    'email',
+    'password',
+    'status',
+    'student_id',
+    'account_type',
+    'year_level',
+  ];
 
-    protected $hidden = [
-        'password',
-    ];
+
+  protected $hidden = [
+    'password',
+  ];
 }
