@@ -16,6 +16,7 @@ class RoleAccount extends Authenticatable
     'password',
     'account_type',
     'student_id',
+    'fullname',
     'status',
   ];
 

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('role_account', function (Blueprint $table) {
             $table->id(); // Automatically creates the 'id' field
+            $table->string('fullname')->nullable();
             $table->string('email')->unique();
             $table->string('student_id')->nullable()->unique();
             $table->string('password');

@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
   {
     switch ($request->account_type) {
       case 'admin':
-        return route('admin');
+        return route('admin.dashboard');
       case 'psg_officer':
         return route('psg_officer.dashboard');
       case 'dean':
@@ -45,8 +45,8 @@ class AuthenticatedSessionController extends Controller
         return route('registar.dashboard');
       case 'alumni':
         return route('dashboard');
-        case 'student':
-          return route('dashboard');
+      case 'student':
+        return route('dashboard');
       default:
         return route('dashboard'); // Default route if role is not found
     }

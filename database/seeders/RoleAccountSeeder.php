@@ -16,6 +16,7 @@ class RoleAccountSeeder extends Seeder
         'student_id' => 'S12345',
         'password' => Hash::make('password123'),  // Using Hash::make to hash the password
         'account_type' => 'student',
+        'fullname' => 'sample,name',
         'status' => '1',
         'created_at' => now(),
         'updated_at' => now(),
@@ -26,6 +27,7 @@ class RoleAccountSeeder extends Seeder
         'password' => Hash::make('password123'),
         'account_type' => 'registar',
         'status' => '1',
+        'fullname' => 'sample,name',
         'created_at' => now(),
         'updated_at' => now(),
       ],
@@ -35,6 +37,7 @@ class RoleAccountSeeder extends Seeder
         'password' => Hash::make('admin123'),
         'account_type' => 'admin',
         'status' => '1',
+        'fullname' => 'sample,name',
         'created_at' => now(),
         'updated_at' => now(),
       ],

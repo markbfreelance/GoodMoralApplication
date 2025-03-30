@@ -11,9 +11,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-  return view('admin'); // ✅ Ensure the file exists: resources/views/admin.blade.php
-})->middleware(['auth', 'verified'])->name('admin');
+Route::get('/admin/dashboard', function () {
+  return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('admin.dashboard');
+
+Route::get('/admin/AddAccount', function () {
+  return view('admin.AddAccount');
+})->middleware(['auth', 'verified'])->name('admin.AddAccount');
+
+Route::get('/admin/Application', function () {
+  return view('admin.Application');
+})->middleware(['auth', 'verified'])->name('admin.Application');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
