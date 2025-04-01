@@ -35,6 +35,11 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
     ->middleware(['auth', 'verified'])
     ->name('PsgOfficer.Violator');
 
+//Registar 
+Route::get('/Registar/dashboard', function () {
+  return view('Registar.dashboard');
+})->middleware(['auth', 'verified'])->name('Registar.dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -12,7 +12,7 @@ class RoleAccountSeeder extends Seeder
   {
     DB::table('role_account')->insert([
       [
-        'email' => 'student@example.com',
+        'email' => 'student@admin.com',
         'student_id' => 'S12345',
         'password' => Hash::make('password123'),  // Using Hash::make to hash the password
         'account_type' => 'student',
@@ -22,7 +22,7 @@ class RoleAccountSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
-        'email' => 'registar@example.com',
+        'email' => 'registar@admin.com',
         'student_id' => 'S12346',
         'password' => Hash::make('password123'),
         'account_type' => 'registar',
