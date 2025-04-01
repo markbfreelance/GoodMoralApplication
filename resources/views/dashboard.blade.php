@@ -12,6 +12,23 @@
           {{ __("You're logged in!") }}
         </div>
 
+        <!-- Show Success Message if Application is Submitted -->
+        @if(session('status'))
+        <div class="alert alert-success mt-4 p-4 bg-green-500 text-white rounded">
+          {{ session('status') }}
+        </div>
+        @endif
+
+        <!-- Apply for Good Moral Certificate Button -->
+        <div class="p-6">
+          <form method="POST" action="{{ route('apply.good_moral_certificate') }}">
+            @csrf
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Apply for Good Moral Certificate
+            </button>
+          </form>
+        </div>
+
         <!-- Logout Form -->
         <form method="POST" action="{{ route('logout') }}">
           @csrf
@@ -19,7 +36,6 @@
             Logout
           </button>
         </form>
-
       </div>
     </div>
   </div>
