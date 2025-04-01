@@ -40,6 +40,11 @@ Route::get('/Registar/dashboard', function () {
   return view('Registar.dashboard');
 })->middleware(['auth', 'verified'])->name('Registar.dashboard');
 
+//Dean
+Route::get('/Dean/dashboard', function () {
+  return view('Dean.dashboard');
+})->middleware(['auth', 'verified'])->name('Dean.dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

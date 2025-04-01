@@ -20,7 +20,7 @@
       class="w-64 bg-gray-800 text-white min-h-screen fixed sm:relative left-0 transform transition-transform duration-300 sm:translate-x-0">
 
       <div class="p-4 text-lg font-bold border-b border-gray-700">
-        Registar Dashboard
+        Dean Dashboard
       </div>
 
       <nav class="mt-4">
