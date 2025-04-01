@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\RegisteredAccountController;
+use App\Http\Controllers\Auth\RegisterViolationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -57,5 +58,16 @@ Route::middleware('auth')->group(function () {
 
   Route::get('registeraccount', [RegisteredAccountController::class, 'create'])
     ->name('registeraccount');
+
   Route::post('registeraccount', [RegisteredAccountController::class, 'store']);
+
+
+  Route::get('registerviolation', [RegisterViolationController::class, 'create'])
+    ->name('registerviolation');
+
+  Route::post('registerviolation', [RegisterViolationController::class, 'store']);
+
+  Route::get('psgsearch', [RegisterViolationController::class, 'search'])
+    ->name('psgsearch');
+
 });
