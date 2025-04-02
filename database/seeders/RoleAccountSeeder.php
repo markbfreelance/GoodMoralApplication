@@ -22,10 +22,10 @@ class RoleAccountSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
-        'email' => 'registar@admin.com',
+        'email' => 'registrar@admin.com',
         'student_id' => 'S12346',
         'password' => Hash::make('password123'),
-        'account_type' => 'registar',
+        'account_type' => 'registrar',
         'status' => '1',
         'fullname' => 'sample,name',
         'created_at' => now(),

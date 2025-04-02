@@ -11,9 +11,9 @@
       <select id="account_type"
         name="account_type"
         class="block mt-1 w-full border-gray-300 focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100 rounded-md shadow-sm">
-        <option value="" disabled selected>Select Acoount Type</option>
+        <option value="" disabled selected>Select Account Type</option>
         <option value="admin">Administrator</option>
-        <option value="registar">Registar</option>
+        <option value="registrar">Registrar</option>
         <option value="dean">Dean</option>
         <option value="psg_officer">PSG Officer</option>
         <option value="alumni">Alumni</option>

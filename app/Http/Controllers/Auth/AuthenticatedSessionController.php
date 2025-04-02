@@ -41,14 +41,14 @@ class AuthenticatedSessionController extends Controller
         return route('PsgOfficer.dashboard');
       case 'dean':
         return route('Dean.dashboard');
-      case 'registar':
-        return route('Registar.dashboard');
+      case 'registrar':
+        return route('registrar.dashboard');
       case 'alumni':
         return route('dashboard');
       case 'student':
         return route('dashboard');
       default:
-        return route('/logout'); // Default route if role is not found
+        return route('logout'); // Default route if role is not found
     }
   }
 

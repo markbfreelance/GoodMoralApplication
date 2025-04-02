@@ -10,7 +10,8 @@ class CreateGoodMoralApplicationsTable extends Migration
   {
     Schema::create('good_moral_applications', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('student_id')->constrained('role_account')->onDelete('cascade'); // Corrected to 'role_account' (singular)
+      $table->string('student_id'); // Use string() to store alphanumeric student_id
+      $table->foreign('student_id')->references('student_id')->on('role_account')->onDelete('cascade');
       $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
       $table->timestamps();
     });
