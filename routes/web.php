@@ -38,10 +38,20 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.Violator');
 
-//Registar 
+// Registrar Dashboard Route
 Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
-  ->middleware(['auth', 'verified']) // Apply only the auth and verified middlewares
+  ->middleware(['auth', 'verified'])
   ->name('registrar.dashboard');
+
+// Approve Application Route
+Route::patch('/registrar/application/{id}/approve', [RegistrarController::class, 'approve'])
+  ->middleware(['auth', 'verified'])
+  ->name('registrar.approve');
+
+// Reject Application Route
+Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
+  ->middleware(['auth', 'verified'])
+  ->name('registrar.reject');
 
 //Dean
 Route::get('/Dean/dashboard', function () {

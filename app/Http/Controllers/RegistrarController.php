@@ -27,7 +27,7 @@ class RegistrarController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\RedirectResponse
    */
-  public function approveApplication($id)
+  public function approve($id)
   {
     // Find the application by its ID
     $application = GoodMoralApplication::findOrFail($id);
@@ -37,7 +37,7 @@ class RegistrarController extends Controller
     $application->save();
 
     // Redirect back to the dashboard with a success message
-    return redirect()->route('registar.dashboard')->with('status', 'Application approved successfully!');
+    return redirect()->route('registrar.dashboard')->with('status', 'Application approved successfully!');
   }
 
   /**
@@ -46,7 +46,7 @@ class RegistrarController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\RedirectResponse
    */
-  public function rejectApplication($id)
+  public function reject($id)
   {
     // Find the application by its ID
     $application = GoodMoralApplication::findOrFail($id);
@@ -56,6 +56,6 @@ class RegistrarController extends Controller
     $application->save();
 
     // Redirect back to the dashboard with a rejection message
-    return redirect()->route('registar.dashboard')->with('status', 'Application rejected.');
+    return redirect()->route('registrar.dashboard')->with('status', 'Application rejected.');
   }
 }
