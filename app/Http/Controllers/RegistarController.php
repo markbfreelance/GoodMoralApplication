@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\GoodMoralApplication;
 use Illuminate\Http\Request;
 
-class RegistrarController extends Controller
+class RegistarController extends Controller
 {
   /**
-   * Show the registrar dashboard with pending applications.
+   * Show the registar dashboard with pending applications.
    *
    * @return \Illuminate\View\View
    */
@@ -18,7 +18,7 @@ class RegistrarController extends Controller
     $applications = GoodMoralApplication::where('status', 'pending')->get();
 
     // Return the view with the list of applications
-    return view('registrar.dashboard', compact('applications'));
+    return view('registar.dashboard', compact('applications'));
   }
 
   /**
@@ -37,7 +37,7 @@ class RegistrarController extends Controller
     $application->save();
 
     // Redirect back to the dashboard with a success message
-    return redirect()->route('registrar.dashboard')->with('status', 'Application approved successfully!');
+    return redirect()->route('registar.dashboard')->with('status', 'Application approved successfully!');
   }
 
   /**
@@ -56,6 +56,6 @@ class RegistrarController extends Controller
     $application->save();
 
     // Redirect back to the dashboard with a rejection message
-    return redirect()->route('registrar.dashboard')->with('status', 'Application rejected.');
+    return redirect()->route('registar.dashboard')->with('status', 'Application rejected.');
   }
 }

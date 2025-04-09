@@ -60,7 +60,7 @@
               <option value="" disabled selected>Select Account Type</option>
               <option value="dean">Dean</option>
               <option value="moderator">Moderator</option>
-              <option value="registar">Registrar</option>
+              <option value="registar">Registar</option>
               <option value="psg_officer">PSG Officer</option>
             </select>
 

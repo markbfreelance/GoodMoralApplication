@@ -53,6 +53,7 @@ class RegisteredUserController extends Controller
     ]);
 
     $user1 = RoleAccount::create([
+      'fullname' => $request->fname.",".$request->lname,
       'email' => $request->email,
       'password' => Hash::make($request->password), // Always hash passwords
       'student_id' => $request->student_id,

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RegistrarController;
+use App\Http\Controllers\RegistarController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\ProfileController;
@@ -38,20 +38,20 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.Violator');
 
-// Registrar Dashboard Route
-Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
+// Registar Dashboard Route
+Route::get('/registar/dashboard', [RegistarController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
-  ->name('registrar.dashboard');
+  ->name('registar.dashboard');
 
 // Approve Application Route
-Route::patch('/registrar/application/{id}/approve', [RegistrarController::class, 'approve'])
+Route::patch('/registar/application/{id}/approve', [RegistarController::class, 'approve'])
   ->middleware(['auth', 'verified'])
-  ->name('registrar.approve');
+  ->name('registar.approve');
 
 // Reject Application Route
-Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
+Route::delete('/registar/application/{id}/reject', [RegistarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
-  ->name('registrar.reject');
+  ->name('registar.reject');
 
 //Dean
 Route::get('/Dean/dashboard', function () {
