@@ -27,10 +27,6 @@
       </nav>
 
       <!-- Logout Button -->
-      <form method="POST" action="{{ route('logout') }}" class="mt-6">
-        @csrf
-        <button type="submit" class="w-full bg-gray-800 text-white p-2 rounded-md">Logout</button>
-      </form>
     </aside>
 
     <!-- Main Content -->
