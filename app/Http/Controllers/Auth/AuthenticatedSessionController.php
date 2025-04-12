@@ -43,6 +43,8 @@ class AuthenticatedSessionController extends Controller
         return route('Dean.dashboard');
       case 'registrar':
         return route('registrar.dashboard');
+      case 'head_osa':
+        return route('head_osa.dashboard');
       case 'alumni':
         return route('dashboard');
       case 'student':

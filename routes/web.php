@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HeadOSAController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Auth\RegisterViolationController;
@@ -38,6 +39,8 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.Violator');
 
+// ============================================================================================== //
+
 // Registrar Dashboard Route
 Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
@@ -52,6 +55,13 @@ Route::patch('/registrar/application/{id}/approve', [RegistrarController::class,
 Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.reject');
+
+// ============================================================================================== //
+
+// Head_OSA Dashboard Route
+Route::get('/head_osa/dashboard', [HeadOSAController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('head_osa.dashboard');
 
 //Dean
 Route::get('/Dean/dashboard', function () {
