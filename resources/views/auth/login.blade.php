@@ -13,12 +13,7 @@
         class="block mt-1 w-full border-gray-300 focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100 rounded-md shadow-sm">
         <option value="" disabled selected>Select Account Type</option>
         <option value="admin">Administrator</option>
-<<<<<<< HEAD
         <option value="registrar">Registrar</option>
-        <option value="head_osa">Head_OSA</option>
-=======
-        <option value="registar">Registar</option>
->>>>>>> e2eb4a3f743eaaca8e311d3a0e45c63bf5f190d2
         <option value="dean">Dean</option>
         <option value="psg_officer">PSG Officer</option>
         <option value="alumni">Alumni</option>

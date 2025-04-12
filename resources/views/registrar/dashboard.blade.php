@@ -23,7 +23,7 @@
       </div>
 
       <nav class="mt-4">
-        <a href="{{ route('registar.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Applications</a>
+        <a href="{{ route('registrar.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Applications</a>
       </nav>
 
       <!-- Logout Button -->
@@ -63,14 +63,14 @@
               <td class="px-6 py-4 text-sm text-gray-600">
                 @if($application->status == 'pending')
                 <!-- Approve Form -->
-                <form action="{{ route('registar.approve', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('registrar.approve', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
                 </form>
 
                 <!-- Reject Form -->
-                <form action="{{ route('registar.reject', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('registrar.reject', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>

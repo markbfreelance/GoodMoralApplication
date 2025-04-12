@@ -1,12 +1,8 @@
 <?php
 
-<<<<<<< HEAD
-use App\Http\Controllers\HeadOSAController;
 use App\Http\Controllers\RegistrarController;
-=======
-use App\Http\Controllers\RegistarController;
->>>>>>> e2eb4a3f743eaaca8e311d3a0e45c63bf5f190d2
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\HeadOSAController;
 use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -43,27 +39,20 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.Violator');
 
-<<<<<<< HEAD
-// ============================================================================================== //
-
 // Registrar Dashboard Route
 Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
-=======
-// Registar Dashboard Route
-Route::get('/registar/dashboard', [RegistarController::class, 'dashboard'])
->>>>>>> e2eb4a3f743eaaca8e311d3a0e45c63bf5f190d2
   ->middleware(['auth', 'verified'])
-  ->name('registar.dashboard');
+  ->name('registrar.dashboard');
 
 // Approve Application Route
-Route::patch('/registar/application/{id}/approve', [RegistarController::class, 'approve'])
+Route::patch('/registrar/application/{id}/approve', [RegistrarController::class, 'approve'])
   ->middleware(['auth', 'verified'])
-  ->name('registar.approve');
+  ->name('registrar.approve');
 
 // Reject Application Route
-Route::delete('/registar/application/{id}/reject', [RegistarController::class, 'reject'])
+Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
-  ->name('registar.reject');
+  ->name('registrar.reject');
 
 // ============================================================================================== //
 
