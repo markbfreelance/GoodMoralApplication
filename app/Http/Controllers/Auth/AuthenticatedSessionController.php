@@ -41,10 +41,15 @@ class AuthenticatedSessionController extends Controller
         return route('PsgOfficer.dashboard');
       case 'dean':
         return route('Dean.dashboard');
+<<<<<<< HEAD
       case 'registrar':
         return route('registrar.dashboard');
       case 'head_osa':
         return route('head_osa.dashboard');
+=======
+      case 'registar':
+        return route('registar.dashboard');
+>>>>>>> e2eb4a3f743eaaca8e311d3a0e45c63bf5f190d2
       case 'alumni':
         return route('dashboard');
       case 'student':
