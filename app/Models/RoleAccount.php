@@ -24,5 +24,8 @@ class RoleAccount extends Authenticatable
     'password', // Hide the password from being returned
   ];
 
-  // Optionally, define any additional methods or relationships
+  public function studentInfo()
+  {
+    return $this->belongsTo(StudentRegistration::class, 'student_id', 'student_id');
+  }
 }

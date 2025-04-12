@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HeadOSA extends Model
+class HeadOSAApplication extends Model
 {
   use HasFactory;
 
-  // 💡 Tell Laravel the table name explicitly
-  protected $table = 'head_osa';
+  protected $table = 'head_osa_applications'; // ✅ Explicit table name
 
   protected $fillable = [
-    'name',
-    'email',
-    'password',
+    'application_id',
+    'student_id',
+    'status',
   ];
 }

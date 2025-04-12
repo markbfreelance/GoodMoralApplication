@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\GoodMoralApplication;
+use App\Models\HeadOSA;
+use App\Models\HeadOSAApplication;
 use Illuminate\Http\Request;
 
 class RegistrarController extends Controller
@@ -29,15 +31,28 @@ class RegistrarController extends Controller
    */
   public function approve($id)
   {
-    // Find the application by its ID
+    // 1. Find the application
     $application = GoodMoralApplication::findOrFail($id);
 
-    // Update the application status to 'approved'
+    // 2. Update the status to 'approved'
     $application->status = 'approved';
     $application->save();
 
-    // Redirect back to the dashboard with a success message
-    return redirect()->route('registrar.dashboard')->with('status', 'Application approved successfully!');
+    // 3. Get the student from role_account
+    $student = $application->student;
+
+    if (!$student) {
+      return redirect()->route('registrar.dashboard')->with('error', 'Student not found.');
+    }
+
+    // 4. Create the head_osa_application record for the single Head OSA
+    HeadOSAApplication::create([
+      'application_id' => $application->id,
+      'student_id' => $student->student_id,
+      'status' => 'pending', // Default status
+    ]);
+
+    return redirect()->route('registrar.dashboard')->with('status', 'Application approved and forwarded to Head OSA.');
   }
 
   /**

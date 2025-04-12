@@ -5,6 +5,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HeadOSAController;
 use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\ProfileController;
+use App\Models\HeadOSA;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,6 +61,16 @@ Route::delete('/registrar/application/{id}/reject', [RegistrarController::class,
 Route::get('/head_osa/dashboard', [HeadOSAController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('head_osa.dashboard');
+
+// Approve Head_OSA Application Route
+Route::patch('/head_osa/application/{id}/approve', [HeadOSAController::class, 'approve'])
+  ->middleware(['auth', 'verified'])
+  ->name('head_osa.approve');
+
+// Reject Head_OSA Application Route
+Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'reject'])
+  ->middleware(['auth', 'verified'])
+  ->name('head_osa.reject');
 
 //Dean
 Route::get('/Dean/dashboard', function () {
