@@ -6,10 +6,9 @@
   </x-slot>
 
   <div x-data="{ sidebarOpen: false }" class="flex">
-    <!-- Sidebar Toggle Button (Positioned Below Header) -->
+    <!-- Mobile Sidebar Toggle -->
     <div class="sm:hidden w-full bg-gray-100 border-b border-gray-300 py-2 flex justify-between px-4">
-      <button @click="sidebarOpen = !sidebarOpen"
-        class="bg-gray-800 text-white p-2 rounded-md">
+      <button @click="sidebarOpen = !sidebarOpen" class="bg-gray-800 text-white p-2 rounded-md">
         ☰ Menu
       </button>
     </div>
@@ -25,18 +24,12 @@
       <nav class="mt-4">
         <a href="{{ route('head_osa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Applications</a>
       </nav>
-
-      <!-- Logout Button -->
-      <form method="POST" action="{{ route('logout') }}" class="mt-6">
-        @csrf
-        <button type="submit" class="w-full bg-gray-800 text-white p-2 rounded-md">Logout</button>
-      </form>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
+        <h3 class="text-lg font-semibold mb-4">Applications from Registrar</h3>
 
         @if(session('status'))
         <div class="bg-green-500 text-white p-4 rounded-md mb-4">
@@ -53,7 +46,7 @@
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Applied On</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Received On</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Actions</th>
             </tr>
           </thead>
@@ -65,18 +58,15 @@
               <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">
-                @if($application->status == 'approved')
-                <!-- Application Approved -->
-                <span class="text-green-500">Approved by Registrar</span>
-                @elseif($application->status == 'pending')
-                <!-- Approve Form -->
+                @if($application->status == 'pending')
+                <!-- Approve -->
                 <form action="{{ route('head_osa.approve', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
                 </form>
 
-                <!-- Reject Form -->
+                <!-- Reject -->
                 <form action="{{ route('head_osa.reject', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')

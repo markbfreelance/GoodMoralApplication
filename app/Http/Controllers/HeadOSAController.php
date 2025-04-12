@@ -11,7 +11,7 @@ class HeadOSAController extends Controller
   public function dashboard()
   {
     $applications = HeadOSAApplication::where('status', 'pending')->get();
-    return view('headosa.dashboard', compact('applications'));
+    return view('head_osa.dashboard', compact('applications'));
   }
 
   public function approve($id)

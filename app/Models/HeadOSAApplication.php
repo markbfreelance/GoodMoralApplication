@@ -16,4 +16,9 @@ class HeadOSAApplication extends Model
     'student_id',
     'status',
   ];
+
+  public function student()
+  {
+    return $this->belongsTo(RoleAccount::class, 'student_id', 'student_id');
+  }
 }

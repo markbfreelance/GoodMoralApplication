@@ -14,6 +14,7 @@
         <option value="" disabled selected>Select Account Type</option>
         <option value="admin">Administrator</option>
         <option value="registrar">Registrar</option>
+        <option value="head_osa">Head, OSA</option>
         <option value="dean">Dean</option>
         <option value="psg_officer">PSG Officer</option>
         <option value="alumni">Alumni</option>
