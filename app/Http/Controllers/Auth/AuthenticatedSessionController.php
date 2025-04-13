@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
       case 'psg_officer':
         return route('PsgOfficer.dashboard');
       case 'dean':
-        return route('Dean.dashboard');
+        return route('dean.dashboard');
       case 'registrar':
         return route('registrar.dashboard');
       case 'head_osa':

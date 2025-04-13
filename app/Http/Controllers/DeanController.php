@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeanApplication;
-use App\Models\GoodMoralApplication;
 
 class DeanController extends Controller
 {

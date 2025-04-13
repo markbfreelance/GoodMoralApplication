@@ -72,17 +72,17 @@ Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'r
   ->middleware(['auth', 'verified'])
   ->name('head_osa.reject');
 
-//Dean
+// Dean Dashboard Route
 Route::get('/dean/dashboard', [DeanController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('dean.dashboard');
 
-// Approve Head_OSA Application Route
+// Approve Dean Application Route
 Route::patch('/dean/application/{id}/approve', [DeanController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('dean.approve');
 
-// Reject Head_OSA Application Route
+// Reject Dean Application Route
 Route::delete('/dean/application/{id}/reject', [DeanController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('dean.reject');
