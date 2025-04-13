@@ -28,6 +28,23 @@
       <x-input-error :messages="$errors->get('lname')" class="mt-2" />
     </div>
 
+    <div class="mt-4">
+      <x-input-label for="department" :value="__('department')" />
+      <select
+        id="department"
+        name="department"
+        required
+        class="block mt-1 w-full rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100">
+        <option value="" selected disabled>Select Department</option>
+        <option value="SITE">SITE</option>
+        <option value="SBAHM">SBAHM</option>
+        <option value="SASTE">SASTE</option>
+        <option value="BEU">BEU</option>
+        <option value="SNAHS">SNAHS</option>
+      </select>
+      <x-input-error :messages="$errors->get('department')" class="mt-2" />
+    </div>
+
     <!-- Account Type -->
     <div class="mt-4">
       <!-- Alpine.js for dynamic input toggling -->
@@ -52,7 +69,7 @@
       <x-text-input
         id="student_id"
         class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
-        type="number"
+        type="text"
         name="student_id"
         :value="old('student_id')"
         required autocomplete="student_id"

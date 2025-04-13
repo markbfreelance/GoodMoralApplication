@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('student_id')->unique(); 
             $table->string('email')->unique(); // Email (unique)
             $table->string('password'); // Password (hashed)
+            $table->string('department');
             $table->string('status'); // Password (hashed)
             $table->string('account_type')->nullable(); // Phone number (optional)
             $table->string('year_level')->nullable()->default('N/A'); // Year Level (e.g., 1st Year, 2nd Year)
