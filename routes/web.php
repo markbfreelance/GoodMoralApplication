@@ -4,8 +4,8 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HeadOSAController;
 use App\Http\Controllers\Auth\RegisterViolationController;
+use App\Http\Controllers\DeanController;
 use App\Http\Controllers\ProfileController;
-use App\Models\HeadOSA;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,9 +73,19 @@ Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'r
   ->name('head_osa.reject');
 
 //Dean
-Route::get('/Dean/dashboard', function () {
-  return view('Dean.dashboard');
-})->middleware(['auth', 'verified'])->name('Dean.dashboard');
+Route::get('/dean/dashboard', [DeanController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('dean.dashboard');
+
+// Approve Head_OSA Application Route
+Route::patch('/dean/application/{id}/approve', [DeanController::class, 'approve'])
+  ->middleware(['auth', 'verified'])
+  ->name('dean.approve');
+
+// Reject Head_OSA Application Route
+Route::delete('/dean/application/{id}/reject', [DeanController::class, 'reject'])
+  ->middleware(['auth', 'verified'])
+  ->name('dean.reject');
 
 Route::middleware('auth')->group(function () {
   // Route to handle applying for Good Moral Certificate

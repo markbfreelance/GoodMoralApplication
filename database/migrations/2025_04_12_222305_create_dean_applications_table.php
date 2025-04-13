@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
   public function up()
   {
-    Schema::create('head_osa_applications', function (Blueprint $table) {
+    Schema::create('dean_applications', function (Blueprint $table) {
       $table->id();
       $table->string('student_id'); // Use string() to store alphanumeric student_id
       $table->foreign('student_id')->references('student_id')->on('role_account')->onDelete('cascade');
@@ -18,6 +18,6 @@ return new class extends Migration {
 
   public function down()
   {
-    Schema::dropIfExists('head_osa_applications');
+    Schema::dropIfExists('dean_applications');
   }
 };

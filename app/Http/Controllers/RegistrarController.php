@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GoodMoralApplication;
-use App\Models\HeadOSA;
 use App\Models\HeadOSAApplication;
-use Illuminate\Http\Request;
 
 class RegistrarController extends Controller
 {
@@ -47,7 +45,6 @@ class RegistrarController extends Controller
 
     // 4. Create the head_osa_application record for the single Head OSA
     HeadOSAApplication::create([
-      'application_id' => $application->id,
       'student_id' => $student->student_id,
       'status' => 'pending', // Default status
     ]);
