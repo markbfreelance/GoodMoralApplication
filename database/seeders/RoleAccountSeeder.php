@@ -42,6 +42,16 @@ class RoleAccountSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
+        'email' => 'sec_osa@admin.com',
+        'student_id' => 'SEC_OSA',
+        'password' => Hash::make('password123'),
+        'account_type' => 'sec_osa',
+        'status' => '1',
+        'fullname' => 'sample,name',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
         'email' => 'dean@admin.com',
         'student_id' => 'DEAN_DEPT',
         'password' => Hash::make('password123'),

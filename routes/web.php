@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HeadOSAController;
+use App\Http\Controllers\SecOSAController;
 use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\DeanController;
 use App\Http\Controllers\ProfileController;
@@ -71,6 +72,21 @@ Route::patch('/head_osa/application/{id}/approve', [HeadOSAController::class, 'a
 Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('head_osa.reject');
+
+// Sec_OSA Dashboard Route
+Route::get('/sec_osa/dashboard', [SecOSAController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.dashboard');
+
+// Approve Sec_OSA Application Route
+Route::patch('/sec_osa/application/{id}/approve', [SecOSAController::class, 'approve'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.approve');
+
+// Reject Sec_OSA Application Route
+Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'reject'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.reject');
 
 // Dean Dashboard Route
 Route::get('/dean/dashboard', [DeanController::class, 'dashboard'])

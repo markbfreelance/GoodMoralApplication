@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      Head, OSA Dashboard
+      Secretary, OSA Dashboard
     </h2>
   </x-slot>
 
@@ -18,11 +18,11 @@
       class="w-64 bg-gray-800 text-white min-h-screen fixed sm:relative left-0 transform transition-transform duration-300 sm:translate-x-0">
 
       <div class="p-4 text-lg font-bold border-b border-gray-700">
-        Head, OSA Dashboard
+        Secretary, OSA Dashboard
       </div>
 
       <nav class="mt-4">
-        <a href="{{ route('head_osa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Applications</a>
+        <a href="{{ route('sec_osa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Applications</a>
       </nav>
     </aside>
 
@@ -60,14 +60,14 @@
               <td class="px-6 py-4 text-sm text-gray-600">
                 @if($application->status == 'pending')
                 <!-- Approve -->
-                <form action="{{ route('head_osa.approve', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
                 </form>
 
                 <!-- Reject -->
-                <form action="{{ route('head_osa.reject', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('sec_osa.reject', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>

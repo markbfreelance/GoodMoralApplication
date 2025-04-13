@@ -49,7 +49,7 @@ class RegistrarController extends Controller
       'status' => 'pending', // Default status
     ]);
 
-    return redirect()->route('registrar.dashboard')->with('status', 'Application approved and forwarded to Head OSA.');
+    return redirect()->route('registrar.dashboard')->with('status', 'Application approved and forwarded to Office of Student Affairs.');
   }
 
   /**

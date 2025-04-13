@@ -41,7 +41,7 @@ class HeadOSAController extends Controller
       'status' => 'pending', // Default status
     ]);
 
-    return redirect()->route('head_osa.dashboard')->with('status', 'Application approved and forwarded to Dean.');
+    return redirect()->route('head_osa.dashboard')->with('status', 'Application approved and forwarded to Respective Dean.');
   }
 
   public function reject($id)
