@@ -14,6 +14,7 @@ class DeanApplication extends Model
   protected $fillable = [
     'application_id',
     'student_id',
+    'department',
     'status',
   ];
 

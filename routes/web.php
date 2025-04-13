@@ -88,20 +88,11 @@ Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'rej
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.reject');
 
-// Dean Dashboard Route
-Route::get('/dean/dashboard', [DeanController::class, 'dashboard'])
-  ->middleware(['auth', 'verified'])
-  ->name('dean.dashboard');
-
-// Approve Dean Application Route
-Route::patch('/dean/application/{id}/approve', [DeanController::class, 'approve'])
-  ->middleware(['auth', 'verified'])
-  ->name('dean.approve');
-
-// Reject Dean Application Route
-Route::delete('/dean/application/{id}/reject', [DeanController::class, 'reject'])
-  ->middleware(['auth', 'verified'])
-  ->name('dean.reject');
+Route::middleware(['auth', 'verified'])->prefix('dean')->name('dean.')->group(function () {
+  Route::get('/dashboard', [DeanController::class, 'dashboard'])->name('dashboard');
+  Route::patch('/application/{id}/approve', [DeanController::class, 'approve'])->name('approve');
+  Route::delete('/application/{id}/reject', [DeanController::class, 'reject'])->name('reject');
+});
 
 Route::middleware('auth')->group(function () {
   // Route to handle applying for Good Moral Certificate

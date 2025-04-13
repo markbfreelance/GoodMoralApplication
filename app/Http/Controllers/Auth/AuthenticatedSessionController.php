@@ -26,15 +26,22 @@ class AuthenticatedSessionController extends Controller
   {
     $request->authenticate();
 
+    // Regenerate the session to protect against session fixation attacks
     $request->session()->regenerate();
-    $request = Auth::user();
 
-    return redirect()->intended($this->redirectBasedOnRole($request));
+    // Get the authenticated user
+    $user = Auth::user();
+
+    // Redirect to the appropriate dashboard based on the user's role
+    return redirect()->intended($this->redirectBasedOnRole($user));
   }
 
-  protected function redirectBasedOnRole($request)
+  /**
+   * Redirect based on the user's role.
+   */
+  protected function redirectBasedOnRole($user)
   {
-    switch ($request->account_type) {
+    switch ($user->account_type) {
       case 'admin':
         return route('admin.dashboard');
       case 'psg_officer':

@@ -16,6 +16,7 @@ class RoleAccount extends Authenticatable
     'password',
     'account_type',
     'student_id',
+    'department',
     'fullname',
     'status',
   ];
@@ -26,6 +27,6 @@ class RoleAccount extends Authenticatable
 
   public function studentInfo()
   {
-    return $this->belongsTo(StudentRegistration::class, 'student_id', 'student_id');
+    return $this->belongsTo(StudentRegistration::class, 'student_id', 'student_id',);
   }
 }

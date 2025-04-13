@@ -14,7 +14,8 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'student@admin.com',
         'student_id' => 'S12345',
-        'password' => Hash::make('password123'),  // Using Hash::make to hash the password
+        'department' => 'SITE',
+        'password' => Hash::make('password123'),
         'account_type' => 'student',
         'fullname' => 'sample,name',
         'status' => '1',
@@ -24,6 +25,7 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'registrar@admin.com',
         'student_id' => 'REGISTRAR',
+        'department' => 'REGISTRAR',
         'password' => Hash::make('password123'),
         'account_type' => 'registrar',
         'status' => '1',
@@ -34,6 +36,7 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'head_osa@admin.com',
         'student_id' => 'HEAD_OSA',
+        'department' => 'OSA',
         'password' => Hash::make('password123'),
         'account_type' => 'head_osa',
         'status' => '1',
@@ -44,6 +47,7 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'sec_osa@admin.com',
         'student_id' => 'SEC_OSA',
+        'department' => 'OSA',
         'password' => Hash::make('password123'),
         'account_type' => 'sec_osa',
         'status' => '1',
@@ -54,6 +58,29 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'dean@admin.com',
         'student_id' => 'DEAN_DEPT',
+        'department' => '',
+        'password' => Hash::make('password123'),
+        'account_type' => 'dean',
+        'status' => '1',
+        'fullname' => 'sample,name',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'email' => 'deanSITE@admin.com',
+        'student_id' => 'DEAN_SITE',
+        'department' => 'SITE',
+        'password' => Hash::make('password123'),
+        'account_type' => 'dean',
+        'status' => '1',
+        'fullname' => 'sample,name',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'email' => 'deanBEU@admin.com',
+        'student_id' => 'DEAN_BEU',
+        'department' => 'BEU',
         'password' => Hash::make('password123'),
         'account_type' => 'dean',
         'status' => '1',
@@ -64,6 +91,7 @@ class RoleAccountSeeder extends Seeder
       [
         'email' => 'admin@admin.com',
         'student_id' => '',
+        'department' => '',
         'password' => Hash::make('admin123'),
         'account_type' => 'admin',
         'status' => '1',

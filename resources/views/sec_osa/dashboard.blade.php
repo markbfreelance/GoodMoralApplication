@@ -44,6 +44,7 @@
           <thead>
             <tr class="text-left border-b">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Received On</th>
@@ -54,6 +55,7 @@
             @foreach($applications as $application)
             <tr class="border-b">
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>

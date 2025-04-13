@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('fullname')->nullable();
             $table->string('email')->unique();
             $table->string('student_id')->nullable()->unique();
+            $table->string('department')->nullable();
             $table->string('password');
             $table->string('account_type');
             $table->boolean('status')->default(1); // Active by default

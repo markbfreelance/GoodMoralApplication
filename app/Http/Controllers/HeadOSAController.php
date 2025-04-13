@@ -38,10 +38,14 @@ class HeadOSAController extends Controller
     // 4. Create the head_osa_application record for the single Head OSA
     DeanApplication::create([
       'student_id' => $student->student_id,
+      'department' => $student->department,
       'status' => 'pending', // Default status
     ]);
 
-    return redirect()->route('head_osa.dashboard')->with('status', 'Application approved and forwarded to Respective Dean.');
+    return redirect()->route('head_osa.dashboard')->with(
+      'status',
+      'Application approved and forwarded to ' . $application->student->department . ' Dean.'
+    );
   }
 
   public function reject($id)

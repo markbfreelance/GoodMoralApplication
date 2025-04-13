@@ -16,6 +16,7 @@ class StudentRegistration extends Authenticatable
     'fname',
     'lname',
     'email',
+    'department',
     'password',
     'status',
     'student_id',

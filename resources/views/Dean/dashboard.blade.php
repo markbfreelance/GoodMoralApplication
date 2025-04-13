@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      Dean Dashboard
+      Dean Dashboard - {{ $department }}
     </h2>
   </x-slot>
 
@@ -29,7 +29,7 @@
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <h3 class="text-lg font-semibold mb-4">Applications from Registrar</h3>
+        <h3 class="text-lg font-semibold mb-4">Applications from Office of Student Affairs</h3>
 
         @if(session('status'))
         <div class="bg-green-500 text-white p-4 rounded-md mb-4">
@@ -44,6 +44,7 @@
           <thead>
             <tr class="text-left border-b">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Received On</th>
@@ -54,6 +55,7 @@
             @foreach($applications as $application)
             <tr class="border-b">
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>

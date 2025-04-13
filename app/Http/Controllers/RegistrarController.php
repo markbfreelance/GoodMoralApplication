@@ -46,6 +46,7 @@ class RegistrarController extends Controller
     // 4. Create the head_osa_application record for the single Head OSA
     HeadOSAApplication::create([
       'student_id' => $student->student_id,
+      'department' => $student->department,
       'status' => 'pending', // Default status
     ]);
 
