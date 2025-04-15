@@ -42,33 +42,61 @@ class RegisteredUserController extends Controller
       'account_type' => ['required', 'string', 'max:255'],
       'year_level' => ['required', 'string', 'max:50'],
     ]);
+    if ($request->account_type !== 'psg_officer') {
+      $user = StudentRegistration::create([
+        'fname' => $request->fname,
+        'lname' => $request->lname,
+        'email' => $request->email,
+        'department' => $request->department,
+        'password' => Hash::make($request->password), // Always hash passwords
+        'student_id' => $request->student_id,
+        'status' => "1",
+        'account_type' => $request->account_type,
+        'year_level' => $request->year_level,
+      ]);
+  
+      $user1 = RoleAccount::create([
+        'fullname' => $request->fname.",".$request->lname,
+        'department' => $request->department,
+        'email' => $request->email,
+        'password' => Hash::make($request->password), // Always hash passwords
+        'student_id' => $request->student_id,
+        'status' => "1",
+        'account_type' => $request->account_type,
+      ]);
+  
+      event(new Registered($user));
+  
+      Auth::login($user);
+  
+      return redirect(route('dashboard', absolute: false));
+    }
+    else {
+      $user = StudentRegistration::create([
+        'fname' => $request->fname,
+        'lname' => $request->lname,
+        'email' => $request->email,
+        'department' => $request->department,
+        'password' => Hash::make($request->password), // Always hash passwords
+        'student_id' => $request->student_id,
+        'status' => "0",
+        'account_type' => $request->account_type,
+        'year_level' => $request->year_level,
+      ]);
+  
+      $user1 = RoleAccount::create([
+        'fullname' => $request->fname.",".$request->lname,
+        'department' => $request->department,
+        'email' => $request->email,
+        'password' => Hash::make($request->password), // Always hash passwords
+        'student_id' => $request->student_id,
+        'status' => "0",
+        'account_type' => $request->account_type,
+      ]);
+  
+      return redirect(route('login'))->with('status', 'Your account is pending approval. Please wait for further instructions.');
+    }
     
-    $user = StudentRegistration::create([
-      'fname' => $request->fname,
-      'lname' => $request->lname,
-      'email' => $request->email,
-      'department' => $request->department,
-      'password' => Hash::make($request->password), // Always hash passwords
-      'student_id' => $request->student_id,
-      'status' => "1",
-      'account_type' => $request->account_type,
-      'year_level' => $request->year_level,
-    ]);
-
-    $user1 = RoleAccount::create([
-      'fullname' => $request->fname.",".$request->lname,
-      'department' => $request->department,
-      'email' => $request->email,
-      'password' => Hash::make($request->password), // Always hash passwords
-      'student_id' => $request->student_id,
-      'status' => "1",
-      'account_type' => $request->account_type,
-    ]);
-
-    event(new Registered($user));
-
-    Auth::login($user);
-
-    return redirect(route('dashboard', absolute: false));
+   
   }
 }

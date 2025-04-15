@@ -23,13 +23,12 @@
       </div>
 
       <nav class="mt-4">
-     
-        <a href="{{ route('registrar.dashboard') }}"
+        <a href="{{ route('registrar.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Application</a>
+        <a href="{{ route('registrar.psgApplication') }}"
           class="block px-4 py-2 hover:bg-gray-700 
-   {{ request()->routeIs('registrar.dashboard') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
-          Application
+   {{ request()->routeIs('registrar.psgApplication') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
+          PSG Application
         </a>
-        <a href="{{ route('registrar.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
       </nav>
 
 
@@ -39,7 +38,7 @@
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
+        <h3 class="text-lg font-semibold mb-4">PSG Account Applications</h3>
 
         @if(session('status'))
         <div class="bg-green-500 text-white p-4 rounded-md mb-4">
@@ -62,28 +61,41 @@
             </tr>
           </thead>
           <tbody>
+
             @foreach($applications as $application)
+
             <tr class="border-b">
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->department }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->fullname }}</td>
+              <td>
+                @if($application->status == '0')
+                <span>Pending</span>
+                @elseif($application->status == '1')
+                <span>Approved</span>
+                @else
+                <span>Rejected</span>
+                @endif
+              </td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">
-                @if($application->status == 'pending')
+                @if($application->status == '0')
                 <!-- Approve Form -->
-                <form action="{{ route('registrar.approve', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('registrar.approvepsg', $application->student_id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
                 </form>
 
+
                 <!-- Reject Form -->
-                <form action="{{ route('registrar.reject', $application->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('registrar.rejectpsg', $application->student_id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
                 </form>
+
+
                 @else
                 <span class="text-gray-500">No action available</span>
                 @endif

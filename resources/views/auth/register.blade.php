@@ -59,6 +59,7 @@
         <option value="" disabled selected>Select Account Type</option>
         <option value="student">Student</option>
         <option value="alumni">Alumni</option>
+        <option value="psg_officer">PSG Officer</option>
       </select>
       <x-input-error :messages="$errors->get('account_type')" class="mt-2" />
     </div>

@@ -77,7 +77,12 @@
 
       <!-- Charts Section -->
       @php
-      $dashArray = $pending . ' ' . (100 - $pending);
+      $total = $minorpending + $minorcomplied;
+      // Calculate the percentages for Pending and Complied
+      $pendingPercent = $total > 0 ? ($minorpending / $total) * 100 : 0;
+      $compliedPercent = 100 - $pendingPercent;
+      // Prepare the dash array for the SVG donut chart
+      $dashArray = $pendingPercent . ' ' . $compliedPercent;
       @endphp
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
@@ -106,10 +111,12 @@
           </div>
 
           <div class="text-sm text-center mt-2">
-            <div>Pending: {{ number_format($pending, 1) }}%</div>
-            <div>Complied: {{ number_format($complied, 1) }}%</div>
+            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
           </div>
         </div>
+
+
 
         <div class="lg:col-span-2 bg-white p-4 rounded shadow">
           <h3 class="font-semibold mb-2">Overall Report on Major Offenses</h3>
@@ -117,26 +124,127 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      @php
+      $total = $majorpending + $majorcomplied;
+      // Calculate the percentages for Pending and Complied
+      $pendingPercent = $total > 0 ? ($majorpending / $total) * 100 : 0;
+      $compliedPercent = 100 - $pendingPercent;
+      // Prepare the dash array for the SVG donut chart
+      $dashArray = $pendingPercent . ' ' . $compliedPercent;
+      @endphp
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2">Major Offenses</h3>
-          <div class="text-center">[Donut Chart Placeholder]</div>
+          <h3 class="font-semibold mb-2 text-center">Minor Offenses</h3>
+
+          <!-- Donut Chart SVG -->
+          <div class="flex justify-center">
+            <svg viewBox="0 0 36 36" class="w-24 h-24">
+              <!-- Background circle -->
+              <circle
+                cx="18" cy="18" r="16"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="4" />
+              <!-- Data circle -->
+              <circle
+                cx="18" cy="18" r="16"
+                fill="none"
+                stroke="#f87171"
+                stroke-width="4"
+                stroke-dasharray="{{ $dashArray }}"
+                stroke-dashoffset="25"
+                transform="rotate(-90 18 18)" />
+            </svg>
+          </div>
+
           <div class="text-sm text-center mt-2">
-            <div>Pending: 31.4%</div>
-            <div>Complied: 68.6%</div>
+            <!-- Show the calculated percentages, not the raw values -->
+            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2">Minor Violations</h3>
-          <div class="text-center">[Bar Chart Placeholder]</div>
+        <div class="lg:col-span-2 bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl text-center mb-4">Minor Violations</h3>
+
+          <!-- Chart Grid Background -->
+          <div class="relative h-64 border-l border-b border-gray-300">
+            <!-- Horizontal Grid Lines -->
+            @for ($i = 1; $i <= 5; $i++)
+              <div class="absolute inset-x-0 border-t border-dashed border-gray-200" style="bottom: {{ $i * 20 }}%;">
+          </div>
+          @endfor
+
+          <!-- Vertical Bar Groups (by year) -->
+          <div class="flex justify-around items-end h-full px-4">
+            <!-- 2021 -->
+            <div class="flex flex-col items-center space-y-1">
+              <div class="flex items-end space-x-1 h-48">
+                <div class="bg-red-500 w-6" style="height: 60%"></div>
+                <div class="bg-yellow-500 w-6" style="height: 40%"></div>
+                <div class="bg-green-500 w-6" style="height: 80%"></div>
+                <div class="bg-blue-500 w-6" style="height: 30%"></div>
+                <div class="bg-purple-500 w-6" style="height: 50%"></div>
+              </div>
+              <span class="text-xs mt-1">2021</span>
+            </div>
+
+            <!-- 2022 -->
+            <div class="flex flex-col items-center space-y-1">
+              <div class="flex items-end space-x-1 h-48">
+                <div class="bg-red-500 w-6" style="height: 30%"></div>
+                <div class="bg-yellow-500 w-6" style="height: 70%"></div>
+                <div class="bg-green-500 w-6" style="height: 50%"></div>
+                <div class="bg-blue-500 w-6" style="height: 90%"></div>
+                <div class="bg-purple-500 w-6" style="height: 60%"></div>
+              </div>
+              <span class="text-xs mt-1">2022</span>
+            </div>
+
+            <!-- 2023 -->
+            <div class="flex flex-col items-center space-y-1">
+              <div class="flex items-end space-x-1 h-48">
+                <div class="bg-red-500 w-6" style="height: 40%"></div>
+                <div class="bg-yellow-500 w-6" style="height: 60%"></div>
+                <div class="bg-green-500 w-6" style="height: 30%"></div>
+                <div class="bg-blue-500 w-6" style="height: 80%"></div>
+                <div class="bg-purple-500 w-6" style="height: 70%"></div>
+              </div>
+              <span class="text-xs mt-1">2023</span>
+            </div>
+
+            <!-- 2024 -->
+            <div class="flex flex-col items-center space-y-1">
+              <div class="flex items-end space-x-1 h-48">
+                <div class="bg-red-500 w-6" style="height: 50%"></div>
+                <div class="bg-yellow-500 w-6" style="height: 20%"></div>
+                <div class="bg-green-500 w-6" style="height: 90%"></div>
+                <div class="bg-blue-500 w-6" style="height: 60%"></div>
+                <div class="bg-purple-500 w-6" style="height: 40%"></div>
+              </div>
+              <span class="text-xs mt-1">2024</span>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2">Officers Application</h3>
-          <div class="text-center">[Bar Chart Placeholder]</div>
+        <!-- Legend -->
+        <div class="flex justify-center gap-4 mt-4 text-sm text-gray-700">
+          <div><span class="inline-block w-3 h-3 bg-red-500 mr-1"></span>Engineering</div>
+          <div><span class="inline-block w-3 h-3 bg-yellow-500 mr-1"></span>Business</div>
+          <div><span class="inline-block w-3 h-3 bg-green-500 mr-1"></span>Education</div>
+          <div><span class="inline-block w-3 h-3 bg-blue-500 mr-1"></span>IT</div>
+          <div><span class="inline-block w-3 h-3 bg-purple-500 mr-1"></span>Nursing</div>
         </div>
       </div>
-    </main>
+
+
+
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="font-semibold mb-2">Officers Application</h3>
+        <div class="text-center">[Bar Chart Placeholder]</div>
+      </div>
+  </div>
+  </main>
   </div>
 </x-app-layout>

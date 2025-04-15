@@ -19,11 +19,13 @@ class AdminController extends Controller
     $snahs = GoodMoralApplication::where('department', 'SNAHS')->count();
 
     //For Pie Chart stats
-    $pending = StudentViolation::where('status', 'pending')->count();
-    $complied = StudentViolation::where('status', 'complied')->count();
+    $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
+    $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
+    $majorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'major')->count();
+    $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
     //Pageinate
     $violationpage = Violation::paginate(10);
-    return view('admin.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'pending', 'complied','violationpage'));
+    return view('admin.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied','majorpending','majorcomplied', 'violationpage'));
   }
 
   public function create(Request $request)
@@ -44,6 +46,6 @@ class AdminController extends Controller
   {
     $violations = Violation::get();
     $violationpage = Violation::paginate(10);
-    return view('admin.AddViolation', compact('violations','violationpage'));
+    return view('admin.AddViolation', compact('violations', 'violationpage'));
   }
 }

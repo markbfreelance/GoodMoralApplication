@@ -53,15 +53,32 @@ Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.dashboard');
 
+Route::get('/registrar/psgApplication', [RegistrarController::class, 'psgApplication'])
+  ->middleware(['auth', 'verified'])
+  ->name('registrar.psgApplication');
+
+
 // Approve Application Route
 Route::patch('/registrar/application/{id}/approve', [RegistrarController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.approve');
 
+
 // Reject Application Route
 Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.reject');
+
+
+  Route::patch('/registrar/psgApplication/{student_id}/approve', [RegistrarController::class, 'approvepsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('registrar.approvepsg');
+
+Route::patch('/registrar/psgApplication/{student_id}/reject', [RegistrarController::class, 'rejectpsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('registrar.rejectpsg');
+
+
 
 // ============================================================================================== //
 

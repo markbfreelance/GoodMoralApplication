@@ -1,12 +1,13 @@
 <x-guest-layout>
   <!-- Session Status -->
-  <x-auth-session-status class="mb-4" :status="session('status')" />
+
 
   <form method="POST" action="{{ route('login') }}">
     @csrf
 
     <!-- Email Address -->
     <div>
+      <x-auth-session-status class="mb-4" :status="session('status')" />
       <x-input-label for="account_type" :value="__('Seclect Account Type')" />
       <select id="account_type"
         name="account_type"
