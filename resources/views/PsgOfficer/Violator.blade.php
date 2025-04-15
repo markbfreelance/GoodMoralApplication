@@ -63,7 +63,7 @@
                 <td class="py-3 px-6">{{ $student->student_id }}</td>
                 <td class="py-3 px-6">{{ $student->first_name }}</td>
                 <td class="py-3 px-6">{{ $student->last_name }}</td>
-                <td class="py-3 px-6">{{ $student->violation }}</td>
+                <td class="py-3 px-6">{{ $student->offense_type.': '.$student->violation}}</td>
               </tr>
               @endforeach
             </tbody>
