@@ -25,6 +25,7 @@
         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
         <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Application</a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
+        <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
       </nav>
     </aside>
 
@@ -66,21 +67,43 @@
           <div>Total Applicants - SNAHS</div>
         </div>
 
-        <div class="bg-yellow-600 text-white p-4 rounded shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
-          <div class="text-2xl font-bold">{{ $beu }}</div>
-          <div>Total Applicants - BEU</div>
-        </div>
+
       </div>
 
 
       <!-- Charts Section -->
+      @php
+      $dashArray = $pending . ' ' . (100 - $pending);
+      @endphp
+
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2">Minor Offenses</h3>
-          <div class="text-center">[Donut Chart Placeholder]</div>
+          <h3 class="font-semibold mb-2 text-center">Minor Offenses</h3>
+
+          <!-- Donut Chart SVG -->
+          <div class="flex justify-center">
+            <svg viewBox="0 0 36 36" class="w-24 h-24">
+              <!-- Background circle -->
+              <circle
+                cx="18" cy="18" r="16"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="4" />
+              <!-- Data circle -->
+              <circle
+                cx="18" cy="18" r="16"
+                fill="none"
+                stroke="#f87171"
+                stroke-width="4"
+                stroke-dasharray="{{ $dashArray }}"
+                stroke-dashoffset="25"
+                transform="rotate(-90 18 18)" />
+            </svg>
+          </div>
+
           <div class="text-sm text-center mt-2">
-            <div>Pending: 63.8%</div>
-            <div>Complied: 36.2%</div>
+            <div>Pending: {{ number_format($pending, 1) }}%</div>
+            <div>Complied: {{ number_format($complied, 1) }}%</div>
           </div>
         </div>
 

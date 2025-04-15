@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Violation;
 
 class RegisteredUserController extends Controller
 {
@@ -38,7 +39,7 @@ class RegisteredUserController extends Controller
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
       'department' => ['required', 'string',  'in:SITE,SBAHM,SASTE,BEU,SNAHS'],
       'student_id' => ['required', 'string', 'max:20', 'unique:student_registrations'],
-      'account_type' => ['required', 'string', 'in:student,alumni'],
+      'account_type' => ['required', 'string', 'max:255'],
       'year_level' => ['required', 'string', 'max:50'],
     ]);
     

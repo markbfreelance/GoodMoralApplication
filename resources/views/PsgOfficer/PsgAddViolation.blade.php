@@ -94,15 +94,9 @@
               x-on:change="$dispatch('account-type-changed', $event.target.value)">
 
               <option value="" disabled selected>Select Violation Type</option>
-              <option value="Haircut/punky hair">A - Haircut/punky hair (Male)</option>
-              <option value="Dyed hair">B - Dyed hair (Male/Female)</option>
-              <option value="Unprescribed undergarment">C - Unprescribed undergarment (Male/Female)</option>
-              <option value="Unprescribed shoes (Male/Female)">D - Unprescribed shoes (Male/Female)</option>
-              <option value="Long/short skirt (female)">E - Long/short skirt (female)</option>
-              <option value="Being noisy along corridors">F - Being noisy along corridors</option>
-              <option value="Not wearing of ID properly">G - Not wearing of ID properly</option>
-              <option value="Earring (male)/tounge ring (male/female)">H - Earring (male)/tounge ring (male/female)</option>
-              <option value="Wearing of cap inside the campus">I - Wearing of cap inside the campus</option>
+              @foreach ($violations as $violation)
+              <option value="{{ $violation->description }}">{{ $violation->description }}</option>
+              @endforeach
               <option value="Others">Others</option>
             </select>
 

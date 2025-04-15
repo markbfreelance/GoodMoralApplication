@@ -12,6 +12,8 @@ return new class extends Migration {
       $table->string('first_name');
       $table->string('last_name');
       $table->text('violation');
+      $table->text('status');
+      $table->text('offense_type');
       $table->string('student_id');
       $table->string('added_by');
       $table->string('unique_id');

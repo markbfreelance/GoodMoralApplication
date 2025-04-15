@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\RegisteredAccountController;
 use App\Http\Controllers\Auth\RegisterViolationController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -70,4 +71,6 @@ Route::middleware('auth')->group(function () {
   Route::get('psgsearch', [RegisterViolationController::class, 'search'])
     ->name('psgsearch');
 
+  Route::post('RegisterViolation', [AdminController::class, 'create'])
+    ->name('RegisterViolation');
 });

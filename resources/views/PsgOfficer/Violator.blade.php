@@ -27,15 +27,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label for="student_id" class="block text-gray-700 font-medium">Student ID</label>
-            <input type="text" id="student_id" name="student_id" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Student ID">
+            <input type="text" id="student_id" name="student_id" class="w-full p-2 border border-gray-300 rounded-md"   value="{{ old('student_id', request('student_id')) }}" placeholder="Enter Student ID">
           </div>
           <div>
             <label for="first_name" class="block text-gray-700 font-medium">First Name</label>
-            <input type="text" id="first_name" name="first_name" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter First Name">
+            <input type="text" id="first_name" name="first_name" class="w-full p-2 border border-gray-300 rounded-md"  value="{{ old('student_id', request('first_name')) }}" placeholder="Enter First Name">
           </div>
           <div>
             <label for="last_name" class="block text-gray-700 font-medium">Last Name</label>
-            <input type="text" id="last_name" name="last_name" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Last Name">
+            <input type="text" id="last_name" name="last_name" class="w-full p-2 border border-gray-300 rounded-md"value="{{ old('student_id', request('last_name')) }}" placeholder="Enter Last Name">
           </div>
         </div>
         <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>

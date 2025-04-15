@@ -29,13 +29,13 @@
     </div>
 
     <div class="mt-4">
-      <x-input-label for="department" :value="__('department')" />
+      <x-input-label for="department" :value="__('Department')" />
       <select
         id="department"
         name="department"
         required
-        class="block mt-1 w-full rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100">
-        <option value="" selected disabled>Select Department</option>
+        class="block mt-1 w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100">
+        <option value=""  disabled selected>Select Department</option>
         <option value="SITE">SITE</option>
         <option value="SBAHM">SBAHM</option>
         <option value="SASTE">SASTE</option>

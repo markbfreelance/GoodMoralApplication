@@ -16,6 +16,8 @@ class StudentViolation extends Authenticatable
     'first_name',
     'last_name',
     'student_id',
+    'status',
+    'offense_type',
     'added_by',
     'violation',
     'unique_id',

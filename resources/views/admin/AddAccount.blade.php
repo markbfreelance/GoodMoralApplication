@@ -31,6 +31,7 @@
    {{ request()->routeIs('admin.AddAccount') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
           Add Account
         </a>
+        <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
       </nav>
     </aside>
 
@@ -73,7 +74,7 @@
               <x-text-input
                 id="student_id"
                 class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
-                type="number"
+                type="text"
                 name="student_id"
                 :value="old('student_id')"
                 autocomplete="student_id"

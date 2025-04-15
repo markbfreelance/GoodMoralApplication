@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Violation;
 use App\Models\User;
 use App\Models\StudentRegistration;
 use App\Models\RoleAccount;
@@ -56,14 +57,13 @@ class RegisterViolationController extends Controller
       'violation' => $finalViolation,
       'student_id' => $request->student_id,
       'added_by' => $userName,
+      'status' => 'Pending',
+      'offense_type' => 'minor',
       'unique_id' => $uniqueID,
-
     ]);
-
+    
     event(new Registered($user));
-
     Auth::login($user);
-
     return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
   }
   public function search(Request $request)
@@ -93,6 +93,11 @@ class RegisterViolationController extends Controller
   
       // Return the view instead of redirecting
       return view('PsgOfficer.Violator', compact('students'));
+  }
+  public function ViolatorDashboard()
+  {
+    $violations = Violation::get();
+    return view('PsgOfficer.PsgAddViolation', compact('violations'));
   }
   
 }

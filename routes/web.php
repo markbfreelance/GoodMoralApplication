@@ -34,9 +34,15 @@ Route::get('/PsgOfficer/dashboard', function () {
   return view('PsgOfficer.dashboard');
 })->middleware(['auth', 'verified'])->name('PsgOfficer.dashboard');
 
-Route::get('/PsgOfficer/PsgAddViolation', function () {
-  return view('PsgOfficer.PsgAddViolation');
-})->middleware(['auth', 'verified'])->name('PsgOfficer.PsgAddViolation');
+Route::get('/admin/AddViolation', [AdminController::class, 'AddViolationDashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.AddViolation');
+
+
+Route::get('/PsgOfficer/PsgAddViolation', [RegisterViolationController::class, 'ViolatorDashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('PsgOfficer.PsgAddViolation');
+
 
 Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violator'])
   ->middleware(['auth', 'verified'])
