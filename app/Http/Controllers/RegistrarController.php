@@ -74,33 +74,4 @@ class RegistrarController extends Controller
     return redirect()->route('registrar.dashboard')->with('status', 'Application rejected.');
   }
 
-  public function psgApplication()
-  {
-    // Get all pending applications
-    $applications = RoleAccount::where('status', '0')->get();
-    // Return the view with the list of applications
-    return view('registrar.psgApplication', compact('applications'));
-  }
-
-  public function rejectpsg($student_id)
-  {
-    $application = RoleAccount::where('student_id', $student_id)->firstOrFail();
-
-    $application->status = '0'; // Rejected
-    $application->save();
-
-    return redirect()->route('registrar.psgApplication')->with('status', 'Application rejected.');
-  }
-
-  public function approvepsg($student_id)
-  {
-    $application = RoleAccount::where('student_id', $student_id)->firstOrFail();
-    $application->status = '1';
-    $applicationStudent = StudentRegistration::where('student_id', $student_id)->firstOrFail();
-    $applicationStudent->status = '1';
-    $applicationStudent->save();
-    $application->save();
-
-    return redirect()->route('registrar.psgApplication')->with('status', 'Application approved.');
-  }
 }

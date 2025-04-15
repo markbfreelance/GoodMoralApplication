@@ -29,7 +29,7 @@ Route::get('/admin/AddAccount', function () {
 Route::get('/admin/Application', [AdminController::class, 'applicationDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.Application');
-  
+
 //Psg_Officer
 Route::get('/PsgOfficer/dashboard', function () {
   return view('PsgOfficer.dashboard');
@@ -52,9 +52,17 @@ Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.dashboard');
 
-Route::get('/registrar/psgApplication', [RegistrarController::class, 'psgApplication'])
+Route::get('/registrar/psgApplication', [AdminController::class, 'psgApplication'])
   ->middleware(['auth', 'verified'])
-  ->name('registrar.psgApplication');
+  ->name('admin.psgApplication');
+  
+Route::patch('/admin/psgApplication/{student_id}/approve', [AdminController::class, 'approvepsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.approvepsg');
+
+Route::delete('/registrar/psgApplication/{student_id}/reject', [AdminController::class, 'rejectpsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.rejectpsg');
 
 
 // Approve Application Route
@@ -67,18 +75,6 @@ Route::patch('/registrar/application/{id}/approve', [RegistrarController::class,
 Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.reject');
-
-
-Route::patch('/registrar/psgApplication/{student_id}/approve', [RegistrarController::class, 'approvepsg'])
-  ->middleware(['auth', 'verified'])
-  ->name('registrar.approvepsg');
-
-Route::patch('/registrar/psgApplication/{student_id}/reject', [RegistrarController::class, 'rejectpsg'])
-  ->middleware(['auth', 'verified'])
-  ->name('registrar.rejectpsg');
-
-
-
 // ============================================================================================== //
 
 // Head_OSA Dashboard Route

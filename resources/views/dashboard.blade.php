@@ -23,9 +23,27 @@
         <div class="p-6">
           <form method="POST" action="{{ route('apply.good_moral_certificate') }}">
             @csrf
-            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Apply for Good Moral Certificate
-            </button>
+
+            <!-- Full Name Input Field -->
+            <div class="mt-4">
+              <x-input-label for="purpose" :value="__('Purpose')" />
+              <x-text-input
+                id="purpose"
+                class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+                type="text"
+                name="purpose" required
+                :value="old('purpose')"
+                required autofocus autocomplete="purpose"
+                placeholder="Enter Purpose" />
+              <x-input-error :messages="$errors->get('purpose')" class="mt-2" />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-4">
+              <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Apply for Good Moral Certificate
+              </button>
+            </div>
           </form>
         </div>
 

@@ -32,6 +32,7 @@
         </a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
         <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
+        <a href="{{ route('admin.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
       </nav>
     </aside>
 
@@ -73,6 +74,7 @@
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Purpose</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Applied On</th>
             </tr>
           </thead>
@@ -85,6 +87,7 @@
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->department }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->fullname }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->status }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->purpose }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">
               </td>

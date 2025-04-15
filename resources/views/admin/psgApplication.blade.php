@@ -23,10 +23,13 @@
       </div>
 
       <nav class="mt-4">
-        <a href="{{ route('registrar.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Application</a>
-        <a href="{{ route('registrar.psgApplication') }}"
+      <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
+        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application</a>
+        <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
+        <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
+        <a href="{{ route('admin.psgApplication') }}"
           class="block px-4 py-2 hover:bg-gray-700 
-   {{ request()->routeIs('registrar.psgApplication') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
+   {{ request()->routeIs('admin.psgApplication') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
           PSG Application
         </a>
       </nav>
@@ -81,7 +84,7 @@
               <td class="px-6 py-4 text-sm text-gray-600">
                 @if($application->status == '0')
                 <!-- Approve Form -->
-                <form action="{{ route('registrar.approvepsg', $application->student_id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('admin.approvepsg', $application->student_id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
@@ -89,7 +92,7 @@
 
 
                 <!-- Reject Form -->
-                <form action="{{ route('registrar.rejectpsg', $application->student_id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('admin.rejectpsg', $application->student_id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>

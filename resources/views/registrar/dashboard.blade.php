@@ -29,7 +29,6 @@
    {{ request()->routeIs('registrar.dashboard') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
           Application
         </a>
-        <a href="{{ route('registrar.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
       </nav>
 
 

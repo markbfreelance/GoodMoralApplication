@@ -15,6 +15,7 @@ class CreateGoodMoralApplicationsTable extends Migration
       $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
       $table->string('fullname');
       $table->string('department');
+      $table->string('purpose');
       $table->timestamps();
     });
   }

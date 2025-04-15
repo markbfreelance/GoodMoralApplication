@@ -13,15 +13,20 @@ class ApplicationController extends Controller
    */
   public function applyForGoodMoralCertificate(Request $request)
   {
+    
+    $request->validate([
+    'purpose' => ['required', 'string', 'max:255']
+  ]);
     // Get the student_id from the authenticated user (role account)
     $roleAccount = Auth::user(); // Assuming the user is logged in via role_account
     $studentId = $roleAccount->student_id;
     $fullname = $roleAccount->fullname;
     $studentDepartment = $roleAccount->department;
-
+    $purpose = $request->purpose;
     // Save the application in the database
     GoodMoralApplication::create([
       'fullname' => $fullname,
+      'purpose' => $purpose,
       'student_id' => $studentId,
       'department' => $studentDepartment,
       'status' => 'pending', // Set default status as 'pending'
