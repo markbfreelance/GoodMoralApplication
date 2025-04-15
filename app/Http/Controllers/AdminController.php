@@ -25,7 +25,7 @@ class AdminController extends Controller
     $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
     //Pageinate
     $violationpage = Violation::paginate(10);
-    return view('admin.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied','majorpending','majorcomplied', 'violationpage'));
+    return view('admin.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
   }
 
   public function create(Request $request)
@@ -47,5 +47,28 @@ class AdminController extends Controller
     $violations = Violation::get();
     $violationpage = Violation::paginate(10);
     return view('admin.AddViolation', compact('violations', 'violationpage'));
+  }
+
+  public function applicationDashboard()
+  {
+    $applications = GoodMoralApplication::get();
+
+    return view('admin.Application', compact('applications'));
+  }
+  public function search(Request $request)
+  {
+    $query = GoodMoralApplication::query();
+
+    if ($request->filled('department')) {
+      $query->where('department', 'like', '%' . $request->department . '%');
+    }
+    if ($request->filled('student_id')) {
+      $query->where('student_id', 'like', '%' . $request->student_id . '%');
+    }
+    if ($request->filled('fullname')) {
+      $query->where('fullname', 'like', '%' . $request->fullname . '%');
+    }
+    $applications = $query->paginate(10); // Get paginated results
+    return view('admin.Application', compact('applications'));
   }
 }

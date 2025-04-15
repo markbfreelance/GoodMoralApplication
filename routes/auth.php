@@ -73,4 +73,7 @@ Route::middleware('auth')->group(function () {
 
   Route::post('RegisterViolation', [AdminController::class, 'create'])
     ->name('RegisterViolation');
+
+  Route::get('adminApplicationSearch', [AdminController::class, 'search'])
+    ->name('adminApplicationSearch');
 });

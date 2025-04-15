@@ -16,10 +16,12 @@ class ApplicationController extends Controller
     // Get the student_id from the authenticated user (role account)
     $roleAccount = Auth::user(); // Assuming the user is logged in via role_account
     $studentId = $roleAccount->student_id;
+    $fullname = $roleAccount->fullname;
     $studentDepartment = $roleAccount->department;
 
     // Save the application in the database
     GoodMoralApplication::create([
+      'fullname' => $fullname,
       'student_id' => $studentId,
       'department' => $studentDepartment,
       'status' => 'pending', // Set default status as 'pending'

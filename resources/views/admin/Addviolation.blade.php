@@ -25,7 +25,7 @@
 
       <nav class="mt-4">
         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
-        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Application</a>
+        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application</a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
         <a href="{{ route('admin.AddViolation') }}"
           class="block px-4 py-2 hover:bg-gray-700 
@@ -84,21 +84,21 @@
           </button>
         </form>
         <div class="bg-white p-6 shadow-md rounded-lg">
-          <h3 class="text-lg font-semibold mb-4">List of Violators</h3>
+          <h3 class="text-lg font-semibold mb-4">List of Violation</h3>
           @if ($violations->isEmpty())
           <div class="text-center py-4 text-gray-500">No student violations found.</div>
           @else
           <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-              <thead class="bg-gray-800 text-white">
-                <tr>
+            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+              <thead>
+                <tr class="text-left border-b">
                   <th class="py-3 px-6 text-left">Offense Type</th>
                   <th class="py-3 px-6 text-left">Description</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($violations as $violation)
-                <tr class="border-b hover:bg-gray-100">
+                <tr class="text-left border-b">
                   <td class="py-3 px-6">{{ $violation->offense_type }}</td>
                   <td class="py-3 px-6">{{ $violation->description }}</td>
                 </tr>

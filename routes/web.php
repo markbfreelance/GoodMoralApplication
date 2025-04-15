@@ -26,9 +26,10 @@ Route::get('/admin/AddAccount', function () {
   return view('admin.AddAccount');
 })->middleware(['auth', 'verified'])->name('admin.AddAccount');
 
-Route::get('/admin/Application', function () {
-  return view('admin.Application');
-})->middleware(['auth', 'verified'])->name('admin.Application');
+Route::get('/admin/Application', [AdminController::class, 'applicationDashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.Application');
+  
 //Psg_Officer
 Route::get('/PsgOfficer/dashboard', function () {
   return view('PsgOfficer.dashboard');
@@ -37,8 +38,6 @@ Route::get('/PsgOfficer/dashboard', function () {
 Route::get('/admin/AddViolation', [AdminController::class, 'AddViolationDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.AddViolation');
-
-
 Route::get('/PsgOfficer/PsgAddViolation', [RegisterViolationController::class, 'ViolatorDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.PsgAddViolation');
@@ -70,7 +69,7 @@ Route::delete('/registrar/application/{id}/reject', [RegistrarController::class,
   ->name('registrar.reject');
 
 
-  Route::patch('/registrar/psgApplication/{student_id}/approve', [RegistrarController::class, 'approvepsg'])
+Route::patch('/registrar/psgApplication/{student_id}/approve', [RegistrarController::class, 'approvepsg'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.approvepsg');
 
