@@ -95,14 +95,26 @@
 
               <option value="" disabled selected>Select Violation Type</option>
               @foreach ($violations as $violation)
-              <option value="{{ $violation->description }}">{{ $violation->description }}</option>
+              <option value="{{ $violation->offense_type }}|{{ $violation->description }}">
+                {{ $violation->description }}
+              </option>
               @endforeach
+
               <option value="Others">Others</option>
             </select>
-
             <x-input-error :messages="$errors->get('violation')" class="mt-2" />
-
             <!-- Extra Input Field (Only visible when "PSG Officer" is selected) -->
+            <div x-show="showExtraInput" class="mt-4">
+              <select
+                id="OtherType"
+                name="OtherType"
+                class="block mt-1 w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100">
+                <option value="" disabled selected>Select Violation Type</option>
+                <option value="minor">Minor</option>
+                <option value="major">Major</option>
+              </select>
+            </div>
+
             <div x-show="showExtraInput" class="mt-4">
               <x-input-label for="others" :value="__('Violation')" />
               <x-text-input
@@ -113,6 +125,7 @@
                 placeholder="Enter Violation" />
               <x-input-error :messages="$errors->get('others')" class="mt-2" />
             </div>
+
           </div>
 
           <!-- Submit Button -->

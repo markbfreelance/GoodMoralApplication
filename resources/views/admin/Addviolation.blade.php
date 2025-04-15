@@ -43,7 +43,7 @@
       </div>
       @endif
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <h3 class="text-lg font-semibold mb-4">Add Account</h3>
+        <h3 class="text-lg font-semibold mb-4">Add Violation</h3>
         <!-- Form -->
         <form method="POST" action="{{ route('RegisterViolation') }}" class="space-y-4">
           @csrf

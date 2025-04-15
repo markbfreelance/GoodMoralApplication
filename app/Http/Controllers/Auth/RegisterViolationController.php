@@ -34,7 +34,6 @@ class RegisterViolationController extends Controller
   public function store(Request $request): RedirectResponse
   {
     $currentUserId = Auth::id();
-
     $currentUser = RoleAccount::find($currentUserId);
     $userName = $currentUser->fullname;
     $uniqueID = $currentUser->student_id;
@@ -43,28 +42,48 @@ class RegisterViolationController extends Controller
       'first_name' => ['required', 'string', 'max:255'],
       'last_name' => ['required', 'string', 'max:255'],
       'student_id' => ['required', 'string', 'max:20'],
-      'violation' => ['required', 'string',  'in:Haircut/punky hair,Dyed hair,Unprescribed undergarment,Unprescribed shoes (Male/Female),Long/short skirt (female),
-      Being noisy along corridors,Not wearing of ID properly,Earring (male)/tounge ring (male/female),Wearing of cap inside the campus,Others'],
+      'violation' => ['required', 'string', 'max:255'],
       'others' => ['nullable', 'string', 'max:255'],
     ]);
-    $finalViolation = $request->violation;
-    if (!empty($request->others)) {
-      $finalViolation .= ' - ' . $request->others;
+
+    $violationParts = explode('|', $request->violation);
+    $offenseType = $violationParts[0] ?? '';
+    $description = $violationParts[1] ?? '';
+
+    if ($request->violation !== 'Others') {
+      $user = StudentViolation::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'violation' => $description,
+        'student_id' => $request->student_id,
+        'added_by' => $userName,
+        'status' => 'Pending',
+        'offense_type' => $offenseType,
+        'unique_id' => $uniqueID,
+      ]);
+
+
+      event(new Registered($user));
+      Auth::login($user);
+
+      return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
+    } else {
+      $user = StudentViolation::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'violation' => $request->others,
+        'student_id' => $request->student_id,
+        'added_by' => $userName,
+        'status' => 'Pending',
+        'offense_type' => $request->OtherType,
+        'unique_id' => $uniqueID,
+      ]);
+      
+      event(new Registered($user));
+      Auth::login($user);
+
+      return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
     }
-    $user = StudentViolation::create([
-      'first_name' => $request->first_name,
-      'last_name' => $request->last_name,
-      'violation' => $finalViolation,
-      'student_id' => $request->student_id,
-      'added_by' => $userName,
-      'status' => 'Pending',
-      'offense_type' => 'minor',
-      'unique_id' => $uniqueID,
-    ]);
-    
-    event(new Registered($user));
-    Auth::login($user);
-    return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
   }
   public function search(Request $request)
   {
@@ -88,16 +107,15 @@ class RegisterViolationController extends Controller
   }
   public function violator()
   {
-      // Fetch all student violations and paginate results
-      $students = StudentViolation::paginate(10);
-  
-      // Return the view instead of redirecting
-      return view('PsgOfficer.Violator', compact('students'));
+    // Fetch all student violations and paginate results
+    $students = StudentViolation::paginate(10);
+
+    // Return the view instead of redirecting
+    return view('PsgOfficer.Violator', compact('students'));
   }
   public function ViolatorDashboard()
   {
     $violations = Violation::get();
     return view('PsgOfficer.PsgAddViolation', compact('violations'));
   }
-  
 }

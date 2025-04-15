@@ -22,7 +22,11 @@
         Admin Panel
       </div>
       <nav class="mt-4">
-        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
+        <a href="{{ route('admin.dashboard') }}"
+          class="block px-4 py-2 hover:bg-gray-700 
+   {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
+          Dashboard
+        </a>
         <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Application</a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
         <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
