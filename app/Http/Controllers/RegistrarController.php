@@ -7,7 +7,7 @@ use App\Models\RoleAccount;
 use App\Models\StudentRegistration;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
-
+use App\Traits\RoleCheck;
 class RegistrarController extends Controller
 {
   /**
@@ -15,14 +15,22 @@ class RegistrarController extends Controller
    *
    * @return \Illuminate\View\View
    */
+
+   use RoleCheck;
+
+   public function __construct()
+   {
+     // Apply role check for all methods in this controller
+     $this->checkRole(['registrar']);
+   }
   public function dashboard()
   {
-    // Get all pending applications
+
     $applications = GoodMoralApplication::where('status', 'pending')->get();
 
-    // Return the view with the list of applications
     return view('registrar.dashboard', compact('applications'));
   }
+
 
   /**
    * Approve a Good Moral Certificate application.
@@ -82,17 +90,11 @@ class RegistrarController extends Controller
     // Apply filter based on status
     if ($status == 'approved') {
       $applications = RoleAccount::where('status', '1')->where('account_type', 'psg_officer')->get();
-    } 
-    
-    elseif ($status == 'rejected') {
-      $applications = ArchivedRoleAccount::where('status', '3')->where('account_type', 'psg_officer')->get(); 
-    } 
-    
-    elseif ($status == 'pendingAtAdmin') {
-      $applications = RoleAccount::where('status', '5')->where('account_type', 'psg_officer')->get(); 
-    } 
-    
-    else {
+    } elseif ($status == 'rejected') {
+      $applications = ArchivedRoleAccount::where('status', '3')->where('account_type', 'psg_officer')->get();
+    } elseif ($status == 'pendingAtAdmin') {
+      $applications = RoleAccount::where('status', '5')->where('account_type', 'psg_officer')->get();
+    } else {
       $applications = RoleAccount::where('status', '4')->where('account_type', 'psg_officer')->get();
     }
 

@@ -10,9 +10,17 @@ use App\Models\StudentRegistration;
 use App\Models\Violation;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
+use App\Traits\RoleCheck;
 
 class AdminController extends Controller
 {
+  use RoleCheck;
+
+  public function __construct()
+  {
+      // Apply role check for all methods in this controller
+      $this->checkRole('admin');
+  }
   public function dashboard()
   {
     //Applicants per department

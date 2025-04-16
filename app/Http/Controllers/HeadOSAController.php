@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\DeanApplication;
 use App\Models\HeadOSAApplication;
-
+use App\Traits\RoleCheck;
 class HeadOSAController extends Controller
 {
+  use RoleCheck;
+
+  public function __construct()
+  {
+    // Apply role check for all methods in this controller
+    $this->checkRole(['head_osa']);
+  }
   public function dashboard()
   {
     $applications = HeadOSAApplication::where('status', 'pending')->get();

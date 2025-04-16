@@ -15,12 +15,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
+use App\Traits\RoleCheck;
 class RegisterViolationController extends Controller
 {
   /**
    * Display the registration view.
    */
+  use RoleCheck;
+
+  public function __construct()
+  {
+      // Apply role check for all methods in this controller
+      $this->checkRole('psg_officer');
+  }
   public function create(): View
   {
     return view('auth.PsgOfficer.PsgAddViolation');

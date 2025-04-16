@@ -14,9 +14,11 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-  return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [ApplicationController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('dashboard');
+
 //admin route
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
@@ -112,7 +114,7 @@ Route::get('/sec_osa/dashboard', [SecOSAController::class, 'dashboard'])
   ->name('sec_osa.dashboard');
 
 // Approve Sec_OSA Application Route
-Route::patch('/sec_osa/application/{id}/approve', [SecOSAController::class, 'approve'])
+Route::patch('/ /application/{id}/approve', [SecOSAController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.approve');
 

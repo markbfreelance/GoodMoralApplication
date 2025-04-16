@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DeanApplication;
 use App\Models\SecOSAApplication;
 use Illuminate\Support\Facades\Auth;
-
+use App\Traits\RoleCheck;
 class DeanController extends Controller
 {
   /**
@@ -13,6 +13,13 @@ class DeanController extends Controller
    *
    * @return \Illuminate\View\View
    */
+  use RoleCheck;
+
+  public function __construct()
+  {
+    // Apply role check for all methods in this controller
+    $this->checkRole(['dean']);
+  }
   public function dashboard()
   {
     // Access the authenticated dean

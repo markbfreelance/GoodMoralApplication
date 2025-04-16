@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Session;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,41 +27,52 @@ class AuthenticatedSessionController extends Controller
   {
     $request->authenticate();
 
-    // Regenerate the session to protect against session fixation attacks
     $request->session()->regenerate();
 
-    // Get the authenticated user
     $user = Auth::user();
 
-    // Redirect to the appropriate dashboard based on the user's role
+    // Check if selected account_type matches the user's actual account_type
+    if ($request->input('account_type') !== $user->account_type) {
+      Auth::logout();
+      $request->session()->invalidate();
+      $request->session()->regenerateToken();
+
+      return redirect()->route('login')->withErrors([
+        'email' => 'Login failed: You selected the wrong account type.',
+      ]);
+    }
+
     return redirect()->intended($this->redirectBasedOnRole($user));
   }
-
+  protected function isRoleAllowed($user): bool
+  {
+    return in_array($user->account_type, [
+      'admin',
+      'psg_officer',
+      'dean',
+      'registrar',
+      'head_osa',
+      'sec_osa',
+      'student',
+      'alumni'
+    ]);
+  }
   /**
    * Redirect based on the user's role.
    */
   protected function redirectBasedOnRole($user)
   {
-    switch ($user->account_type) {
-      case 'admin':
-        return route('admin.dashboard');
-      case 'psg_officer':
-        return route('PsgOfficer.dashboard');
-      case 'dean':
-        return route('dean.dashboard');
-      case 'registrar':
-        return route('registrar.dashboard');
-      case 'head_osa':
-        return route('head_osa.dashboard');
-      case 'sec_osa':
-        return route('sec_osa.dashboard');
-      case 'alumni':
-        return route('dashboard');
-      case 'student':
-        return route('dashboard');
-      default:
-        return route('logout'); // Default route if role is not found
-    }
+    return match ($user->account_type) {
+      'admin' => route('admin.dashboard'),
+      'psg_officer' => route('PsgOfficer.dashboard'),
+      'dean' => route('dean.dashboard'),
+      'registrar' => route('registrar.dashboard'),
+      'head_osa' => route('head_osa.dashboard'),
+      'sec_osa' => route('sec_osa.dashboard'),
+      'alumni' => route('dashboard'),
+      'student' => route('dashboard'),
+      default => route('logout'), // fallback if unknown role
+    };
   }
 
   /**
@@ -68,6 +80,7 @@ class AuthenticatedSessionController extends Controller
    */
   public function destroy(Request $request): RedirectResponse
   {
+    Session::flush();
     Auth::guard('web')->logout();
 
     $request->session()->invalidate();

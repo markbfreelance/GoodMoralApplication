@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\SecOSAApplication;
-
+use App\Traits\RoleCheck;
 class SecOSAController extends Controller
 {
+
+  use RoleCheck;
+
+  public function __construct()
+  {
+    // Apply role check for all methods in this controller
+    $this->checkRole(['sec_osa']);
+  }
   public function dashboard()
   {
     $applications = SecOSAApplication::where('status', 'pending')->get();
