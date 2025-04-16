@@ -84,7 +84,7 @@ class AdminController extends Controller
     } elseif ($status == 'rejected') {
       $applications = ArchivedRoleAccount::where('status', '3')->where('account_type', 'psg_officer')->get(); // Default to Pending
     } else {
-      $applications = RoleAccount::where('status', '0')->where('account_type', 'psg_officer')->get();
+      $applications = RoleAccount::where('status', '5')->where('account_type', 'psg_officer')->get();
     }
 
     return view('admin.psgApplication', compact('applications'));

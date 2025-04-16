@@ -49,6 +49,7 @@
 
         <!-- Navigation Bar to Filter by Status -->
 
+
         <div class="mb-8">
           <nav class="flex space-x-8 items-center">
             <!-- Pending Button -->
@@ -71,6 +72,7 @@
           </nav>
         </div>
 
+
         @if($applications->isEmpty())
       <p>No applications available.</p>
     @else
@@ -92,7 +94,7 @@
       <td class="px-6 py-4 text-sm text-gray-600">{{ $application->department }}</td>
       <td class="px-6 py-4 text-sm text-gray-600">{{ $application->fullname }}</td>
       <td>
-      @if($application->status == '0')
+      @if($application->status == '5')
       <span>Pending</span>
     @elseif($application->status == '1')
       <span>Approved</span>
@@ -102,7 +104,7 @@
       </td>
       <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
       <td class="px-6 py-4 text-sm text-gray-600">
-      @if($application->status == '0')
+      @if($application->status == '5')
       <!-- Approve Form -->
       <form action="{{ route('admin.approvepsg', $application->student_id) }}" method="POST"
       style="display:inline;">

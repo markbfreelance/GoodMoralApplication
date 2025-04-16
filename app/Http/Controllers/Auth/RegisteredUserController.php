@@ -79,7 +79,7 @@ class RegisteredUserController extends Controller
         'department' => $request->department,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "0",
+        'status' => "4",
         'account_type' => $request->account_type,
         'year_level' => $request->year_level,
       ]);
@@ -90,7 +90,7 @@ class RegisteredUserController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "0",
+        'status' => "4",
         'account_type' => $request->account_type,
       ]);
   
