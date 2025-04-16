@@ -8,6 +8,7 @@ use App\Models\StudentViolation;
 use App\Models\RoleAccount;
 use App\Models\StudentRegistration;
 use App\Models\Violation;
+use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
 
 class AdminController extends Controller
@@ -73,23 +74,51 @@ class AdminController extends Controller
     $applications = $query->paginate(10); // Get paginated results
     return view('admin.Application', compact('applications'));
   }
-  public function psgApplication()
+  public function psgApplication(Request $request)
   {
-    // Get all pending applications
-    $applications = RoleAccount::where('status', '0')->get();
-    // Return the view with the list of applications
+    $status = $request->get('status'); // Get the filter status from the URL
+
+    // Apply filter based on status
+    if ($status == 'approved') {
+      $applications = RoleAccount::where('status', '1')->where('account_type', 'psg_officer')->get();
+    } elseif ($status == 'rejected') {
+      $applications = ArchivedRoleAccount::where('status', '3')->where('account_type', 'psg_officer')->get(); // Default to Pending
+    } else {
+      $applications = RoleAccount::where('status', '0')->where('account_type', 'psg_officer')->get();
+    }
+
     return view('admin.psgApplication', compact('applications'));
   }
 
   public function rejectpsg($student_id)
   {
+    // Retrieve the application from the RoleAccount table
     $application = RoleAccount::where('student_id', $student_id)->firstOrFail();
 
-    $application->status = '0'; // Rejected
-    $application->save();
+    // Prepare the data to be transferred to the new table
+    $archivedApplication = new ArchivedRoleAccount();
+    $archivedApplication->student_id = $application->student_id;
+    $archivedApplication->fullname = $application->fullname;
+    $archivedApplication->department = $application->department;
+    $archivedApplication->status = '3'; // Rejected status
+    $archivedApplication->account_type = $application->account_type;
+    $archivedApplication->created_at = $application->created_at; // Ensure you keep the created_at
+    $archivedApplication->updated_at = $application->updated_at; // Same for updated_at
+    // Add any other fields you need to transfer
+    $archivedApplication->save();
 
-    return redirect()->route('admin.psgApplication')->with('status', 'Application rejected.');
+    // Delete the original application from the RoleAccount table
+    $application->delete();
+    $id = $application->student_id;
+    // Delete the original registraton from the registration table
+    $registration = StudentRegistration::where('student_id', $id)->firstOrFail();
+    $registration->delete();
+
+
+    // Redirect with a success message
+    return redirect()->route('admin.psgApplication')->with('status', 'Application rejected and moved to archive.');
   }
+
 
   public function approvepsg($student_id)
   {
