@@ -48,23 +48,24 @@
     @endif
 
         <!-- Navigation Bar to Filter by Status -->
-        <div class="mb-4">
-          <nav class="flex space-x-4">
+
+        <div class="mb-8">
+          <nav class="flex space-x-8 items-center">
             <!-- Pending Button -->
-            <a href="{{ route('admin.psgApplication', ['status' => 'pending']) }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 
-           {{ request()->get('status') == 'pending' ? 'bg-blue-700' : '' }}">
+            <a href="{{ route('admin.psgApplication', ['status' => 'pending']) }}" class="px-6 py-3 bg-blue-600 text-white font-semibold text-sm rounded-md shadow-sm transition-all duration-300 ease-in-out hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none 
+       {{ request()->get('status') == 'pending' ? 'bg-blue-700 border-b-4 border-blue-800' : '' }}">
               Pending
             </a>
 
             <!-- Approved Button -->
-            <a href="{{ route('admin.psgApplication', ['status' => 'approved']) }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 
-           {{ request()->get('status') == 'approved' ? 'bg-green-700' : '' }}">
+            <a href="{{ route('admin.psgApplication', ['status' => 'approved']) }}" class="px-6 py-3 bg-green-600 text-white font-semibold text-sm rounded-md shadow-sm transition-all duration-300 ease-in-out hover:bg-green-700 focus:ring-2 focus:ring-green-400 focus:outline-none 
+       {{ request()->get('status') == 'approved' ? 'bg-green-700 border-b-4 border-green-800' : '' }}">
               Approved
             </a>
 
             <!-- Rejected Button -->
-            <a href="{{ route('admin.psgApplication', ['status' => 'rejected']) }}" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 
-           {{ request()->get('status') == 'rejected' ? 'bg-red-700' : '' }}">
+            <a href="{{ route('admin.psgApplication', ['status' => 'rejected']) }}" class="px-6 py-3 bg-red-600 text-white font-semibold text-sm rounded-md shadow-sm transition-all duration-300 ease-in-out hover:bg-red-700 focus:ring-2 focus:ring-red-400 focus:outline-none 
+       {{ request()->get('status') == 'rejected' ? 'bg-red-700 border-b-4 border-red-800' : '' }}">
               Rejected
             </a>
           </nav>
