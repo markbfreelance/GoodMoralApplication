@@ -25,8 +25,8 @@ class RegisterViolationController extends Controller
 
   public function __construct()
   {
-      // Apply role check for all methods in this controller
-      $this->checkRole('psg_officer');
+    // Apply role check for all methods in this controller
+    $this->checkRole('psg_officer');
   }
   public function create(): View
   {
@@ -85,9 +85,6 @@ class RegisterViolationController extends Controller
         'offense_type' => $request->OtherType,
         'unique_id' => $uniqueID,
       ]);
-      
-      event(new Registered($user));
-      Auth::login($user);
 
       return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
     }

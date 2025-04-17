@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\GoodMoralApplication;
+use App\Models\RoleAccount;
+use App\Models\StudentViolation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
@@ -21,7 +23,20 @@ class ApplicationController extends Controller
 
   public function dashboard()
   {
-    return view('dashboard');
+    $user = Auth::user();
+
+    // Get the student record tied to this user
+    $student = RoleAccount::where('id', $user->id)->first();
+
+    if (!$student) {
+      return redirect()->back()->with('error', 'Student record not found.');
+    }
+
+    $studentId = $student->student_id;
+    $fullname = $student->fullname;
+    $Violation = StudentViolation::where('student_id', $studentId)->get(); // fetches a collection
+
+    return view('dashboard', compact('Violation','fullname'));
   }
   public function applyForGoodMoralCertificate(Request $request)
   {
