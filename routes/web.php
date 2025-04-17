@@ -31,6 +31,26 @@ Route::get('/admin/AddAccount', function () {
 Route::get('/admin/Application', [AdminController::class, 'applicationDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.Application');
+Route::get('/admin/psgApplication', [AdminController::class, 'psgApplication'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.psgApplication');
+
+Route::patch('/admin/psgApplication/{student_id}/approve', [AdminController::class, 'approvepsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.approvepsg');
+
+Route::delete('/admin/psgApplication/{student_id}/reject', [AdminController::class, 'rejectpsg'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.rejectpsg');
+
+Route::delete('/admin/Addviolation/{id}/delete', [AdminController::class, 'deleteViolation'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.deleteViolation');
+
+Route::patch('/admin/violation/update/{id}', [AdminController::class, 'updateViolation'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.updateViolation');
+
 
 //Psg_Officer
 Route::get('/PsgOfficer/dashboard', function () {
@@ -40,6 +60,7 @@ Route::get('/PsgOfficer/dashboard', function () {
 Route::get('/admin/AddViolation', [AdminController::class, 'AddViolationDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.AddViolation');
+
 Route::get('/PsgOfficer/PsgAddViolation', [RegisterViolationController::class, 'ViolatorDashboard'])
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.PsgAddViolation');
@@ -65,20 +86,6 @@ Route::patch('/registrar/psgApplication/{student_id}/approve', [RegistrarControl
 Route::delete('/registrar/psgApplication/{student_id}/reject', [RegistrarController::class, 'rejectpsg'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.rejectpsg');
-
-
-
-Route::get('/admin/psgApplication', [AdminController::class, 'psgApplication'])
-  ->middleware(['auth', 'verified'])
-  ->name('admin.psgApplication');
-
-Route::patch('/admin/psgApplication/{student_id}/approve', [AdminController::class, 'approvepsg'])
-  ->middleware(['auth', 'verified'])
-  ->name('admin.approvepsg');
-
-Route::delete('/admin/psgApplication/{student_id}/reject', [AdminController::class, 'rejectpsg'])
-  ->middleware(['auth', 'verified'])
-  ->name('admin.rejectpsg');
 
 
 // Approve Application Route

@@ -18,8 +18,8 @@ class AdminController extends Controller
 
   public function __construct()
   {
-      // Apply role check for all methods in this controller
-      $this->checkRole('admin');
+    // Apply role check for all methods in this controller
+    $this->checkRole('admin');
   }
   public function dashboard()
   {
@@ -55,6 +55,7 @@ class AdminController extends Controller
   }
   public function AddViolationDashboard()
   {
+
     $violations = Violation::get();
     $violationpage = Violation::paginate(10);
     return view('admin.AddViolation', compact('violations', 'violationpage'));
@@ -139,4 +140,26 @@ class AdminController extends Controller
 
     return redirect()->route('admin.psgApplication')->with('status', 'Application approved.');
   }
+  public function deleteViolation($id)
+  {
+    // Retrieve the application from the RoleAccount table
+    $application = Violation::where('id', $id)->firstOrFail();
+    // Delete the original application from the RoleAccount table
+    $application->delete();
+    $violations = Violation::get();
+    $violationpage = Violation::paginate(10);
+    $status = 'Violation Deleted Successfully.';
+    // Redirect with a success message
+    return redirect()->route('admin.AddViolation')->with(compact('violations', 'violationpage', 'status'));
+  }
+  public function updateViolation(Request $request, $id)
+  {
+    $violation = Violation::findOrFail($id);
+    $violation->offense_type = $request->offense_type;
+    $violation->description = $request->description;
+    $violation->save();
+
+    return redirect()->route('admin.AddViolation')->with('success', 'Violation updated successfully.');
+  }
+
 }
