@@ -7,7 +7,7 @@
       <x-input-label for="fname" :value="__('First Name')" />
       <x-text-input
         id="fname"
-        class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+        class="block mt-1 w-full uppercase focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
         type="text"
         name="fname"
         :value="old('fname')"
@@ -20,7 +20,7 @@
       <x-input-label for="lname" :value="__('Last name')" />
       <x-text-input
         id="lname"
-        class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+        class="block mt-1 w-full uppercase focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
         type="text" name="lname"
         :value="old('lname')"
         required autocomplete="lname"
