@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 
 class StudentRegistration extends Authenticatable
 {
@@ -28,4 +27,14 @@ class StudentRegistration extends Authenticatable
   protected $hidden = [
     'password',
   ];
+
+  public function setFnameAttribute($value)
+  {
+    $this->attributes['fname'] = strtoupper($value);
+  }
+
+  public function setLnameAttribute($value)
+  {
+    $this->attributes['lname'] = strtoupper($value);
+  }
 }
