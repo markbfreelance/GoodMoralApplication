@@ -6,6 +6,7 @@ use App\Models\DeanApplication;
 use App\Models\SecOSAApplication;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
+
 class DeanController extends Controller
 {
   /**
@@ -74,6 +75,13 @@ class DeanController extends Controller
     SecOSAApplication::create([
       'student_id' => $student->student_id,
       'department' => $student->department,
+      'purpose' => $application->purpose,
+      'reason' => $application->reason,
+      'course_completed' => $application->course_completed, // New field
+      'graduation_date' => $application->graduation_date,   // New field
+      'is_undergraduate' => $application->is_undergraduate, // New field
+      'last_course_year_level' => $application->last_course_year_level, // New field
+      'last_semester_sy' => $application->last_semester_sy,  // New field
       'status' => 'pending',
     ]);
 

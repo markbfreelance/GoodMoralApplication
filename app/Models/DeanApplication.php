@@ -15,6 +15,13 @@ class DeanApplication extends Model
     'application_id',
     'student_id',
     'department',
+    'purpose',
+    'reason',
+    'course_completed',  // New field
+    'graduation_date',    // New field
+    'is_undergraduate',   // New field
+    'last_course_year_level', // New field
+    'last_semester_sy',   // New field
     'status',
   ];
 
