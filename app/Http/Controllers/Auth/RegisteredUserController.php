@@ -64,12 +64,8 @@ class RegisteredUserController extends Controller
         'status' => "1",
         'account_type' => $request->account_type,
       ]);
-  
-      event(new Registered($user));
-  
-      Auth::login($user);
-  
-      return redirect(route('login', absolute: false));
+
+      return redirect(route('login'))->with('status', 'Your account was succesfully created.');
     }
     else {
       $user = StudentRegistration::create([

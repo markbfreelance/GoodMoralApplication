@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class RoleAccount extends Authenticatable
 {
@@ -24,7 +25,10 @@ class RoleAccount extends Authenticatable
   protected $hidden = [
     'password', // Hide the password from being returned
   ];
-
+  public function setfullnameAttribute($value)
+  {
+    $this->attributes['fullname'] = strtoupper($value);
+  }
   public function studentInfo()
   {
     return $this->belongsTo(StudentRegistration::class, 'student_id', 'student_id',);
