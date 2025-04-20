@@ -30,7 +30,7 @@ class RegisterViolationController extends Controller
   }
   public function create(): View
   {
-    return view('auth.PsgOfficer.PsgAddViolation');
+    return view('PsgOfficer.PsgAddViolation');
   }
 
   /**
@@ -69,9 +69,6 @@ class RegisterViolationController extends Controller
         'unique_id' => $uniqueID,
       ]);
 
-
-      event(new Registered($user));
-      Auth::login($user);
 
       return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
     } else {
