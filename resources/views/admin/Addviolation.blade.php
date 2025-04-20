@@ -96,7 +96,16 @@
         <tbody>
         @foreach ($violations as $violation)
       <tr class="text-left border-b">
-        <td class="py-3 px-6">{{ $violation->offense_type }}</td>
+
+        <td class="py-3 px-6">
+
+        @if($violation->offense_type == 'major')
+      Major
+    @elseif($violation->offense_type == 'minor')
+    Minor
+  @endif
+        </td>
+
         <td class="py-3 px-6">{{ $violation->description }}</td>
         <td>
         <button @click="selectedViolation = {{ $violation }}, showEditModal = true" type="button"
