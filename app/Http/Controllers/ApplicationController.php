@@ -8,6 +8,7 @@ use App\Models\StudentViolation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
+
 class ApplicationController extends Controller
 {
   /**
@@ -36,27 +37,35 @@ class ApplicationController extends Controller
     $fullname = $student->fullname;
     $Violation = StudentViolation::where('student_id', $studentId)->get(); // fetches a collection
 
-    return view('dashboard', compact('Violation','fullname'));
+    return view('dashboard', compact('Violation', 'fullname'));
   }
   public function applyForGoodMoralCertificate(Request $request)
   {
 
     $request->validate([
-      'purpose' => ['required', 'string', 'max:255']
+      'purpose' => ['required', 'string', 'max:255'],
+      'reason' => ['required', 'string', 'max:255'],
+      'reason_other' => ['nullable', 'string', 'max:255'],
     ]);
+
     // Get the student_id from the authenticated user (role account)
     $roleAccount = Auth::user(); // Assuming the user is logged in via role_account
     $studentId = $roleAccount->student_id;
     $fullname = $roleAccount->fullname;
     $studentDepartment = $roleAccount->department;
     $purpose = $request->purpose;
+    $selectedReason = $request->reason === 'Others'
+      ? $request->reason_other
+      : $request->reason;
+
     // Save the application in the database
     GoodMoralApplication::create([
       'fullname' => $fullname,
       'purpose' => $purpose,
+      'reason' => $selectedReason,
       'student_id' => $studentId,
       'department' => $studentDepartment,
-      'status' => 'pending', // Set default status as 'pending'
+      'status' => 'pending',
     ]);
 
     // Redirect to the student's dashboard with a success message

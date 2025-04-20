@@ -16,6 +16,7 @@ class CreateGoodMoralApplicationsTable extends Migration
       $table->string('fullname');
       $table->string('department');
       $table->string('purpose');
+      $table->string('reason');
       $table->timestamps();
     });
   }
