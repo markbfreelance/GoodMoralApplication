@@ -9,7 +9,18 @@ class GoodMoralApplication extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['purpose','fullname','student_id', 'status', 'department'];
+  protected $fillable = [
+    'purpose',
+    'fullname',
+    'student_id',
+    'status',
+    'department',
+    'course_completed',  // New field
+    'graduation_date',    // New field
+    'is_undergraduate',   // New field
+    'last_course_year_level', // New field
+    'last_semester_sy',   // New field
+  ];
 
   /**
    * Get the student associated with the application.
