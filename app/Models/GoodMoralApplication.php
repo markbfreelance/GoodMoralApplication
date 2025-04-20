@@ -10,11 +10,12 @@ class GoodMoralApplication extends Model
   use HasFactory;
 
   protected $fillable = [
-    'purpose',
     'fullname',
     'student_id',
     'status',
     'department',
+    'purpose',
+    'reason',
     'course_completed',  // New field
     'graduation_date',    // New field
     'is_undergraduate',   // New field
