@@ -47,7 +47,14 @@
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Received On</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Applied On</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Purpose</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Reason</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Course Completed</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Graduation Date</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Undergraduate</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Last Course Year Level</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Last Semester SY</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Actions</th>
             </tr>
           </thead>
@@ -59,6 +66,13 @@
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->purpose }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->reason }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->course_completed }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->graduation_date }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->is_undergraduate }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->last_course_year_level }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->last_semester_s }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">
                 @if($application->status == 'pending')
                 <!-- Approve -->

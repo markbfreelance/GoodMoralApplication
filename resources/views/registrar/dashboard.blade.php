@@ -41,57 +41,74 @@
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if(session('status'))
-      <div class="bg-green-500 text-white p-4 rounded-md mb-4">
-        {{ session('status') }}
-      </div>
-    @endif
+        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+          {{ session('status') }}
+        </div>
+        @endif
 
         @if($applications->isEmpty())
-      <p>No applications available.</p>
-    @else
-    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-      <thead>
-      <tr class="text-left border-b">
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Applied On</th>
-        <th class="px-6 py-3 text-sm font-medium text-gray-500">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      @foreach($applications as $application)
-      <tr class="border-b">
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
-      <td class="px-6 py-4 text-sm text-gray-600">
-      @if($application->status == 'pending')
-      <!-- Approve Form -->
-      <form action="{{ route('registrar.approve', $application->id) }}" method="POST" style="display:inline;">
-      @csrf
-      @method('PATCH')
-      <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
-      </form>
+        <p>No applications available.</p>
+        @else
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+          <thead>
+            <tr class="text-left border-b">
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Applied On</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Purpose</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Reason</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Course Completed</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Graduation Date</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Undergraduate</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Last Course Year Level</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Last Semester SY</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($applications as $application)
+            <tr class="border-b">
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->purpose }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->reason }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->course_completed }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->graduation_date }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->is_undergraduate }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->last_course_year_level }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->last_semester_s }}</td>
 
-      <!-- Reject Form -->
-      <form action="{{ route('registrar.reject', $application->id) }}" method="POST" style="display:inline;">
-      @csrf
-      @method('DELETE')
-      <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-      </form>
-    @else
-      <span class="text-gray-500">No action available</span>
-    @endif
-      </td>
-      </tr>
-    @endforeach
-      </tbody>
-    </table>
-  @endif
+              <!-- Actions -->
+              <td class="px-6 py-4 text-sm text-gray-600">
+                @if($application->status == 'pending')
+                <!-- Approve Form -->
+                <form action="{{ route('registrar.approve', $application->id) }}" method="POST" style="display:inline;">
+                  @csrf
+                  @method('PATCH')
+                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
+                </form>
+
+                <!-- Reject Form -->
+                <form action="{{ route('registrar.reject', $application->id) }}" method="POST" style="display:inline;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
+                </form>
+                @else
+                <span class="text-gray-500">No action available</span>
+                @endif
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+        @endif
       </div>
     </main>
   </div>
