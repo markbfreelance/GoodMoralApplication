@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\GoodMoralApplication;
 use App\Models\RoleAccount;
@@ -8,6 +9,7 @@ use App\Models\StudentRegistration;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
 use App\Traits\RoleCheck;
+
 class RegistrarController extends Controller
 {
   /**
@@ -16,13 +18,13 @@ class RegistrarController extends Controller
    * @return \Illuminate\View\View
    */
 
-   use RoleCheck;
+  use RoleCheck;
 
-   public function __construct()
-   {
-     // Apply role check for all methods in this controller
-     $this->checkRole(['registrar']);
-   }
+  public function __construct()
+  {
+    // Apply role check for all methods in this controller
+    $this->checkRole(['registrar']);
+  }
   public function dashboard()
   {
 
@@ -58,6 +60,13 @@ class RegistrarController extends Controller
     HeadOSAApplication::create([
       'student_id' => $student->student_id,
       'department' => $student->department,
+      'purpose' => $application->purpose,
+      'reason' => $application->reason,
+      'course_completed' => $application->course_completed, // New field
+      'graduation_date' => $application->graduation_date,   // New field
+      'is_undergraduate' => $application->is_undergraduate, // New field
+      'last_course_year_level' => $application->last_course_year_level, // New field
+      'last_semester_sy' => $application->last_semester_sy,  // New field
       'status' => 'pending', // Default status
     ]);
 
@@ -141,5 +150,4 @@ class RegistrarController extends Controller
 
     return redirect()->route('registrar.psgApplication')->with('status', 'Application approved.');
   }
-
 }
