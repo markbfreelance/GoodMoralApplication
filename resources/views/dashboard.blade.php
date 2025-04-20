@@ -90,6 +90,41 @@
               <x-input-error :messages="$errors->get('reason')" class="mt-2" />
             </div>
 
+            <!-- Course Completed -->
+            <div class="mt-6">
+              <x-input-label for="course_completed" :value="__('Course Completed')" />
+              <x-text-input id="course_completed" required name="course_completed" type="text" class="mt-1 block w-full" :value="old('course_completed')" />
+            </div>
+
+            <!-- Date of Graduation -->
+            <div class="mt-4">
+              <x-input-label for="graduation_date" :value="__('Date of Graduation')" />
+              <x-text-input id="graduation_date" required name="graduation_date" type="date" class="mt-1 block w-full" :value="old('graduation_date')" />
+            </div>
+
+            <!-- Undergraduate Fields -->
+            <div class="mt-6">
+              <x-input-label for="is_undergraduate" :value="__('Are you an Undergraduate?')" />
+              <select id="is_undergraduate" name="is_undergraduate" class="mt-1 block w-full">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+
+            <div id="undergraduateFields" class="mt-6 hidden">
+              <p class="text-sm font-medium text-gray-700 mb-2">If undergraduate, please fill out the following:</p>
+
+              <div class="mb-4">
+                <x-input-label for="last_course_year_level" :value="__('Course and Year Level of Last School Attended in SPUP')" />
+                <x-text-input id="last_course_year_level" name="last_course_year_level" type="text" class="mt-1 block w-full" :value="old('last_course_year_level')" />
+              </div>
+
+              <div>
+                <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP')" />
+                <x-text-input id="last_semester_sy" name="last_semester_sy" type="text" class="mt-1 block w-full" :value="old('last_semester_sy')" />
+              </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="mt-4">
               <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
@@ -151,6 +186,22 @@
           }
         });
       });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const isUndergradSelect = document.getElementById('is_undergraduate');
+      const undergradFields = document.getElementById('undergraduateFields');
+
+      function toggleUndergradFields() {
+        const isUndergrad = isUndergradSelect.value === 'yes';
+        undergradFields.classList.toggle('hidden', !isUndergrad);
+
+        document.getElementById('last_course_year_level').required = isUndergrad;
+        document.getElementById('last_semester_sy').required = isUndergrad;
+      }
+
+      isUndergradSelect.addEventListener('change', toggleUndergradFields);
+      toggleUndergradFields();
     });
   </script>
 </x-app-layout>

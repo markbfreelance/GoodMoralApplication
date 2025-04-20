@@ -46,7 +46,17 @@ class ApplicationController extends Controller
       'purpose' => ['required', 'string', 'max:255'],
       'reason' => ['required', 'string', 'max:255'],
       'reason_other' => ['nullable', 'string', 'max:255'],
+      'course_completed' => ['required', 'string', 'max:255'],
+      'graduation_date' => ['required', 'date'],
+      'is_undergraduate' => ['required', 'in:yes,no'],
     ]);
+
+    if ($request->is_undergraduate === 'yes') {
+      $request->validate([
+        'last_course_year_level' => ['required', 'string', 'max:255'],
+        'last_semester_sy' => ['required', 'string', 'max:255'],
+      ]);
+    }
 
     // Get the student_id from the authenticated user (role account)
     $roleAccount = Auth::user(); // Assuming the user is logged in via role_account
@@ -65,6 +75,11 @@ class ApplicationController extends Controller
       'reason' => $selectedReason,
       'student_id' => $studentId,
       'department' => $studentDepartment,
+      'course_completed' => $request->course_completed,
+      'graduation_date' => $request->graduation_date,
+      'is_undergraduate' => $request->is_undergraduate === 'yes',
+      'last_course_year_level' => $request->is_undergraduate === 'yes' ? $request->last_course_year_level : null,
+      'last_semester_sy' => $request->is_undergraduate === 'yes' ? $request->last_semester_sy : null,
       'status' => 'pending',
     ]);
 
