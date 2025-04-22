@@ -12,118 +12,94 @@
           Welcome, {{ $fullname }}
         </div>
 
-
-        <!-- Show Success Message if Application is Submitted -->
         @if(session('status'))
         <div class="alert alert-success mt-4 p-4 bg-green-500 text-white rounded">
           {{ session('status') }}
         </div>
         @endif
+
         <div class="p-6">
           <form method="POST" action="{{ route('apply.good_moral_certificate') }}">
             @csrf
 
-            <!-- Purpose Field -->
-            <div class="mt-4">
-              <x-input-label for="purpose" :value="__('Purpose')" />
-              <x-text-input id="purpose"
-                class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
-                type="text" name="purpose" :value="old('purpose')" required autocomplete="purpose"
-                placeholder="Enter Purpose" />
-              <x-input-error :messages="$errors->get('purpose')" class="mt-2" />
-            </div>
-
-            <!-- Reason of Application (Radio Buttons) -->
+            <!-- Reason of Application -->
             <div class="mt-6">
               <x-input-label :value="__('Reason of Application (check one only)')" />
               <div class="mt-2 space-y-2">
-
+                @foreach([
+                'Transfer to another school',
+                'Employment',
+                'Scholarship',
+                'Board Examination',
+                'Government examination',
+                'VISA/Passport application',
+                'PSG Election',
+                'Cross enrollment'
+                ] as $reason)
                 <label class="flex items-center">
-                  <input type="radio" name="reason" value="Transfer to another school" required class="text-green-600">
-                  <span class="ml-2">Transfer to another school</span>
+                  <input type="radio" name="reason" value="{{ $reason }}" required class="text-green-600">
+                  <span class="ml-2">{{ $reason }}</span>
                 </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="Employment" required class="text-green-600">
-                  <span class="ml-2">Employment</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="Scholarship" required class="text-green-600">
-                  <span class="ml-2">Scholarship</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="Board Examination" required class="text-green-600">
-                  <span class="ml-2">Board Examination</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="Government examination" required class="text-green-600">
-                  <span class="ml-2">Government examination</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="VISA/Passport application" required class="text-green-600">
-                  <span class="ml-2">VISA/Passport application</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="PSG Election" required class="text-green-600">
-                  <span class="ml-2">PSG Election</span>
-                </label>
-
-                <label class="flex items-center">
-                  <input type="radio" name="reason" value="Cross enrollment" required class="text-green-600">
-                  <span class="ml-2">Cross enrollment</span>
-                </label>
+                @endforeach
 
                 <label class="flex items-center">
                   <input type="radio" name="reason" value="Others" required class="text-green-600" id="reasonOthers">
                   <span class="ml-2">Others (please specify)</span>
                 </label>
 
-                <!-- Input for 'Others' -->
                 <input type="text" name="reason_other" id="reasonOtherInput" class="mt-1 block w-full" placeholder="Please specify..." disabled>
               </div>
-
               <x-input-error :messages="$errors->get('reason')" class="mt-2" />
             </div>
 
-            <!-- Course Completed -->
-            <div class="mt-6">
-              <x-input-label for="course_completed" :value="__('Course Completed')" />
-              <x-text-input id="course_completed" required name="course_completed" type="text" class="mt-1 block w-full" :value="old('course_completed')" />
-            </div>
+            <!-- Undergraduate Section: Only for Students -->
+            @php
+            $accountType = Auth::user()->account_type;
+            @endphp
 
-            <!-- Date of Graduation -->
-            <div class="mt-4">
-              <x-input-label for="graduation_date" :value="__('Date of Graduation')" />
-              <x-text-input id="graduation_date" required name="graduation_date" type="date" class="mt-1 block w-full" :value="old('graduation_date')" />
-            </div>
-
-            <!-- Undergraduate Fields -->
+            @if ($accountType === 'alumni')
+            <!-- Are you an undergraduate? -->
             <div class="mt-6">
               <x-input-label for="is_undergraduate" :value="__('Are you an Undergraduate?')" />
               <select id="is_undergraduate" name="is_undergraduate" class="mt-1 block w-full">
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
+                <option value="no" {{ old('is_undergraduate') === 'no' ? 'selected' : '' }}>No</option>
+                <option value="yes" {{ old('is_undergraduate') === 'yes' ? 'selected' : '' }}>Yes</option>
               </select>
+              <x-input-error :messages="$errors->get('is_undergraduate')" class="mt-2" />
             </div>
 
+
+            <!-- Extra fields for undergraduates -->
             <div id="undergraduateFields" class="mt-6 hidden">
               <p class="text-sm font-medium text-gray-700 mb-2">If undergraduate, please fill out the following:</p>
 
               <div class="mb-4">
                 <x-input-label for="last_course_year_level" :value="__('Course and Year Level of Last School Attended in SPUP')" />
                 <x-text-input id="last_course_year_level" name="last_course_year_level" type="text" class="mt-1 block w-full" :value="old('last_course_year_level')" />
+                <x-input-error :messages="$errors->get('last_course_year_level')" class="mt-2" />
               </div>
 
               <div>
                 <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP')" />
                 <x-text-input id="last_semester_sy" name="last_semester_sy" type="text" class="mt-1 block w-full" :value="old('last_semester_sy')" />
+                <x-input-error :messages="$errors->get('last_semester_sy')" class="mt-2" />
               </div>
             </div>
+
+            <!-- Date of Graduation: Only if not an Undergraduate -->
+            <div id="graduationDateField" class="mt-4 hidden">
+              <x-input-label for="graduation_date" :value="__('Date of Graduation')" />
+              <x-text-input id="graduation_date" name="graduation_date" type="date" class="mt-1 block w-full" :value="old('graduation_date')" />
+              <x-input-error :messages="$errors->get('graduation_date')" class="mt-2" />
+            </div>
+
+            <!-- Course Completed -->
+            <div id="courseCompletedField" class="mt-4 hidden">
+              <x-input-label for="course_completed" :value="__('Course Completed')" />
+              <x-text-input id="course_completed" name="course_completed" type="text" class="mt-1 block w-full" :value="old('course_completed')" />
+              <x-input-error :messages="$errors->get('course_completed')" class="mt-2" />
+            </div>
+            @endif
 
             <!-- Submit Button -->
             <div class="mt-4">
@@ -133,16 +109,13 @@
             </div>
           </form>
         </div>
-        <!-- Apply for Good Moral Certificate Button -->
-        {{-- Check if the user has any violations --}}
-        <!-- Violation Section -->
+
+        <!-- Violations Section -->
         <div class="p-6">
           @if ($Violation->isEmpty())
           <h3 class="text-lg font-semibold text-green-600">You have no existing violations. </h3>
           @else
           <h3 class="text-lg font-semibold mb-4 text-red-600">You have existing violation(s).</h3>
-
-          {{-- Show the violation(s) in a table --}}
           <table class="min-w-full bg-white border border-gray-300 rounded-lg">
             <thead>
               <tr class="text-left border-b bg-gray-100">
@@ -167,13 +140,14 @@
     </div>
   </div>
 
-  <!-- JavaScript (Inline) -->
+  <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const otherRadio = document.getElementById('reasonOthers');
       const otherInput = document.getElementById('reasonOtherInput');
       const allRadios = document.querySelectorAll('input[name="reason"]');
 
+      // Handle "Others" radio input
       allRadios.forEach(radio => {
         radio.addEventListener('change', function() {
           if (otherRadio.checked) {
@@ -186,22 +160,32 @@
           }
         });
       });
-    });
 
-    document.addEventListener('DOMContentLoaded', function() {
       const isUndergradSelect = document.getElementById('is_undergraduate');
       const undergradFields = document.getElementById('undergraduateFields');
+      const graduationDateField = document.getElementById('graduationDateField');
+      const courseCompletedField = document.getElementById('courseCompletedField');
+      const graduationDateInput = document.getElementById('graduation_date');
+      const courseCompletedInput = document.getElementById('course_completed');
 
-      function toggleUndergradFields() {
-        const isUndergrad = isUndergradSelect.value === 'yes';
-        undergradFields.classList.toggle('hidden', !isUndergrad);
+      if (isUndergradSelect) {
+        function toggleFields() {
+          const isUndergrad = isUndergradSelect.value === 'yes';
 
-        document.getElementById('last_course_year_level').required = isUndergrad;
-        document.getElementById('last_semester_sy').required = isUndergrad;
+          undergradFields.classList.toggle('hidden', !isUndergrad);
+          graduationDateField.classList.toggle('hidden', isUndergrad);
+          courseCompletedField.classList.toggle('hidden', isUndergrad);
+
+          // If undergraduate is "No", set graduation date and course completed to null
+          if (!isUndergrad) {
+            graduationDateInput.value = null;
+            courseCompletedInput.value = null;
+          }
+        }
+
+        isUndergradSelect.addEventListener('change', toggleFields);
+        toggleFields(); // Initialize the visibility on page load
       }
-
-      isUndergradSelect.addEventListener('change', toggleUndergradFields);
-      toggleUndergradFields();
     });
   </script>
 </x-app-layout>

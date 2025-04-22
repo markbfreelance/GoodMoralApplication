@@ -14,7 +14,6 @@ class GoodMoralApplication extends Model
     'student_id',
     'status',
     'department',
-    'purpose',
     'reason',
     'course_completed',  // New field
     'graduation_date',    // New field

@@ -41,41 +41,42 @@ class ApplicationController extends Controller
   }
   public function applyForGoodMoralCertificate(Request $request)
   {
-
+    // Validate the input
     $request->validate([
-      'purpose' => ['required', 'string', 'max:255'],
       'reason' => ['required', 'string', 'max:255'],
       'reason_other' => ['nullable', 'string', 'max:255'],
-      'course_completed' => ['required', 'string', 'max:255'],
-      'graduation_date' => ['required', 'date'],
-      'is_undergraduate' => ['required', 'in:yes,no'],
+      'is_undergraduate' => ['nullable', 'in:yes,no'],
     ]);
 
+    // Validate additional fields if the student is undergraduate
     if ($request->is_undergraduate === 'yes') {
       $request->validate([
         'last_course_year_level' => ['required', 'string', 'max:255'],
         'last_semester_sy' => ['required', 'string', 'max:255'],
       ]);
+    } else {
+      $request->validate([
+        'course_completed' => ['required', 'string', 'max:255'],
+        'graduation_date' => ['required', 'date'],
+      ]);
     }
 
-    // Get the student_id from the authenticated user (role account)
+    // Get the student details from the authenticated user
     $roleAccount = Auth::user(); // Assuming the user is logged in via role_account
     $studentId = $roleAccount->student_id;
     $fullname = $roleAccount->fullname;
     $studentDepartment = $roleAccount->department;
-    $purpose = $request->purpose;
-    $selectedReason = $request->reason === 'Others'
-      ? $request->reason_other
-      : $request->reason;
+
+    // Set the reason to 'Others' if selected and a custom reason is provided
+    $selectedReason = $request->reason === 'Others' ? $request->reason_other : $request->reason;
 
     // Save the application in the database
     GoodMoralApplication::create([
       'fullname' => $fullname,
-      'purpose' => $purpose,
       'reason' => $selectedReason,
       'student_id' => $studentId,
       'department' => $studentDepartment,
-      'course_completed' => $request->course_completed,
+      'course_completed' => $request->course_completed, // Allowing this to be null
       'graduation_date' => $request->graduation_date,
       'is_undergraduate' => $request->is_undergraduate === 'yes',
       'last_course_year_level' => $request->is_undergraduate === 'yes' ? $request->last_course_year_level : null,
@@ -83,7 +84,7 @@ class ApplicationController extends Controller
       'status' => 'pending',
     ]);
 
-    // Redirect to the student's dashboard with a success message
+    // Redirect to the dashboard with a success message
     return redirect()->route('dashboard')->with('status', 'Application for Good Moral Certificate submitted successfully!');
   }
 }
