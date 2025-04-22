@@ -40,7 +40,7 @@
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <form method="GET" action="{{ route('adminApplicationSearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg">
+        <form method="GET" action="{{ route('adminApplicationSearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg" hidden>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label for="student_id" class="block text-gray-700 font-medium">Student ID</label>
