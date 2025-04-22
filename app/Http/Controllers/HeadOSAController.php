@@ -47,7 +47,6 @@ class HeadOSAController extends Controller
     DeanApplication::create([
       'student_id' => $student->student_id,
       'department' => $student->department,
-      'purpose' => $application->purpose,
       'reason' => $application->reason,
       'course_completed' => $application->course_completed, // New field
       'graduation_date' => $application->graduation_date,   // New field
