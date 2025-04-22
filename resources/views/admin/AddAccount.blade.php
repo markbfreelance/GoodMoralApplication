@@ -38,9 +38,9 @@
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       @if (session('success'))
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
-      {{ session('success') }}
+        {{ session('success') }}
       </div>
-    @endif
+      @endif
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
         <h3 class="text-lg font-semibold mb-4">Add Account</h3>
         <!-- Form -->
@@ -62,6 +62,32 @@
             </select>
 
             <x-input-error :messages="$errors->get('account_type')" class="mt-2" />
+
+            <!-- Department -->
+            <div x-data="{ showExtraInput: false }" class="mt-4">
+              <x-input-label for="department" :value="__('Department')" />
+
+              <select id="department" name="department"
+                @change="showExtraInput = ($event.target.value === 'Others')"
+                class="block mt-1 w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+                required x-on:change="$dispatch('department-changed', $event.target.value)">
+
+                <option value="" disabled selected>Select Department</option>
+                <option value="SITE">SITE</option>
+                <option value="SASTE">SASTE</option>
+                <option value="SBAHM">SBAHM</option>
+                <option value="SNAHS">SNAHS</option>
+              </select>
+
+              <div x-show="showExtraInput" class="mt-2">
+                <x-input-label for="other_department" :value="__('Please specify other department')" />
+                <input type="text" name="other_department" id="other_department" class="mt-1 block w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100" placeholder="Please specify..." />
+              </div>
+
+              <x-input-error :messages="$errors->get('department')" class="mt-2" />
+            </div>
+
+
 
             <!-- Extra Input Field (Only visible when "PSG Officer" is selected) -->
             <div x-show="showExtraInput" class="mt-4">
