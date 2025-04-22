@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SecOSAApplication;
 use App\Traits\RoleCheck;
+use Illuminate\Support\Facades\Auth;
 class SecOSAController extends Controller
 {
 
@@ -23,7 +24,8 @@ class SecOSAController extends Controller
   public function approve($id)
   {
     $application = SecOSAApplication::findOrFail($id);
-    $application->status = 'approved';
+    $sec_osa = Auth::user();
+    $application->status = 'approved'.$sec_osa->fullname;
     $application->save();
 
     return redirect()->route('sec_osa.dashboard')->with('status', 'Application approved!');

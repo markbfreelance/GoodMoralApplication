@@ -58,7 +58,7 @@
 
               <option value="" disabled selected>Select Account Type</option>
               <option value="dean">Dean</option>
-              <option value="moderator">Moderator</option>
+              <option value="sec_osa">Moderator</option>
               <option value="registar">Registar</option>
             </select>
 

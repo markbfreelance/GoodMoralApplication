@@ -16,6 +16,7 @@ class CreateGoodMoralApplicationsTable extends Migration
       $table->string('fullname');
       $table->string('department');
       $table->string('reason');
+      $table->string('application_status')->nullable();
       $table->string('course_completed')->nullable();
       $table->date('graduation_date')->nullable();;
       $table->boolean('is_undergraduate')->default(false);

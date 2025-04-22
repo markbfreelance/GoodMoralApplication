@@ -171,11 +171,26 @@ class AdminController extends Controller
 
   public function rejectGMA($id)
   {
+    // Find the HeadOSAApplication and update its status to 'rejected'
     $application = HeadOSAApplication::findOrFail($id);
     $application->status = 'rejected';
     $application->save();
+
+    // Assuming you want to update the 'GoodMoralApplication' using the same student_id
+    $student_id = $application->student_id;
+
+    // Retrieve the GoodMoralApplication for the same student
+    $goodMoralApplication = GoodMoralApplication::where('student_id', $student_id)->first();
+
+    if ($goodMoralApplication) {
+      // Update the application status for GoodMoralApplication
+      $goodMoralApplication->application_status = 'Rejected by Administrator';
+      $goodMoralApplication->save();
+    }
+
     return redirect()->route('admin.GMAApporvedByRegistrar')->with('status', 'Application rejected!');
   }
+
   public function approveGMA($id)
   {
     // 1. Find the application
@@ -184,6 +199,16 @@ class AdminController extends Controller
     // 2. Update the status to 'approved'
     $application->status = 'approved';
     $application->save();
+
+    $student_id = $application->student_id;
+
+    // Retrieve the GoodMoralApplication for the same student
+    $goodMoralApplication = GoodMoralApplication::where('student_id', $student_id)->first();
+    if ($goodMoralApplication) {
+      // Update the application status for GoodMoralApplication
+      $goodMoralApplication->application_status = 'Approve by Administrator';
+      $goodMoralApplication->save();
+    }
 
     // 3. Get the student from role_account
     $student = $application->student;

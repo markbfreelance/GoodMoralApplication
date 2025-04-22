@@ -86,7 +86,7 @@
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student_id }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->department }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->status }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->application_status }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->reason }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">{{ $application->created_at->format('Y-m-d') }}</td>
               <td class="px-6 py-4 text-sm text-gray-600">
