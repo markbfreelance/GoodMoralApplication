@@ -30,7 +30,7 @@
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if(session('status'))
-        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+        <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
           {{ session('status') }}
         </div>
         @endif
