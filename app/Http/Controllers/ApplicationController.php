@@ -54,10 +54,17 @@ class ApplicationController extends Controller
         'last_course_year_level' => ['required', 'string', 'max:255'],
         'last_semester_sy' => ['required', 'string', 'max:255'],
       ]);
-    } else {
+    } else if ($request->is_undergraduate === 'no') {
       $request->validate([
         'course_completed' => ['required', 'string', 'max:255'],
         'graduation_date' => ['required', 'date'],
+      ]);
+    } else {
+      $request->validate([
+        'last_course_year_level' => ['nullable', 'string', 'max:255'],
+        'last_semester_sy' => ['nullable', 'string', 'max:255'],
+        'course_completed' => ['nullable', 'string', 'max:255'],
+        'graduation_date' => ['nullable', 'date'],
       ]);
     }
 
@@ -78,6 +85,7 @@ class ApplicationController extends Controller
       'department' => $studentDepartment,
       'course_completed' => $request->course_completed, // Allowing this to be null
       'graduation_date' => $request->graduation_date,
+      'application_status' => null,
       'is_undergraduate' => $request->is_undergraduate === 'yes',
       'last_course_year_level' => $request->is_undergraduate === 'yes' ? $request->last_course_year_level : null,
       'last_semester_sy' => $request->is_undergraduate === 'yes' ? $request->last_semester_sy : null,

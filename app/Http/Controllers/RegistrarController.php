@@ -9,6 +9,7 @@ use App\Models\StudentRegistration;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
 use App\Traits\RoleCheck;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrarController extends Controller
 {
@@ -46,7 +47,9 @@ class RegistrarController extends Controller
     $application = GoodMoralApplication::findOrFail($id);
 
     // 2. Update the status to 'approved'
+    $registrar = Auth::user();
     $application->status = 'approved';
+    $application->application_status = 'Approved By Registrar'.$registrar->fullname;
     $application->save();
 
     // 3. Get the student from role_account
@@ -59,6 +62,7 @@ class RegistrarController extends Controller
     // 4. Create the head_osa_application record for the single Head OSA
     HeadOSAApplication::create([
       'student_id' => $student->student_id,
+      'fullname' => $student->fullname,
       'department' => $student->department,
       'reason' => $application->reason,
       'course_completed' => $application->course_completed, // New field
@@ -82,9 +86,10 @@ class RegistrarController extends Controller
   {
     // Find the application by its ID
     $application = GoodMoralApplication::findOrFail($id);
-
+    $registrar = Auth::user();
     // Update the application status to 'rejected'
     $application->status = 'rejected';
+    $application->application_status = 'Rejected By Registrar'.$registrar->fullname;
     $application->save();
 
     // Redirect back to the dashboard with a rejection message

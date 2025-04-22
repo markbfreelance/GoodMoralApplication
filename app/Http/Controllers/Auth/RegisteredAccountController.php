@@ -32,6 +32,7 @@ class RegisteredAccountController extends Controller
     $request->validate([
       'fullname' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:role_account,email'],
+      'department' => ['required', 'string', 'max:255'],
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
       'student_id' => ['nullable', 'string', 'max:20', 'unique:role_account,student_id'],
       'account_type' => ['required', 'string', 'in:dean,psg_officer,registar,moderator'],
@@ -40,6 +41,7 @@ class RegisteredAccountController extends Controller
     $user = RoleAccount::create([
       'fullname' => $request->fullname,
       'email' => $request->email,
+      'department' => $request->department,
       'password' => Hash::make($request->password), // Always hash passwords
       'student_id' => $request->student_id,
       'status' => "1",

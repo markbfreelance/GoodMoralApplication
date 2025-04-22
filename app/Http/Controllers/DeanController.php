@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DeanApplication;
 use App\Models\SecOSAApplication;
+use App\Models\GoodMoralApplication;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
 
@@ -71,11 +72,22 @@ class DeanController extends Controller
     if (SecOSAApplication::where('student_id', $student->student_id)->exists()) {
       return redirect()->route('dean.dashboard')->with('error', 'SecOSA application already exists for this student.');
     }
+    $dean = Auth::user();
+    $student_id = $application->student_id;
+
+    // Retrieve the GoodMoralApplication for the same student
+    $goodMoralApplication = GoodMoralApplication::where('student_id', $student_id)->first();
+    if ($goodMoralApplication) {
+      // Update the application status for GoodMoralApplication
+      $goodMoralApplication->application_status = 'Approved by Dean:' . $dean->fullname;
+      $goodMoralApplication->save();
+    }
 
     SecOSAApplication::create([
       'student_id' => $student->student_id,
       'department' => $student->department,
       'reason' => $application->reason,
+      'fullname' => $application->fulname,
       'course_completed' => $application->course_completed, // New field
       'graduation_date' => $application->graduation_date,   // New field
       'is_undergraduate' => $application->is_undergraduate, // New field
@@ -104,6 +116,16 @@ class DeanController extends Controller
     // Prevent rejecting already rejected applications
     if ($application->status == 'rejected') {
       return redirect()->route('dean.dashboard')->with('error', 'This application has already been rejected.');
+    }
+    $dean = Auth::user();
+    $student_id = $application->student_id;
+
+    // Retrieve the GoodMoralApplication for the same student
+    $goodMoralApplication = GoodMoralApplication::where('student_id', $student_id)->first();
+    if ($goodMoralApplication) {
+      // Update the application status for GoodMoralApplication
+      $goodMoralApplication->application_status = 'Rejected by Dean:' . $dean->fullname;
+      $goodMoralApplication->save();
     }
 
     // Update the application status to 'rejected'

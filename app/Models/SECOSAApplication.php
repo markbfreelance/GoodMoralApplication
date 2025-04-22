@@ -16,6 +16,7 @@ class SecOSAApplication extends Model
     'student_id',
     'department',
     'reason',
+    'fullname',
     'course_completed',  // New field
     'graduation_date',    // New field
     'is_undergraduate',   // New field
