@@ -211,5 +211,4 @@ class AdminController extends Controller
       'Application approved and forwarded to ' . $application->student->department . ' Dean.'
     );
   }
-
 }

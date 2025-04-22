@@ -75,6 +75,7 @@ class DeanController extends Controller
     SecOSAApplication::create([
       'student_id' => $student->student_id,
       'department' => $student->department,
+      'fullname' => $student->fullname,
       'reason' => $application->reason,
       'course_completed' => $application->course_completed, // New field
       'graduation_date' => $application->graduation_date,   // New field
