@@ -10,6 +10,7 @@ use App\Models\StudentRegistration;
 use App\Models\Violation;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
+use App\Models\DeanApplication;
 use App\Traits\RoleCheck;
 
 class AdminController extends Controller
@@ -160,6 +161,55 @@ class AdminController extends Controller
     $violation->save();
 
     return redirect()->route('admin.AddViolation')->with('success', 'Violation updated successfully.');
+  }
+
+  public function GMAApporvedByRegistrar()
+  {
+    $applications = HeadOSAApplication::where('status', 'pending')->get();
+    return view('admin.GMAApporvedByRegistrar', compact('applications'));
+  }
+
+  public function rejectGMA($id)
+  {
+    $application = HeadOSAApplication::findOrFail($id);
+    $application->status = 'rejected';
+    $application->save();
+    return redirect()->route('admin.GMAApporvedByRegistrar')->with('status', 'Application rejected!');
+  }
+  public function approveGMA($id)
+  {
+    // 1. Find the application
+    $application = HeadOSAApplication::findOrFail($id);
+
+    // 2. Update the status to 'approved'
+    $application->status = 'approved';
+    $application->save();
+
+    // 3. Get the student from role_account
+    $student = $application->student;
+
+    if (!$student) {
+      return redirect()->route('admin.GMAApporvedByRegistrar')->with('error', 'Student not found.');
+    }
+
+    // 4. Create the head_osa_application record for the single Head OSA
+    DeanApplication::create([
+      'student_id' => $student->student_id,
+      'fullname' => $student->fullname,
+      'department' => $student->department,
+      'reason' => $application->reason,
+      'course_completed' => $application->course_completed, // New field
+      'graduation_date' => $application->graduation_date,   // New field
+      'is_undergraduate' => $application->is_undergraduate, // New field
+      'last_course_year_level' => $application->last_course_year_level, // New field
+      'last_semester_sy' => $application->last_semester_sy,  // New field
+      'status' => 'pending', // Default status
+    ]);
+
+    return redirect()->route('admin.GMAApporvedByRegistrar')->with(
+      'status',
+      'Application approved and forwarded to ' . $application->student->department . ' Dean.'
+    );
   }
 
 }

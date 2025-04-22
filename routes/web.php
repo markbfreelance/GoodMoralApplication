@@ -19,7 +19,7 @@ Route::get('/dashboard', [ApplicationController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('dashboard');
 
-//admin route
+//admin route==================================================================================================================================================================
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.dashboard');
@@ -51,8 +51,21 @@ Route::patch('/admin/violation/update/{id}', [AdminController::class, 'updateVio
   ->middleware(['auth', 'verified'])
   ->name('admin.updateViolation');
 
+Route::get('/admin/GMAApporvedByRegistrar', [AdminController::class, 'GMAApporvedByRegistrar'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.GMAApporvedByRegistrar');
 
-//Psg_Officer
+Route::patch('/admin/application/{id}/approve', [AdminController::class, 'approveGMA'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.approveGMA');
+
+// Reject Head_OSA Application Route==================================================================================================================================================================
+Route::delete('/admin/application/{id}/reject', [AdminController::class, 'rejectGMA'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.rejectGMA');
+
+
+//Psg_Officer==================================================================================================================================================================
 Route::get('/PsgOfficer/dashboard', function () {
   return view('PsgOfficer.dashboard');
 })->middleware(['auth', 'verified'])->name('PsgOfficer.dashboard');
@@ -70,7 +83,7 @@ Route::get('/PsgOfficer/Violator', [RegisterViolationController::class, 'violato
   ->middleware(['auth', 'verified'])
   ->name('PsgOfficer.Violator');
 
-// Registrar Dashboard Route
+// Registrar Dashboard Route==================================================================================================================================================================
 Route::get('/registrar/dashboard', [RegistrarController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.dashboard');
@@ -88,7 +101,8 @@ Route::delete('/registrar/psgApplication/{student_id}/reject', [RegistrarControl
   ->name('registrar.rejectpsg');
 
 
-// Approve Application Route
+
+// Approve Application Route==================================================================================================================================================================
 Route::patch('/registrar/application/{id}/approve', [RegistrarController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.approve');
@@ -98,34 +112,34 @@ Route::patch('/registrar/application/{id}/approve', [RegistrarController::class,
 Route::delete('/registrar/application/{id}/reject', [RegistrarController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('registrar.reject');
-// ============================================================================================== //
+// ============================================================================================== =================================================================================//
 
-// Head_OSA Dashboard Route
+// Head_OSA Dashboard Route==================================================================================================================================================================
 Route::get('/head_osa/dashboard', [HeadOSAController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('head_osa.dashboard');
 
-// Approve Head_OSA Application Route
+// Approve Head_OSA Application Route==================================================================================================================================================================
 Route::patch('/head_osa/application/{id}/approve', [HeadOSAController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('head_osa.approve');
 
-// Reject Head_OSA Application Route
+// Reject Head_OSA Application Route==================================================================================================================================================================
 Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('head_osa.reject');
 
-// Sec_OSA Dashboard Route
+// Sec_OSA Dashboard Route==================================================================================================================================================================
 Route::get('/sec_osa/dashboard', [SecOSAController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.dashboard');
 
-// Approve Sec_OSA Application Route
+// Approve Sec_OSA Application Route==================================================================================================================================================================
 Route::patch('/ /application/{id}/approve', [SecOSAController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.approve');
 
-// Reject Sec_OSA Application Route
+// Reject Sec_OSA Application Route==================================================================================================================================================================
 Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'reject'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.reject');

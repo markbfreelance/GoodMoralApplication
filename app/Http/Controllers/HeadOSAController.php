@@ -46,6 +46,7 @@ class HeadOSAController extends Controller
     // 4. Create the head_osa_application record for the single Head OSA
     DeanApplication::create([
       'student_id' => $student->student_id,
+      'fullname' => $student->fullname,
       'department' => $student->department,
       'reason' => $application->reason,
       'course_completed' => $application->course_completed, // New field
@@ -67,7 +68,7 @@ class HeadOSAController extends Controller
     $application = HeadOSAApplication::findOrFail($id);
     $application->status = 'rejected';
     $application->save();
-
     return redirect()->route('head_osa.dashboard')->with('status', 'Application rejected!');
   }
+  
 }

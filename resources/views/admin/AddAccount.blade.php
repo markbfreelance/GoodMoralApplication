@@ -24,7 +24,7 @@
 
       <nav class="mt-4">
         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
-        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application</a>
+        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application Monitoring</a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700 
    {{ request()->routeIs('admin.AddAccount') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
           Add Account
@@ -32,6 +32,7 @@
         <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violation</a>
         <a href="{{ route('admin.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
       </nav>
+      <a href="{{ route('admin.GMAApporvedByRegistrar') }}" class="block px-4 py-2 hover:bg-gray-700"> Good Moral Application Approve/Reject</a>
     </aside>
 
     <!-- Main Content -->

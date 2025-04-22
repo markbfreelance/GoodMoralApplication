@@ -24,13 +24,14 @@
 
       <nav class="mt-4">
         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
-        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application</a>
+        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application Monitoring</a>
         <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
         <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700 
    {{ request()->routeIs('admin.AddViolation') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
           Add Violation
         </a>
         <a href="{{ route('admin.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
+        <a href="{{ route('admin.GMAApporvedByRegistrar') }}" class="block px-4 py-2 hover:bg-gray-700"> Good Moral Application Approve/Reject</a>
       </nav>
     </aside>
 
@@ -38,14 +39,14 @@
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
       @if(session('status'))
       <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
-      {{ session('status') }}
+        {{ session('status') }}
       </div>
-    @endif
+      @endif
       @if (session('success'))
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
-      {{ session('success') }}
+        {{ session('success') }}
       </div>
-    @endif
+      @endif
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
         <h3 class="text-lg font-semibold mb-4">Add Violation</h3>
         <!-- Form -->
@@ -82,55 +83,55 @@
         <div class="bg-white p-6 shadow-md rounded-lg">
           <h3 class="text-lg font-semibold mb-4">List of Violation</h3>
           @if ($violations->isEmpty())
-        <div class="text-center py-4 text-gray-500">No student violations found.</div>
-      @else
-      <div class="overflow-x-auto">
-      <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-        <thead>
-        <tr class="text-left border-b">
-          <th class="py-3 px-6 text-left">Offense Type</th>
-          <th class="py-3 px-6 text-left">Description</th>
-          <th class="py-3 px-6 text-left">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($violations as $violation)
-      <tr class="text-left border-b">
+          <div class="text-center py-4 text-gray-500">No student violations found.</div>
+          @else
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+              <thead>
+                <tr class="text-left border-b">
+                  <th class="py-3 px-6 text-left">Offense Type</th>
+                  <th class="py-3 px-6 text-left">Description</th>
+                  <th class="py-3 px-6 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($violations as $violation)
+                <tr class="text-left border-b">
 
-        <td class="py-3 px-6">
+                  <td class="py-3 px-6">
 
-        @if($violation->offense_type == 'major')
-      Major
-    @elseif($violation->offense_type == 'minor')
-    Minor
-  @endif
-        </td>
+                    @if($violation->offense_type == 'major')
+                    Major
+                    @elseif($violation->offense_type == 'minor')
+                    Minor
+                    @endif
+                  </td>
 
-        <td class="py-3 px-6">{{ $violation->description }}</td>
-        <td>
-        <button @click="selectedViolation = {{ $violation }}, showEditModal = true" type="button"
-        class="bg-blue-500 text-white p-2 rounded-md mr-2">
-        Edit
-        </button>
+                  <td class="py-3 px-6">{{ $violation->description }}</td>
+                  <td>
+                    <button @click="selectedViolation = {{ $violation }}, showEditModal = true" type="button"
+                      class="bg-blue-500 text-white p-2 rounded-md mr-2">
+                      Edit
+                    </button>
 
-        <!-- Reject Form -->
-        <form action="{{ route('admin.deleteViolation', $violation->id) }}" method="POST"
-        style="display:inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Delete</button>
-        </form>
-        </td>
-      </tr>
-    @endforeach
-        </tbody>
-      </table>
-      </div>
-      <!-- Pagination -->
-      <div class="mt-4">
-      {{ $violationpage->links() }}
-      </div>
-    @endif
+                    <!-- Reject Form -->
+                    <form action="{{ route('admin.deleteViolation', $violation->id) }}" method="POST"
+                      style="display:inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="mt-4">
+            {{ $violationpage->links() }}
+          </div>
+          @endif
         </div>
       </div>
       <!-- Edit Modal -->

@@ -59,6 +59,7 @@ class RegistrarController extends Controller
     // 4. Create the head_osa_application record for the single Head OSA
     HeadOSAApplication::create([
       'student_id' => $student->student_id,
+      'fullname' => $student->fullname,
       'department' => $student->department,
       'reason' => $application->reason,
       'course_completed' => $application->course_completed, // New field
