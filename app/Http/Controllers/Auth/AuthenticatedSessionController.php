@@ -71,7 +71,7 @@ class AuthenticatedSessionController extends Controller
       'sec_osa' => route('sec_osa.dashboard'),
       'alumni' => route('dashboard'),
       'student' => route('dashboard'),
-      default => route('logout'), // fallback if unknown role
+      default => route('destroy'), // fallback if unknown role
     };
   }
 

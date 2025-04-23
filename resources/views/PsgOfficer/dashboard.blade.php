@@ -16,19 +16,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64'"
-      class="w-64 bg-gray-800 text-white min-h-screen fixed sm:relative left-0 transform transition-transform duration-300 sm:translate-x-0">
-
-      <div class="p-4 text-lg font-bold border-b border-gray-700">
-        PSG Officer Dashboard
-      </div>
-
-      <nav class="mt-4">
-        <a href="{{ route('PsgOfficer.PsgAddViolation') }}" class="block px-4 py-2 hover:bg-gray-700">Add Violator</a>
-        <a href="{{ route('PsgOfficer.Violator') }}" class="block px-4 py-2 hover:bg-gray-700">Violator</a>
-                          
-      </nav>
-    </aside>
+    @include('PsgOfficer.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">

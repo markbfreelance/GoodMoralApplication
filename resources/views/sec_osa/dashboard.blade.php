@@ -14,15 +14,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-gray-800 text-white min-h-screen fixed sm:relative left-0 transform transition-transform duration-300 sm:translate-x-0">
-      <div class="p-4 text-lg font-bold border-b border-gray-700">
-        Moderator Dashboard
-      </div>
-      <nav class="mt-4">
-        <a href="{{ route('sec_osa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('sec_osa.dashboard') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
-          Application
-        </a>
-    </aside>
+    @include('sec_osa.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">

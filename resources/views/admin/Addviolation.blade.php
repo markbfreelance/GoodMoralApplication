@@ -15,25 +15,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64'"
-      class="w-64 bg-gray-800 text-white min-h-screen fixed sm:relative left-0 transform transition-transform duration-300 sm:translate-x-0">
-
-      <div class="p-4 text-lg font-bold border-b border-gray-700">
-        Admin Panel
-      </div>
-
-      <nav class="mt-4">
-        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a>
-        <a href="{{ route('admin.Application') }}" class="block px-4 py-2 hover:bg-gray-700">Good Moral Application Monitoring</a>
-        <a href="{{ route('admin.AddAccount') }}" class="block px-4 py-2 hover:bg-gray-700">Add Account</a>
-        <a href="{{ route('admin.AddViolation') }}" class="block px-4 py-2 hover:bg-gray-700 
-   {{ request()->routeIs('admin.AddViolation') ? 'bg-gray-700 text-white' : 'text-gray-300' }}">
-          Add Violation
-        </a>
-        <a href="{{ route('admin.psgApplication') }}" class="block px-4 py-2 hover:bg-gray-700">PSG Application</a>
-        <a href="{{ route('admin.GMAApporvedByRegistrar') }}" class="block px-4 py-2 hover:bg-gray-700"> Good Moral Application Approve/Reject</a>
-      </nav>
-    </aside>
+    @include('admin.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 p-6 sm:px-8 lg:px-12">
