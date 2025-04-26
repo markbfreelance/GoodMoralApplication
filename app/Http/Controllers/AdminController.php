@@ -12,6 +12,7 @@ use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
 use App\Models\DeanApplication;
 use App\Traits\RoleCheck;
+use App\Models\NotifArchive;
 
 class AdminController extends Controller
 {
@@ -188,6 +189,22 @@ class AdminController extends Controller
       $goodMoralApplication->save();
     }
 
+    NotifArchive::create([
+      'number_of_copies' => $application->number_of_copies,
+      'reference_number' => $application->reference_number,
+      'fullname' => $application->fullname,
+      'reason' => $application->reason,
+      'student_id' => $goodMoralApplication->student_id,
+      'department' =>  $goodMoralApplication->department,
+      'course_completed' =>  $application->course_completed,  // Allowing this to be null
+      'graduation_date' => $application->graduation_date,
+      'application_status' => null,
+      'is_undergraduate' => $application->is_undergraduate,
+      'last_course_year_level'=> $application->last_course_year_level,
+      'last_semester_sy' => $application->last_semester_sy,
+      'status' => '-2',
+    ]);
+
     return redirect()->route('admin.GMAApporvedByRegistrar')->with('status', 'Application rejected!');
   }
 
@@ -219,6 +236,8 @@ class AdminController extends Controller
 
     // 4. Create the head_osa_application record for the single Head OSA
     DeanApplication::create([
+      'number_of_copies' => $application->number_of_copies,
+      'reference_number' => $application->reference_number,
       'student_id' => $student->student_id,
       'fullname' => $student->fullname,
       'department' => $student->department,
@@ -229,6 +248,22 @@ class AdminController extends Controller
       'last_course_year_level' => $application->last_course_year_level, // New field
       'last_semester_sy' => $application->last_semester_sy,  // New field
       'status' => 'pending', // Default status
+    ]);
+
+    NotifArchive::create([
+      'number_of_copies' => $application->number_of_copies,
+      'reference_number' => $application->reference_number,
+      'fullname' => $application->fullname,
+      'reason' => $application->reason,
+      'student_id' => $student->student_id,
+      'department' =>  $student->department,
+      'course_completed' =>  $application->course_completed,  // Allowing this to be null
+      'graduation_date' => $application->graduation_date,
+      'application_status' => null,
+      'is_undergraduate' => $application->is_undergraduate,
+      'last_course_year_level'=> $application->last_course_year_level,
+      'last_semester_sy' => $application->last_semester_sy,
+      'status' => '2',
     ]);
 
     return redirect()->route('admin.GMAApporvedByRegistrar')->with(

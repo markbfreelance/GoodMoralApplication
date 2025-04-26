@@ -15,6 +15,8 @@ return new class extends Migration {
       $table->string('department');
       $table->string('fullname');
       $table->string('reason');
+      $table->string('reference_number');
+      $table->string('number_of_copies');
       $table->string('course_completed')->nullable();
       $table->date('graduation_date')->nullable();
       $table->boolean('is_undergraduate')->default(false);

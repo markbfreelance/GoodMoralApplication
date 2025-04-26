@@ -109,6 +109,8 @@
     <div class="bg-white p-6 rounded-lg max-w-lg w-full">
       <h3 class="text-xl font-semibold mb-4">Application Details</h3>
       <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
+      <p><strong>Reference number:</strong> <span id="modalrefnum"></span></p>
+      <p><strong>Number of copies:</strong> <span id="modalnumcop"></span></p>
       <p><strong>Status:</strong> <span id="modalStatus"></span></p>
       <p><strong>Reason:</strong> <span id="modalReason"></span></p>
       <p><strong>Course Completed:</strong> <span id="modalCourseCompleted"></span></p>
@@ -129,6 +131,8 @@
       const application = JSON.parse(button.getAttribute('data-application'));
       document.getElementById('modal').classList.remove('hidden');
       document.getElementById('modalFullName').innerText = application.fullname;
+      document.getElementById('modalrefnum').innerText = application.reference_number;
+      document.getElementById('modalnumcop').innerText = application.number_of_copies;
       document.getElementById('modalStatus').innerText = application.status;
       document.getElementById('modalReason').innerText = application.reason;
       document.getElementById('modalCourseCompleted').innerText = application.course_completed ?? 'N/A';

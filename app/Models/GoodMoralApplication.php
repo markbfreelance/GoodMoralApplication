@@ -12,6 +12,8 @@ class GoodMoralApplication extends Model
   protected $fillable = [
     'fullname',
     'student_id',
+    'reference_number',
+    'number_of_copies',
     'status',
     'department',
     'reason',

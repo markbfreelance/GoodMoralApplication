@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DeanApplication;
 use App\Models\SecOSAApplication;
 use App\Models\GoodMoralApplication;
+use App\Models\NotifArchive;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
 
@@ -84,16 +85,33 @@ class DeanController extends Controller
     }
 
     SecOSAApplication::create([
+      'number_of_copies' => $application->number_of_copies,
+      'reference_number' => $application->reference_number,
       'student_id' => $student->student_id,
       'department' => $student->department,
       'reason' => $application->reason,
-      'fullname' => $application->fulname,
+      'fullname' => $application->fullname,
       'course_completed' => $application->course_completed, // New field
       'graduation_date' => $application->graduation_date,   // New field
       'is_undergraduate' => $application->is_undergraduate, // New field
       'last_course_year_level' => $application->last_course_year_level, // New field
       'last_semester_sy' => $application->last_semester_sy,  // New field
       'status' => 'pending',
+    ]);
+    NotifArchive::create([
+      'number_of_copies' => $application->number_of_copies,
+      'reference_number' => $application->reference_number,
+      'fullname' => $application->fullname,
+      'reason' => $application->reason,
+      'student_id' => $application->student_id,
+      'department' =>  $application->department,
+      'course_completed' =>  $application->course_completed,  // Allowing this to be null
+      'graduation_date' => $application->graduation_date,
+      'application_status' => null,
+      'is_undergraduate' => $application->is_undergraduate,
+      'last_course_year_level' => $application->last_course_year_level,
+      'last_semester_sy' => $application->last_semester_sy,
+      'status' => '3',
     ]);
 
     return redirect()->route('dean.dashboard')->with('status', 'Application approved and forwarded to Office of Student Affairs.');
@@ -131,6 +149,22 @@ class DeanController extends Controller
     // Update the application status to 'rejected'
     $application->status = 'rejected';
     $application->save();
+
+    NotifArchive::create([
+      'number_of_copies' => $goodMoralApplication->number_of_copies,
+      'reference_number' => $goodMoralApplication->reference_number,
+      'fullname' => $goodMoralApplication->fullname,
+      'reason' => $goodMoralApplication->reason,
+      'student_id' => $goodMoralApplication->student_id,
+      'department' =>  $goodMoralApplication->department,
+      'course_completed' =>  $goodMoralApplication->course_completed,  // Allowing this to be null
+      'graduation_date' => $goodMoralApplication->graduation_date,
+      'application_status' => null,
+      'is_undergraduate' => $goodMoralApplication->is_undergraduate,
+      'last_course_year_level' => $goodMoralApplication->last_course_year_level,
+      'last_semester_sy' => $goodMoralApplication->last_semester_sy,
+      'status' => '-3',
+    ]);
 
     return redirect()->route('dean.dashboard')->with('status', 'Application rejected!');
   }

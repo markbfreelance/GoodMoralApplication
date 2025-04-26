@@ -12,6 +12,8 @@ class DeanApplication extends Model
   protected $table = 'dean_applications'; // ✅ Explicit table name
 
   protected $fillable = [
+    'reference_number',
+    'number_of_copies',
     'application_id',
     'student_id',
     'department',

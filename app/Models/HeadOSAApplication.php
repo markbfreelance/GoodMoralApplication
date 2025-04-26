@@ -13,6 +13,8 @@ class HeadOSAApplication extends Model
 
   protected $fillable = [
     'application_id',
+    'reference_number',
+    'number_of_copies',
     'student_id',
     'department',
     'reason',

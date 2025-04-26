@@ -19,6 +19,10 @@ Route::get('/dashboard', [ApplicationController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('dashboard');
 
+  Route::get('/notification', [ApplicationController::class, 'notification'])
+  ->middleware(['auth', 'verified'])
+  ->name('notification');
+
 //admin route==================================================================================================================================================================
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
