@@ -43,14 +43,14 @@
       </svg>
       <span class="text-white">PSG Application</span>
     </a>
-    <a href="{{ route('admin.GMAApporvedByRegistrar') }}" class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300">
-      <!-- Icon for Good Moral Application Approve/Reject -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 12 4.25zM18 8.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 18 8.25zM6 8.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 6 8.25zM18 12.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 18 12.25zM6 12.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 6 12.25zM12 12.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 12 12.25zM18 16.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 18 16.25zM6 16.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 6 16.25zM12 16.25a1.75 1.75 0 1 1-1.75-1.75A1.75 1.75 0 0 1 12 16.25z" />
-      </svg>
-      <span class="text-white">Good Moral Application Approve/Reject</span>
-    </a>
 
+    <!-- Approve/Reject -->
+    <a href="{{ route('admin.GMAApporvedByRegistrar') }}" class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+      </svg>
+      <span class="text-white">GMA Approve/Reject</span>
+    </a>
 
     <!-- Logout -->
     <form method="POST" action="{{ route('logout') }}">

@@ -47,44 +47,46 @@
       <hr class="bg-gray-700">
 
       <!-- College Applications Overview -->
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div style="background-color: #083259;" class="text-white p-4 rounded shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mb-4">
+        <!-- SASTE -->
+        <div style="background-color: #083259;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSASTE.png" alt="SASTE Logo" class="h-36 object-contain" />
+            <img src="/images/deptLogos/logoSASTE.png" alt="SASTE Logo" class="h-28 object-contain" />
             <div>
-              <div class="text-8xl font-bold">{{ $saste }}</div>
+              <div class="text-7xl font-bold">{{ $saste }}</div>
               <div class="text-xl text-gray-300">Total Applicants</div>
             </div>
           </div>
         </div>
 
-        <div style="background-color: #096735;" class="text-white p-4 rounded shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+        <!-- SBAHM -->
+        <div style="background-color: #096735;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSBAHM.png" alt="SBAHM Logo" class="h-36 object-contain" />
+            <img src="/images/deptLogos/logoSBAHM.png" alt="SBAHM Logo" class="h-28 object-contain" />
             <div>
-              <div class="text-8xl font-bold">{{ $sbahm }}</div>
+              <div class="text-7xl font-bold">{{ $sbahm }}</div>
               <div class="text-xl text-gray-300">Total Applicants</div>
             </div>
           </div>
         </div>
 
         <!-- SITE -->
-        <div style="background-color: #730073;" class="text-white p-4 rounded shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+        <div style="background-color: #730073;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSITE.png" alt="SITE Logo" class="h-36 object-contain" />
+            <img src="/images/deptLogos/logoSITE.png" alt="SITE Logo" class="h-28 object-contain" />
             <div>
-              <div class="text-8xl font-bold">{{ $site }}</div>
+              <div class="text-7xl font-bold">{{ $site }}</div>
               <div class="text-xl text-gray-300">Total Applicants</div>
             </div>
           </div>
         </div>
 
         <!-- SNAHS -->
-        <div style="background-color: #de0f3f;" class="text-white p-4 rounded shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+        <div style="background-color: #de0f3f;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSNAHS.png" alt="SNAHS Logo" class="h-36 object-contain" />
+            <img src="/images/deptLogos/logoSNAHS.png" alt="SNAHS Logo" class="h-28 object-contain" />
             <div>
-              <div class="text-8xl font-bold">{{ $snahs }}</div>
+              <div class="text-7xl font-bold">{{ $snahs }}</div>
               <div class="text-xl text-gray-300">Total Applicants</div>
             </div>
           </div>
@@ -102,42 +104,95 @@
       $dashArray = $pendingPercent . ' ' . $compliedPercent;
       @endphp
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2 text-center">Minor Offenses</h3>
-
-          <!-- Donut Chart SVG -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-4">
+        <!-- Pie Chart Minor Offenses -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <span class="font-normal text-lg border-b-2 mb-4">Minor Offenses</span>
           <div class="flex justify-center">
-            <svg viewBox="0 0 36 36" class="w-24 h-24">
+            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
               <!-- Background circle -->
               <circle
-                cx="18" cy="18" r="16"
+                cx="60" cy="60" r="45"
                 fill="none"
                 stroke="#e5e7eb"
-                stroke-width="4" />
+                stroke-width="20" />
               <!-- Data circle -->
               <circle
-                cx="18" cy="18" r="16"
+                cx="60" cy="60" r="45"
                 fill="none"
                 stroke="#f87171"
-                stroke-width="4"
+                stroke-width="25"
                 stroke-dasharray="{{ $dashArray }}"
                 stroke-dashoffset="25"
-                transform="rotate(-90 18 18)" />
+                transform="rotate(-90 60 60)" />
             </svg>
           </div>
-
           <div class="text-sm text-center mt-2">
             <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
             <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
           </div>
         </div>
+        <!-- Overall Report Offenses -->
+        <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
+          <!-- Inside: two equal width boxes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <!-- Box 1 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Overall Report on Major Offenses</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+            <!-- Box 2 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Overall Report on Minor Offenses</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-
-
-        <div class="lg:col-span-2 bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2">Overall Report on Major Offenses</h3>
-          <div class="text-center">[Line Chart Placeholder]</div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
+        <!-- Pie Chart Minor Offenses -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
+          <div class="flex justify-center">
+            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
+              <!-- Background circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="20" />
+              <!-- Data circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#f87171"
+                stroke-width="25"
+                stroke-dasharray="{{ $dashArray }}"
+                stroke-dashoffset="25"
+                transform="rotate(-90 60 60)" />
+            </svg>
+          </div>
+          <div class="text-sm text-center mt-2">
+            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+          </div>
+        </div>
+        <!-- Overall Report Offenses -->
+        <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
+          <!-- Inside: two equal width boxes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <!-- Box 1 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Minor Violations</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+            <!-- Box 2 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Officers Application</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -150,117 +205,6 @@
       $dashArray = $pendingPercent . ' ' . $compliedPercent;
       @endphp
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold mb-2 text-center">Minor Offenses</h3>
-
-          <!-- Donut Chart SVG -->
-          <div class="flex justify-center">
-            <svg viewBox="0 0 36 36" class="w-24 h-24">
-              <!-- Background circle -->
-              <circle
-                cx="18" cy="18" r="16"
-                fill="none"
-                stroke="#e5e7eb"
-                stroke-width="4" />
-              <!-- Data circle -->
-              <circle
-                cx="18" cy="18" r="16"
-                fill="none"
-                stroke="#f87171"
-                stroke-width="4"
-                stroke-dasharray="{{ $dashArray }}"
-                stroke-dashoffset="25"
-                transform="rotate(-90 18 18)" />
-            </svg>
-          </div>
-
-          <div class="text-sm text-center mt-2">
-            <!-- Show the calculated percentages, not the raw values -->
-            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
-            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-2 bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl text-center mb-4">Minor Violations</h3>
-
-          <!-- Chart Grid Background -->
-          <div class="relative h-64 border-l border-b border-gray-300">
-            <!-- Horizontal Grid Lines -->
-            @for ($i = 1; $i <= 5; $i++)
-              <div class="absolute inset-x-0 border-t border-dashed border-gray-200" style="bottom: {{ $i * 20 }}%;">
-          </div>
-          @endfor
-
-          <!-- Vertical Bar Groups (by year) -->
-          <div class="flex justify-around items-end h-full px-4">
-            <!-- 2021 -->
-            <div class="flex flex-col items-center space-y-1">
-              <div class="flex items-end space-x-1 h-48">
-                <div class="bg-red-500 w-6" style="height: 60%"></div>
-                <div class="bg-yellow-500 w-6" style="height: 40%"></div>
-                <div class="bg-green-500 w-6" style="height: 80%"></div>
-                <div class="bg-blue-500 w-6" style="height: 30%"></div>
-                <div class="bg-purple-500 w-6" style="height: 50%"></div>
-              </div>
-              <span class="text-xs mt-1">2021</span>
-            </div>
-
-            <!-- 2022 -->
-            <div class="flex flex-col items-center space-y-1">
-              <div class="flex items-end space-x-1 h-48">
-                <div class="bg-red-500 w-6" style="height: 30%"></div>
-                <div class="bg-yellow-500 w-6" style="height: 70%"></div>
-                <div class="bg-green-500 w-6" style="height: 50%"></div>
-                <div class="bg-blue-500 w-6" style="height: 90%"></div>
-                <div class="bg-purple-500 w-6" style="height: 60%"></div>
-              </div>
-              <span class="text-xs mt-1">2022</span>
-            </div>
-
-            <!-- 2023 -->
-            <div class="flex flex-col items-center space-y-1">
-              <div class="flex items-end space-x-1 h-48">
-                <div class="bg-red-500 w-6" style="height: 40%"></div>
-                <div class="bg-yellow-500 w-6" style="height: 60%"></div>
-                <div class="bg-green-500 w-6" style="height: 30%"></div>
-                <div class="bg-blue-500 w-6" style="height: 80%"></div>
-                <div class="bg-purple-500 w-6" style="height: 70%"></div>
-              </div>
-              <span class="text-xs mt-1">2023</span>
-            </div>
-
-            <!-- 2024 -->
-            <div class="flex flex-col items-center space-y-1">
-              <div class="flex items-end space-x-1 h-48">
-                <div class="bg-red-500 w-6" style="height: 50%"></div>
-                <div class="bg-yellow-500 w-6" style="height: 20%"></div>
-                <div class="bg-green-500 w-6" style="height: 90%"></div>
-                <div class="bg-blue-500 w-6" style="height: 60%"></div>
-                <div class="bg-purple-500 w-6" style="height: 40%"></div>
-              </div>
-              <span class="text-xs mt-1">2024</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Legend -->
-        <div class="flex justify-center gap-4 mt-4 text-sm text-gray-700">
-          <div><span class="inline-block w-3 h-3 bg-red-500 mr-1"></span>Engineering</div>
-          <div><span class="inline-block w-3 h-3 bg-yellow-500 mr-1"></span>Business</div>
-          <div><span class="inline-block w-3 h-3 bg-green-500 mr-1"></span>Education</div>
-          <div><span class="inline-block w-3 h-3 bg-blue-500 mr-1"></span>IT</div>
-          <div><span class="inline-block w-3 h-3 bg-purple-500 mr-1"></span>Nursing</div>
-        </div>
-      </div>
-
-
-
-      <div class="bg-white p-4 rounded shadow">
-        <h3 class="font-semibold mb-2">Officers Application</h3>
-        <div class="text-center">[Bar Chart Placeholder]</div>
-      </div>
   </div>
   </main>
   </div>
