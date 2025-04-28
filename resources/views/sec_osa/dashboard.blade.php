@@ -1,14 +1,19 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      Moderator Dashboard
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Hello Moderator
+      </h2>
+    </div>
   </x-slot>
 
-  <div class="flex">
-    <!-- Sidebar Toggle Button (Positioned Below Header) -->
+  <div x-data="{ sidebarOpen: false }" class="flex">
+
+    <!-- Sidebar Toggle Button -->
     <div class="sm:hidden w-full bg-gray-100 border-b border-gray-300 py-2 flex justify-between px-4">
-      <button id="sidebarToggle" class="bg-gray-800 text-white p-2 rounded-md">
+      <button @click="sidebarOpen = !sidebarOpen"
+        class="bg-gray-800 text-white p-2 rounded-md">
         ☰ Menu
       </button>
     </div>
@@ -17,134 +22,190 @@
     @include('sec_osa.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
-        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
-
-        @if(session('status'))
-        <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
-          {{ session('status') }}
+    <main :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 p-4 transition-all duration-300">
+      <!-- Date and Search -->
+      <div class="flex flex-wrap justify-between items-center mb-6">
+        <div class="flex items-center gap-2 font-medium text-base text-gray-500">
+          <label>Select period:</label>
+          <input type="date" class="border-gray-500 rounded-lg">
+          <input type="date" class="border-gray-500 rounded-lg">
         </div>
-        @endif
-
-        @if($applications->isEmpty())
-        <p>No applications available.</p>
-        @else
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-          <thead>
-            <tr class="text-left border-b">
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($applications as $application)
-            <tr class="border-b">
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
-
-              <!-- hidden -->
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->reason }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->course_completed }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->graduation_date }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->graduation_date ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->is_undergraduate ? $application->is_undergraduate : 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_course_year_level ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_semester_s ?? 'N/A' }}
-              </td>
-              <!-- hidden -->
-
-              <!-- Actions -->
-              <td class="px-6 py-4 text-sm text-gray-600">
-                <!-- View Details Button -->
-                <button
-                  data-application='@json($application)'
-                  onclick="openModal(this)"
-                  class="bg-blue-500 text-white p-2 rounded-md">
-                  View Details
-                </button>
-                @if($application->status == 'pending')
-                <!-- Approve -->
-                <form action="{{ route('dean.approve', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('PATCH')
-                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
-                </form>
-
-                <!-- Reject -->
-                <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-                </form>
-                @else
-                <span class="text-gray-500">No action available</span>
-                @endif
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-        @endif
+        <div class="flex items-center gap-2 mt-2 sm:mt-0">
+          <!-- search -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <input type="text" placeholder="Search..." class="border-none bg-gray-100 px-2 py-1">
+          <div class="h-8 border border-gray-500 mx-4"></div>
+          <!-- filter -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500 ms-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+          </svg>
+          <button class="bg-gray-100 pe-4">Filter</button>
+        </div>
       </div>
-    </main>
-  </div>
+      <hr class="bg-gray-700">
 
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white p-6 rounded-lg max-w-lg w-full">
-      <h3 class="text-xl font-semibold mb-4">Application Details</h3>
-      <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
-      <p><strong>Reference Number:</strong> <span id="modalrefnum"></span></p>
-      <p><strong>Number of Copies:</strong> <span id="modalnumcop"></span></p>
-      <p><strong>Status:</strong> <span id="modalStatus"></span></p>
-      <p><strong>Reason:</strong> <span id="modalReason"></span></p>
-      <p><strong>Course Completed:</strong> <span id="modalCourseCompleted"></span></p>
-      <p><strong>Graduation Date:</strong> <span id="modalGraduationDate"></span></p>
-      <p><strong>Undergraduate:</strong> <span id="modalUndergraduate"></span></p>
-      <p><strong>Last Course Year Level:</strong> <span id="modalLastCourseYearLevel"></span></p>
-      <p><strong>Last Semester SY:</strong> <span id="modalLastSemesterSY"></span></p>
+      <!-- College Applications Overview -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mb-4">
+        <!-- SASTE -->
+        <div style="background-color: #083259;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <img src="/images/deptLogos/logoSASTE.png" alt="SASTE Logo" class="h-28 object-contain" />
+            <div>
+              <div class="text-7xl font-bold">{{ $saste }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
 
-      <div class="mt-4 flex justify-end">
-        <button onclick="closeModal()" class="bg-gray-500 text-white p-2 rounded-md">Close</button>
+        <!-- SBAHM -->
+        <div style="background-color: #096735;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <img src="/images/deptLogos/logoSBAHM.png" alt="SBAHM Logo" class="h-28 object-contain" />
+            <div>
+              <div class="text-7xl font-bold">{{ $sbahm }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SITE -->
+        <div style="background-color: #730073;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <img src="/images/deptLogos/logoSITE.png" alt="SITE Logo" class="h-28 object-contain" />
+            <div>
+              <div class="text-7xl font-bold">{{ $site }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SNAHS -->
+        <div style="background-color: #de0f3f;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <img src="/images/deptLogos/logoSNAHS.png" alt="SNAHS Logo" class="h-28 object-contain" />
+            <div>
+              <div class="text-7xl font-bold">{{ $snahs }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+
+      <!-- Charts Section -->
+      @php
+      $total = $minorpending + $minorcomplied;
+      // Calculate the percentages for Pending and Complied
+      $pendingPercent = $total > 0 ? ($minorpending / $total) * 100 : 0;
+      $compliedPercent = 100 - $pendingPercent;
+      // Prepare the dash array for the SVG donut chart
+      $dashArray = $pendingPercent . ' ' . $compliedPercent;
+      @endphp
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-4">
+        <!-- Pie Chart Minor Offenses -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <span class="font-normal text-lg border-b-2 mb-4">Minor Offenses</span>
+          <div class="flex justify-center">
+            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
+              <!-- Background circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="20" />
+              <!-- Data circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#f87171"
+                stroke-width="25"
+                stroke-dasharray="{{ $dashArray }}"
+                stroke-dashoffset="25"
+                transform="rotate(-90 60 60)" />
+            </svg>
+          </div>
+          <div class="text-sm text-center mt-2">
+            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+          </div>
+        </div>
+        <!-- Overall Report Offenses -->
+        <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
+          <!-- Inside: two equal width boxes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <!-- Box 1 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Overall Report on Major Offenses</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+            <!-- Box 2 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Overall Report on Minor Offenses</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
+        <!-- Pie Chart Minor Offenses -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
+          <div class="flex justify-center">
+            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
+              <!-- Background circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="20" />
+              <!-- Data circle -->
+              <circle
+                cx="60" cy="60" r="45"
+                fill="none"
+                stroke="#f87171"
+                stroke-width="25"
+                stroke-dasharray="{{ $dashArray }}"
+                stroke-dashoffset="25"
+                transform="rotate(-90 60 60)" />
+            </svg>
+          </div>
+          <div class="text-sm text-center mt-2">
+            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+          </div>
+        </div>
+        <!-- Overall Report Offenses -->
+        <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
+          <!-- Inside: two equal width boxes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <!-- Box 1 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Minor Violations</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+            <!-- Box 2 -->
+            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
+              <span class="text-lg mb-2">Officers Application</span>
+              <div class="text-center flex-grow">[Placeholder for content]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @php
+      $total = $majorpending + $majorcomplied;
+      // Calculate the percentages for Pending and Complied
+      $pendingPercent = $total > 0 ? ($majorpending / $total) * 100 : 0;
+      $compliedPercent = 100 - $pendingPercent;
+      // Prepare the dash array for the SVG donut chart
+      $dashArray = $pendingPercent . ' ' . $compliedPercent;
+      @endphp
+
   </div>
-
-  <script>
-    // Open the modal and populate it with data
-    function openModal(button) {
-      const application = JSON.parse(button.getAttribute('data-application'));
-      document.getElementById('modal').classList.remove('hidden');
-      document.getElementById('modalFullName').innerText = application.student.fullname;
-      document.getElementById('modalrefnum').innerText = application.reference_number;
-      document.getElementById('modalnumcop').innerText = application.number_of_copies;
-      document.getElementById('modalStatus').innerText = application.status;
-      document.getElementById('modalReason').innerText = application.reason;
-      document.getElementById('modalCourseCompleted').innerText = application.course_completed ?? 'N/A';
-      document.getElementById('modalGraduationDate').innerText = application.graduation_date ?? 'N/A';
-      document.getElementById('modalUndergraduate').innerText = (application.is_undergraduate !== null && application.is_undergraduate !== 0) ? 'Yes' : 'N/A';
-      document.getElementById('modalLastCourseYearLevel').innerText = application.last_course_year_level ?? 'N/A';
-      document.getElementById('modalLastSemesterSY').innerText = application.last_semester_s ?? 'N/A';
-    }
-
-
-    // Close the modal
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
-  </script>
+  </main>
+  </div>
 </x-app-layout>

@@ -19,7 +19,7 @@ Route::get('/dashboard', [ApplicationController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('dashboard');
 
-  Route::get('/notification', [ApplicationController::class, 'notification'])
+Route::get('/notification', [ApplicationController::class, 'notification'])
   ->middleware(['auth', 'verified'])
   ->name('notification');
 
@@ -137,6 +137,11 @@ Route::delete('/head_osa/application/{id}/reject', [HeadOSAController::class, 'r
 Route::get('/sec_osa/dashboard', [SecOSAController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.dashboard');
+
+// Sec_OSA Application Route==================================================================================================================================================================
+Route::get('/sec_osa/application', [SecOSAController::class, 'application'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.application');
 
 // Approve Sec_OSA Application Route==================================================================================================================================================================
 Route::patch('/ /application/{id}/approve', [SecOSAController::class, 'approve'])
