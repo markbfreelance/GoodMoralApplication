@@ -1,5 +1,5 @@
 <x-app-layout>
-<x-slot name="header">
+  <x-slot name="header">
     <div class="flex items-center space-x-4">
       <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -24,84 +24,83 @@
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
-        @if(session('status'))
-        <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
-          {{ session('status') }}
-        </div>
-        @endif
+        @if(session('withErrors'))
+      <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
+        {{ session('withErrors') }}
+      </div>
+    @endif
 
         @if($applications->isEmpty())
-        <p>No applications available.</p>
-        @else
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-          <thead>
-            <tr class="text-left border-b">
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($applications as $application)
-            <tr class="border-b">
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+      <p>No applications available.</p>
+    @else
+    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+      <thead>
+      <tr class="text-left border-b">
+        <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+        <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
+        <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
+        <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+        <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach($applications as $application)
+      <tr class="border-b">
+      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
 
-              <!-- hidden -->
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->reason }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->course_completed }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->graduation_date }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->graduation_date ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->is_undergraduate ? $application->is_undergraduate : 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_course_year_level ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_semester_s ?? 'N/A' }}
-              </td>
-              <!-- hidden -->
+      <!-- hidden -->
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->reason }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->course_completed }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->graduation_date }}</td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>
+      {{ $application->graduation_date ?? 'N/A' }}
+      </td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>
+      {{ $application->is_undergraduate ? $application->is_undergraduate : 'N/A' }}
+      </td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>
+      {{ $application->last_course_year_level ?? 'N/A' }}
+      </td>
+      <td class="px-6 py-4 text-sm text-gray-600" hidden>
+      {{ $application->last_semester_s ?? 'N/A' }}
+      </td>
+      <!-- hidden -->
 
-              <!-- Actions -->
-              <td class="px-6 py-4 text-sm text-gray-600">
-                <!-- View Details Button -->
-                <button
-                  data-application='@json($application)'
-                  onclick="openModal(this)"
-                  class="bg-blue-500 text-white p-2 rounded-md">
-                  View Details
-                </button>
-                @if($application->status == 'pending')
-                <!-- Approve -->
-                <form action="{{ route('dean.approve', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('PATCH')
-                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
-                </form>
+      <!-- Actions -->
+      <td class="px-6 py-4 text-sm text-gray-600">
+      <!-- View Details Button -->
+      <button data-application='@json($application)' onclick="openModal(this)"
+        class="bg-blue-500 text-white p-2 rounded-md">
+        View Details
+      </button>
+      @if($application->status == 'pending')
+      <!-- Approve -->
+      <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" style="display:inline;">
+      @csrf
+      @method('PATCH') <!-- This tells the form to use the PATCH HTTP method -->
+      <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Print</button>
+      </form>
 
-                <!-- Reject -->
-                <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-                </form>
-                @else
-                <span class="text-gray-500">No action available</span>
-                @endif
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-        @endif
+
+      <!-- Reject -->
+      <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
+      </form>
+    @else
+      <span class="text-gray-500">Already Printed</span>
+    @endif
+      </td>
+      </tr>
+    @endforeach
+      </tbody>
+    </table>
+  @endif
       </div>
     </main>
   </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\DeanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; 
 
 Route::get('/', function () {
   return view('welcome');
@@ -144,9 +145,10 @@ Route::get('/sec_osa/application', [SecOSAController::class, 'application'])
   ->name('sec_osa.application');
 
 // Approve Sec_OSA Application Route==================================================================================================================================================================
-Route::patch('/ /application/{id}/approve', [SecOSAController::class, 'approve'])
+Route::patch('/application/{id}/approve', [SecOSAController::class, 'approve'])
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.approve');
+
 
 // Reject Sec_OSA Application Route==================================================================================================================================================================
 Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'reject'])

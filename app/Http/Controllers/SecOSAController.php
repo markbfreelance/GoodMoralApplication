@@ -7,6 +7,10 @@ use App\Traits\RoleCheck;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentViolation;
 use App\Models\Violation;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request; // Add this line
+use Illuminate\Support\Facades\Log;
 
 class SecOSAController extends Controller
 {
@@ -35,7 +39,7 @@ class SecOSAController extends Controller
     $violationpage = Violation::paginate(10);
 
     $applications = SecOSAApplication::where('status', 'pending')->get();
-    return view('sec_osa.dashboard', compact('applications','site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
+    return view('sec_osa.dashboard', compact('applications', 'site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
   }
 
   public function application()
@@ -44,17 +48,57 @@ class SecOSAController extends Controller
 
     return view('sec_osa.Application', compact('applications'));
   }
-
-  public function approve($id)
+  public function approve(Request $request, $id)
   {
-    $application = SecOSAApplication::findOrFail($id);
-    $sec_osa = Auth::user();
-    $application->status = 'approved' . $sec_osa->fullname;
-    $application->save();
+    try {
+      // 1. Find the application
+      $application = SecOSAApplication::findOrFail($id);
 
-    return redirect()->route('sec_osa.dashboard')->with('status', 'Application approved!');
+      // 2. Update application status
+      $application->status = 'approved';
+      $application->save();
+
+      // 3. Get current user
+      $sec_osa = Auth::user();
+
+      // 4. Prepare data for the PDF
+      $data = [
+        'title' => 'Application Approved',
+        'application' => $application,
+        'approved_by' => $sec_osa->fullname,
+      ];
+
+      // 5. Generate PDF
+      $pdf = Pdf::loadView('pdf.my_pdf_view', $data);
+      Log::info('PDF generated successfully.');
+
+      // 6. Ensure directory exists
+      Storage::makeDirectory('public/pdfs');
+
+      // 7. Save the file
+      $filename = "application_{$id}.pdf";
+      $relativePath = "public/pdfs/{$filename}";
+      $saved = Storage::put($relativePath, $pdf->output());
+
+      if ($saved) {
+        $fullPath = Storage::path($relativePath);
+        Log::info("PDF saved to: " . $fullPath);
+
+        if (file_exists($fullPath)) {
+          return response()->download($fullPath);
+        } else {
+          Log::error("File not found at path: $fullPath");
+          return back()->withErrors("PDF saved but not found.");
+        }
+      } else {
+        Log::error("PDF could not be saved.");
+        return back()->withErrors("PDF could not be saved.");
+      }
+    } catch (\Exception $e) {
+      Log::error("Approve Error: " . $e->getMessage());
+      return back()->withErrors("An error occurred: " . $e->getMessage());
+    }
   }
-
   public function reject($id)
   {
     $application = SecOSAApplication::findOrFail($id);
@@ -64,3 +108,4 @@ class SecOSAController extends Controller
     return redirect()->route('sec_osa.dashboard')->with('status', 'Application rejected!');
   }
 }
+
