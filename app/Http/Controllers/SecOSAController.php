@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SecOSAApplication;
+use App\Models\NotifArchive;
 use App\Traits\RoleCheck;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentViolation;
@@ -61,6 +62,22 @@ class SecOSAController extends Controller
       // 3. Get current user
       $sec_osa = Auth::user();
 
+      NotifArchive::create([
+        'number_of_copies' => $application->number_of_copies,
+        'reference_number' => $application->reference_number,
+        'fullname' => $application->fullname,
+        'reason' => $application->reason,
+        'student_id' => $application->student_id,
+        'department' =>  $application->department,
+        'course_completed' =>  $application->course_completed,  // Allowing this to be null
+        'graduation_date' => $application->graduation_date,
+        'application_status' => null,
+        'is_undergraduate' => $application->is_undergraduate,
+        'last_course_year_level'=> $application->last_course_year_level,
+        'last_semester_sy' => $application->last_semester_sy,
+        'status' => '4',
+      ]);
+
       // 4. Prepare data for the PDF
       $data = [
         'title' => 'Application Approved',
@@ -76,7 +93,7 @@ class SecOSAController extends Controller
       Storage::makeDirectory('public/pdfs');
 
       // 7. Save the file
-      $filename = "application_{$id}.pdf";
+      $filename = "application_{$application->reference_number}.pdf";
       $relativePath = "public/pdfs/{$filename}";
       $saved = Storage::put($relativePath, $pdf->output());
 

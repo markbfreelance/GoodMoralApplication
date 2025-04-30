@@ -43,7 +43,9 @@
                       @elseif($notification->status == '2')
                         border-yellow-500 border                      
                       @elseif($notification->status == '3')
-                        border-green-500 border                    
+                        border-green-500 border
+                      @elseif($notification->status == '4')
+                        border-green-500 border                       
                       @elseif($notification->status == '-1')
                         border-red-500 border
                       @elseif($notification->status == '-2')
@@ -75,6 +77,8 @@
                             bg-yellow-500                          
                           @elseif($notification->status == '3')
                             bg-green-500
+                          @elseif($notification->status == '4')
+                            bg-green-500
                           @elseif($notification->status == '-1')
                             bg-red-500
                           @elseif($notification->status == '-2')
@@ -99,6 +103,8 @@
                       Your application has been approved by the Administrator.
                       @elseif($notification->status == '3')
                       Your application has been approved by the dean.
+                      @elseif($notification->status == '4')
+                      Your application is now ready for pick up.
                       @else
                       {{ ucfirst($notification->status) }}
                       @endif

@@ -24,9 +24,9 @@
       <div class="bg-white shadow-sm sm:rounded-lg p-6">
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
-        @if(session('withErrors'))
+        @if(session('success'))
       <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
-        {{ session('withErrors') }}
+        {{ session('success') }}
       </div>
     @endif
 
