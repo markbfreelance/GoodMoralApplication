@@ -27,10 +27,14 @@ class RegistrarController extends Controller
     // Apply role check for all methods in this controller
     $this->checkRole(['registrar']);
   }
+
   public function dashboard()
   {
+    // Get the 'perPage' parameter from the request, default to 10 if not provided
+    $perPage = request()->get('perPage', 10);
 
-    $applications = GoodMoralApplication::where('status', 'pending')->get();
+    // Paginate the applications based on the 'perPage' value
+    $applications = GoodMoralApplication::where('status', 'pending')->paginate($perPage);
 
     return view('registrar.dashboard', compact('applications'));
   }
@@ -87,7 +91,7 @@ class RegistrarController extends Controller
       'graduation_date' => $application->graduation_date,
       'application_status' => null,
       'is_undergraduate' => $application->is_undergraduate,
-      'last_course_year_level'=> $application->last_course_year_level,
+      'last_course_year_level' => $application->last_course_year_level,
       'last_semester_sy' => $application->last_semester_sy,
       'status' => '1',
     ]);
@@ -112,7 +116,7 @@ class RegistrarController extends Controller
     $application->application_status = 'Rejected By Registrar' . $registrar->fullname;
     $application->save();
 
-    
+
     $application = GoodMoralApplication::findOrFail($id);
     NotifArchive::create([
       'number_of_copies' => $application->number_of_copies,
@@ -125,7 +129,7 @@ class RegistrarController extends Controller
       'graduation_date' => $application->graduation_date,
       'application_status' => null,
       'is_undergraduate' => $application->is_undergraduate,
-      'last_course_year_level'=> $application->last_course_year_level,
+      'last_course_year_level' => $application->last_course_year_level,
       'last_semester_sy' => $application->last_semester_sy,
       'status' => '-1',
     ]);

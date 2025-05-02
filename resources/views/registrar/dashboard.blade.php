@@ -45,13 +45,32 @@
       <hr class="bg-gray-700">
 
       <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
-        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
+        <div class="flex justify-between">
+          <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
-        @if(session('status'))
-        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
-          {{ session('status') }}
+          @if(session('status'))
+          <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+            {{ session('status') }}
+          </div>
+          @endif
+
+          <!-- Filter for records per page -->
+          <div class="mb-4 flex items-center">
+            <form action="{{ url()->current() }}" method="GET" class="flex items-center">
+              <label for="recordsPerPage" class="mr-2 text-sm font-medium text-gray-700">Show</label>
+              <select
+                name="perPage"
+                id="recordsPerPage"
+                class="border border-gray-300 rounded-md p-2 text-sm w-20"
+                onchange="this.form.submit()">
+                <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
+                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+              </select>
+              <span class="ml-2 text-sm text-gray-700">entries</span>
+            </form>
+          </div>
         </div>
-        @endif
 
         <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
@@ -76,7 +95,7 @@
               <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
               <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
 
-              <!-- hidden -->
+              <!-- hidden fields -->
               <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
               <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->reason }}</td>
               <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->course_completed }}</td>
@@ -93,7 +112,7 @@
               <td class="px-6 py-4 text-sm text-gray-600" hidden>
                 {{ $application->last_semester_s ?? 'N/A' }}
               </td>
-              <!-- hidden -->
+              <!-- /hidden -->
 
               <!-- Actions -->
               <td class="px-6 py-4 text-sm text-gray-600 align-middle border border-gray-300">
@@ -141,10 +160,15 @@
 
             </tr>
             @endforeach
+            @endif
           </tbody>
         </table>
-        @endif
+        <!-- Force the pagination to be visible for debugging -->
+        <div class="mt-4 align-middle">
+          {{ $applications->links() }}
+        </div>
       </div>
+
     </main>
   </div>
 
