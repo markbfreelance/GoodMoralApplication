@@ -1,8 +1,11 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      Registrar Dashboard
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Registrar
+      </h2>
+    </div>
   </x-slot>
 
   <div class="flex">
@@ -17,8 +20,31 @@
     @include('registrar.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+    <main class="flex-1 p-4">
+      <!-- Date and Search -->
+      <div class="flex flex-wrap justify-between items-center mb-6">
+        <div class="flex items-center gap-2 font-medium text-base text-gray-500">
+          <label>Select period:</label>
+          <input type="date" class="border-gray-500 rounded-lg">
+          <input type="date" class="border-gray-500 rounded-lg">
+        </div>
+        <div class="flex items-center gap-2 mt-2 sm:mt-0">
+          <!-- search -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <input type="text" placeholder="Search..." class="border-none bg-gray-100 px-2 py-1">
+          <div class="h-8 border border-gray-500 mx-4"></div>
+          <!-- filter -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500 ms-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+          </svg>
+          <button class="bg-gray-100 pe-4">Filter</button>
+        </div>
+      </div>
+      <hr class="bg-gray-700">
+
+      <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if(session('status'))
@@ -27,26 +53,28 @@
         </div>
         @endif
 
-        @if($applications->isEmpty())
-        <p>No applications available.</p>
-        @else
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
-            <tr class="text-left border-b">
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
+            <tr class="text-left border-b bg-gray-100">
+              <th class="w-1/5 border border-gray-300 px-6 py-3 text-sm font-semibold text-black">Student ID</th>
+              <th class="w-1/5 border border-gray-300 px-6 py-3 text-sm font-semibold text-black">Name</th>
+              <th class="w-1/5 border border-gray-300 px-6 py-3 text-sm font-semibold text-black">Department</th>
+              <th class="w-1/5 border border-gray-300 px-6 py-3 text-sm font-semibold text-black">Status</th>
+              <th class="w-1/5 border border-gray-300 px-6 py-3 text-sm font-semibold text-black">Action</th>
             </tr>
           </thead>
           <tbody>
+            @if($applications->isEmpty())
+            <tr>
+              <td colspan="5" class="text-center py-4 text-gray-500">No applications available.</td>
+            </tr>
+            @else
             @foreach($applications as $application)
             <tr class="border-b">
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+              <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+              <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+              <td class="w-1/5 border border-gray-300 px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
 
               <!-- hidden -->
               <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
@@ -68,35 +96,49 @@
               <!-- hidden -->
 
               <!-- Actions -->
-              <td class="px-6 py-4 text-sm text-gray-600">
-                <!-- View Details Button -->
-                <button
-                  data-application='@json($application)'
-                  onclick="openModal(this)"
-                  class="bg-blue-500 text-white p-2 rounded-md">
-                  View Details
-                </button>
+              <td class="px-6 py-4 text-sm text-gray-600 align-middle border border-gray-300">
+                <div class="flex flex-col sm:flex-row w-full gap-2">
+                  <!-- Details Button -->
+                  <div class="w-full sm:flex-1">
+                    <button
+                      data-application='@json($application)'
+                      onclick="openModal(this)"
+                      class="w-full bg-blue-500 text-white py-2 px-4 rounded-md text-sm text-center">
+                      Details
+                    </button>
+                  </div>
 
+                  @if($application->status == 'pending')
+                  <!-- Approve Button -->
+                  <div class="w-full sm:flex-1">
+                    <form action="{{ route('registrar.approve', $application->id) }}" method="POST">
+                      @csrf
+                      @method('PATCH')
+                      <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md text-sm">
+                        Approve
+                      </button>
+                    </form>
+                  </div>
 
-
-                @if($application->status == 'pending')
-                <!-- Approve Form -->
-                <form action="{{ route('registrar.approve', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('PATCH')
-                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Approve</button>
-                </form>
-
-                <!-- Reject Form -->
-                <form action="{{ route('registrar.reject', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-                </form>
-                @else
-                <span class="text-gray-500">No action available</span>
-                @endif
+                  <!-- Reject Button -->
+                  <div class="w-full sm:flex-1">
+                    <form action="{{ route('registrar.reject', $application->id) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="w-full bg-red-500 text-white py-2 px-4 rounded-md text-sm">
+                        Reject
+                      </button>
+                    </form>
+                  </div>
+                  @else
+                  <!-- No Action -->
+                  <div class="w-full sm:flex-1">
+                    <span class="block text-center text-gray-500 py-2 bg-gray-100 rounded-md">No action</span>
+                  </div>
+                  @endif
+                </div>
               </td>
+
             </tr>
             @endforeach
           </tbody>
@@ -107,7 +149,7 @@
   </div>
 
   <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 items-center justify-center z-50 hidden">
     <div class="bg-white p-6 rounded-lg max-w-lg w-full">
       <h3 class="text-xl font-semibold mb-4">Application Details</h3>
       <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
