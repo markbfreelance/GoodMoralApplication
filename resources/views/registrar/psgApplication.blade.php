@@ -43,7 +43,7 @@
         </div>
       </div>
       <hr class="bg-gray-700">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+      <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
 
         @if(session('status'))
         <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
