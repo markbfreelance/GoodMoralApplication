@@ -7,19 +7,19 @@
       class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
       Go to Dashboard
     </a>
-  @else
-  <a href="{{ route('login') }}"
-    class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-    Sign In
-  </a>
-  @if (Route::has('register'))
-    <a href="{{ route('register') }}"
-    class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-    Create an Account
+    @else
+    <a href="{{ route('login') }}"
+      class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      Sign In
     </a>
-  @endif
-@endauth
-  @endif
+    @if (Route::has('register'))
+    <a href="{{ route('register') }}"
+      class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      Create an Account
+    </a>
+    @endif
+    @endauth
+    @endif
   </nav>
 </header>
 <x-guest-layout>
@@ -53,11 +53,46 @@
         <option value="SITE">SITE</option>
         <option value="SBAHM">SBAHM</option>
         <option value="SASTE">SASTE</option>
-        <option value="BEU">BEU</option>
         <option value="SNAHS">SNAHS</option>
       </select>
       <x-input-error :messages="$errors->get('department')" class="mt-2" />
     </div>
+
+    <div id="course-dropdown" class="mt-4 hidden">
+      <x-input-label for="year_level" :value="__('Course')" />
+      <select id="year_level" name="year_level" required
+        class="block mt-1 w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100">
+        <option value="" disabled selected>Select Course</option>
+      </select>
+      <x-input-error :messages="$errors->get('year_level')" class="mt-2" />
+    </div>
+
+    <script>
+      const coursesByDepartment = @json($coursesByDepartment);
+
+      document.getElementById('department').addEventListener('change', function() {
+        const department = this.value;
+        const courseDropdown = document.getElementById('course-dropdown');
+        const courseSelect = document.getElementById('year_level');
+
+        // Clear existing options
+        courseSelect.innerHTML = '<option value="" disabled selected>Select Course</option>';
+
+        if (coursesByDepartment[department]) {
+          coursesByDepartment[department].forEach(course => {
+            const option = document.createElement('option');
+            option.value = course;
+            option.textContent = course;
+            courseSelect.appendChild(option);
+          });
+
+          courseDropdown.classList.remove('hidden');
+        } else {
+          courseDropdown.classList.add('hidden');
+        }
+      });
+    </script>
+
 
     <!-- Account Type -->
     <div class="mt-4">
@@ -85,13 +120,13 @@
     </div>
 
     <!-- Year level  -->
-    <div class="mt-4">
+    <!-- <div class="mt-4">
       <x-input-label for="year_level" :value="__('Year Level')" />
       <x-text-input id="year_level"
         class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
         type="text" name="year_level" :value="old('year_level')" required placeholder="Year / Course" />
       <x-input-error :messages="$errors->get('year_level')" class="mt-2" />
-    </div>
+    </div> -->
 
     <!-- Email Address -->
     <div class="mt-4">

@@ -20,9 +20,16 @@ class RegisteredUserController extends Controller
   /**
    * Display the registration view.
    */
-  public function create(): View
+  public function create()
   {
-    return view('auth.register');
+    $coursesByDepartment = [
+      'SITE' => ['BSIT', 'BLIS', 'BS ENSE', 'BS CpE', 'BSCE'],
+      'SBAHM' => ['BSA', 'BSE', 'BSBAMM', 'BSBA MFM', 'BSBA MOP', 'BSMA', 'BSHM', 'BSTM', 'BSPDMI'],
+      'SASTE' => ['BAELS', 'BS Psych', 'BS Bio', 'BSSW', 'BSPA', 'BS Bio MB', 'BSEd', 'BEEd', 'BPEd'],
+      'SNAHS' => ['BSN', 'BSPh', 'BSMT', 'BSPT', 'BSRT'],
+    ];
+
+    return view('auth.register', compact('coursesByDepartment'));
   }
 
   /**
@@ -54,9 +61,9 @@ class RegisteredUserController extends Controller
         'account_type' => $request->account_type,
         'year_level' => $request->year_level,
       ]);
-  
+
       $user1 = RoleAccount::create([
-        'fullname' => $request->fname.",".$request->lname,
+        'fullname' => $request->fname . "," . $request->lname,
         'department' => $request->department,
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
@@ -66,8 +73,7 @@ class RegisteredUserController extends Controller
       ]);
 
       return redirect(route('login'))->with('status', 'Your account was succesfully created.');
-    }
-    else {
+    } else {
       $user = StudentRegistration::create([
         'fname' => $request->fname,
         'lname' => $request->lname,
@@ -79,9 +85,9 @@ class RegisteredUserController extends Controller
         'account_type' => $request->account_type,
         'year_level' => $request->year_level,
       ]);
-  
+
       $user1 = RoleAccount::create([
-        'fullname' => $request->fname.",".$request->lname,
+        'fullname' => $request->fname . "," . $request->lname,
         'department' => $request->department,
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
@@ -89,10 +95,8 @@ class RegisteredUserController extends Controller
         'status' => "4",
         'account_type' => $request->account_type,
       ]);
-  
+
       return redirect(route('login'))->with('status', 'Your account is pending approval. Please wait for further instructions.');
     }
-    
-   
   }
 }
