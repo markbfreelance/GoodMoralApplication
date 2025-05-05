@@ -29,10 +29,11 @@ class DeanController extends Controller
   public function dashboard()
   {
     //Applicants per department
-    $site = GoodMoralApplication::where('department', 'SITE')->count();
-    $saste = GoodMoralApplication::where('department', 'SASTE')->count();
-    $sbahm = GoodMoralApplication::where('department', 'SBAHM')->count();
-    $snahs = GoodMoralApplication::where('department', 'SNAHS')->count();
+    $bsit = GoodMoralApplication::where('course_completed', 'BSIT')->count();
+    $blis = GoodMoralApplication::where('course_completed', 'BSIT')->count();
+    $bsce = GoodMoralApplication::where('course_completed', 'BSIT')->count();
+    $bscpe = GoodMoralApplication::where('course_completed', 'BSIT')->count();
+    $bsense = GoodMoralApplication::where('course_completed', 'BSIT')->count();
 
     //For Pie Chart stats
     $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
@@ -41,7 +42,18 @@ class DeanController extends Controller
     $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
     //Pageinate
     $violationpage = Violation::paginate(10);
-    return view('dean.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
+    return view('dean.dashboard', compact(
+    'minorpending', 
+    'minorcomplied', 
+    'majorpending', 
+    'majorcomplied', 
+    'violationpage', 
+    'bsit', 
+    'blis',
+    'bsce',
+    'bscpe',
+    'bsense', 
+  ));
   }
 
   public function application()

@@ -1,3 +1,13 @@
+@php
+$programs = [
+  ['abbr1' => 'BS', 'abbr2' => 'IT', 'count' => $bsit],
+  ['abbr1' => 'BL', 'abbr2' => 'IS', 'count' => $blis],
+  ['abbr1' => 'BS', 'abbr2' => 'CE', 'count' => $bsce],
+  ['abbr1' => 'BS', 'abbr2' => 'CpE', 'count' => $bscpe],
+  ['abbr1' => 'BS', 'abbr2' => 'ENSE', 'count' => $bsense],
+];
+@endphp
+
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
@@ -46,53 +56,23 @@
       </div>
       <hr class="bg-gray-700">
 
-      <!-- College Applications Overview -->
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mb-4">
-        <!-- SASTE -->
-        <div style="background-color: #083259;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+      <!-- SITE Applications Overview -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-5 gap-4 mb-4">
+        @foreach ($programs as $program)
+        <div style="background-color: #730073;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSASTE.png" alt="SASTE Logo" class="h-28 object-contain" />
-            <div>
-              <div class="text-7xl font-bold">{{ $saste }}</div>
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #a64ca6;">
+              <span>{{ $program['abbr1'] }}</span>
+              <span>{{ $program['abbr2'] }}</span>
+            </div>
+            <div class="flex flex-col justify-center h-full">
+              <div class="text-7xl font-bold">{{ $program['count'] }}</div>
               <div class="text-xl text-gray-300">Total Applicants</div>
             </div>
           </div>
         </div>
-
-        <!-- SBAHM -->
-        <div style="background-color: #096735;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
-          <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSBAHM.png" alt="SBAHM Logo" class="h-28 object-contain" />
-            <div>
-              <div class="text-7xl font-bold">{{ $sbahm }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SITE -->
-        <div style="background-color: #730073;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
-          <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSITE.png" alt="SITE Logo" class="h-28 object-contain" />
-            <div>
-              <div class="text-7xl font-bold">{{ $site }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SNAHS -->
-        <div style="background-color: #de0f3f;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
-          <div class="flex items-center space-x-4">
-            <img src="/images/deptLogos/logoSNAHS.png" alt="SNAHS Logo" class="h-28 object-contain" />
-            <div>
-              <div class="text-7xl font-bold">{{ $snahs }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
-
 
       <!-- Charts Section -->
       @php
