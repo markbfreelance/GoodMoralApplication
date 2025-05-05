@@ -28,12 +28,19 @@ class DeanController extends Controller
 
   public function dashboard()
   {
-    //Applicants per department
+    //Applicants per course
     $bsit = GoodMoralApplication::where('course_completed', 'BSIT')->count();
-    $blis = GoodMoralApplication::where('course_completed', 'BSIT')->count();
-    $bsce = GoodMoralApplication::where('course_completed', 'BSIT')->count();
-    $bscpe = GoodMoralApplication::where('course_completed', 'BSIT')->count();
-    $bsense = GoodMoralApplication::where('course_completed', 'BSIT')->count();
+    $blis = GoodMoralApplication::where('course_completed', 'BLIS')->count();
+    $bsce = GoodMoralApplication::where('course_completed', 'BSCE')->count();
+    $bscpe = GoodMoralApplication::where('course_completed', 'BSENSE')->count();
+    $bsense = GoodMoralApplication::where('course_completed', 'BSCpE')->count();
+
+    $bsn = GoodMoralApplication::where('course_completed', 'BSN')->count();
+    $bsph = GoodMoralApplication::where('course_completed', 'BSPh')->count();
+    $bsmt = GoodMoralApplication::where('course_completed', 'BSMT')->count();
+    $bspt = GoodMoralApplication::where('course_completed', 'BSPT')->count();
+    $bsrt = GoodMoralApplication::where('course_completed', 'BSRT')->count();
+    $bsm = GoodMoralApplication::where('course_completed', 'BSM')->count();
 
     //For Pie Chart stats
     $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
@@ -52,7 +59,13 @@ class DeanController extends Controller
     'blis',
     'bsce',
     'bscpe',
-    'bsense', 
+    'bsense',
+    'bsn',
+    'bsph',
+    'bsmt',
+    'bspt',
+    'bsrt',
+    'bsm', 
   ));
   }
 
