@@ -8,6 +8,8 @@ use App\Models\GoodMoralApplication;
 use App\Models\NotifArchive;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
+use App\Models\StudentViolation;
+use App\Models\Violation;
 
 class DeanController extends Controller
 {
@@ -23,7 +25,26 @@ class DeanController extends Controller
     // Apply role check for all methods in this controller
     $this->checkRole(['dean']);
   }
+
   public function dashboard()
+  {
+    //Applicants per department
+    $site = GoodMoralApplication::where('department', 'SITE')->count();
+    $saste = GoodMoralApplication::where('department', 'SASTE')->count();
+    $sbahm = GoodMoralApplication::where('department', 'SBAHM')->count();
+    $snahs = GoodMoralApplication::where('department', 'SNAHS')->count();
+
+    //For Pie Chart stats
+    $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
+    $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
+    $majorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'major')->count();
+    $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
+    //Pageinate
+    $violationpage = Violation::paginate(10);
+    return view('dean.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
+  }
+
+  public function application()
   {
     // Access the authenticated dean
     $dean = Auth::user();
@@ -34,7 +55,7 @@ class DeanController extends Controller
       ->with('student') // Eager load the related student data
       ->get();
 
-    return view('dean.dashboard', [
+    return view('dean.application', [
       'applications' => $applications,
       'department' => $dean->department, // pass department to view
     ]);

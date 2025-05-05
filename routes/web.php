@@ -155,8 +155,11 @@ Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'rej
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.reject');
 
+
+// DEAN ROUTES ======================================================================================
 Route::middleware(['auth', 'verified'])->prefix('dean')->name('dean.')->group(function () {
   Route::get('/dashboard', [DeanController::class, 'dashboard'])->name('dashboard');
+  Route::get('/application', [DeanController::class, 'application'])->name('application');
   Route::patch('/application/{id}/approve', [DeanController::class, 'approve'])->name('approve');
   Route::delete('/application/{id}/reject', [DeanController::class, 'reject'])->name('reject');
 });
