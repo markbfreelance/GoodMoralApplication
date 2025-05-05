@@ -42,6 +42,16 @@ class DeanController extends Controller
     $bsrt = GoodMoralApplication::where('course_completed', 'BSRT')->count();
     $bsm = GoodMoralApplication::where('course_completed', 'BSM')->count();
 
+    $bsa = GoodMoralApplication::where('course_completed', 'BSA')->count();
+    $bse = GoodMoralApplication::where('course_completed', 'BSE')->count();
+    $bsbamm = GoodMoralApplication::where('course_completed', 'BSBAMM')->count();
+    $bsbamfm = GoodMoralApplication::where('course_completed', 'BSBAMFM')->count();
+    $bsbamop = GoodMoralApplication::where('course_completed', 'BSBAMOP')->count();
+    $bsma = GoodMoralApplication::where('course_completed', 'BSMA')->count();
+    $bshm = GoodMoralApplication::where('course_completed', 'BSHM')->count();
+    $bstm = GoodMoralApplication::where('course_completed', 'BSTM')->count();
+    $bspdmi = GoodMoralApplication::where('course_completed', 'BSPDMI')->count();
+
     //For Pie Chart stats
     $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
     $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
@@ -66,6 +76,15 @@ class DeanController extends Controller
     'bspt',
     'bsrt',
     'bsm', 
+    'bsa',
+    'bse',
+    'bsbamm',
+    'bsbamfm',
+    'bsbamop',
+    'bsma', 
+    'bshm',
+    'bstm',
+    'bspdmi',
   ));
   }
 
