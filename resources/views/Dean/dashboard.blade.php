@@ -27,6 +27,22 @@ $SBAHMprograms = [
 ['abbr1' => 'BS', 'abbr2' => 'TM', 'count' => $bstm],
 ['abbr1' => 'BS', 'abbr2' => 'PDMI', 'count' => $bspdmi],
 ];
+$SBAHMfirstRow = array_slice($SBAHMprograms, 0, 4);
+$SBAHMsecondRow = array_slice($SBAHMprograms, 4, 5);
+
+$SASTEprograms = [
+['abbr1' => 'BA', 'abbr2' => 'ELS', 'count' => $bsa],
+['abbr1' => 'BS', 'abbr2' => 'Psych', 'count' => $bse],
+['abbr1' => 'BS', 'abbr2' => 'Bio', 'count' => $bsbamm],
+['abbr1' => 'BS', 'abbr2' => 'SW', 'count' => $bsbamfm],
+['abbr1' => 'BS', 'abbr2' => 'PA', 'count' => $bsbamop],
+['abbr1' => 'BS', 'abbr2' => 'Bio MB', 'count' => $bsma],
+['abbr1' => 'BS', 'abbr2' => 'Ed', 'count' => $bshm],
+['abbr1' => 'BE', 'abbr2' => 'Ed', 'count' => $bstm],
+['abbr1' => 'B', 'abbr2' => 'PEd', 'count' => $bspdmi],
+];
+$SASTEfirstRow = array_slice($SASTEprograms, 0, 4);
+$SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
 @endphp
 
 <x-app-layout>
@@ -96,11 +112,30 @@ $SBAHMprograms = [
       </div>
 
       <!-- SNAHS Applications Overview -->
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-4 mb-4">
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-6 gap-4 mb-4">
         @foreach ($SNAHSprograms as $program)
         <div style="background-color: #de0f3f;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #f34a6b;">
+            <div class="flex flex-col items-center justify-center h-20 w-20 rounded-full text-white text-2xl font-black" style="background-color: #f34a6b;">
+              <span>{{ $program['abbr1'] }}</span>
+              <span>{{ $program['abbr2'] }}</span>
+            </div>
+            <div class="flex flex-col justify-center h-full">
+              <div class="text-6xl font-bold">{{ $program['count'] }}</div>
+              <div class="text-base text-gray-300 whitespace-nowrap">Total Applicants</div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+
+      <!-- SBAHM Applications Overview -->
+      <!-- First Row: grid-cols-5 -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-4">
+        @foreach ($SBAHMfirstRow as $program)
+        <div style="background-color: #096735;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2e8c5d;">
               <span>{{ $program['abbr1'] }}</span>
               <span>{{ $program['abbr2'] }}</span>
             </div>
@@ -113,12 +148,49 @@ $SBAHMprograms = [
         @endforeach
       </div>
 
-      <!-- SBAHM Applications Overview -->
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-4 mb-4">
-        @foreach ($SBAHMprograms as $program)
-        <div style="background-color:  #096735;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+      <!-- Second Row: grid-cols-4 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-4">
+        @foreach ($SBAHMsecondRow as $program)
+        <div style="background-color: #096735;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
             <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2e8c5d;">
+              <span>{{ $program['abbr1'] }}</span>
+              <span>{{ $program['abbr2'] }}</span>
+            </div>
+            <div class="flex flex-col justify-center h-full">
+              <div class="text-7xl font-bold">{{ $program['count'] }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+
+      <!-- SASTE Applications Overview -->
+      <!-- First Row: grid-cols-5 -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-4">
+        @foreach ($SASTEfirstRow as $program)
+        <div style="background-color: #083259;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2d5980;">
+              <span>{{ $program['abbr1'] }}</span>
+              <span>{{ $program['abbr2'] }}</span>
+            </div>
+            <div class="flex flex-col justify-center h-full">
+              <div class="text-7xl font-bold">{{ $program['count'] }}</div>
+              <div class="text-xl text-gray-300">Total Applicants</div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+
+      <!-- Second Row: grid-cols-4 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-4">
+        @foreach ($SASTEsecondRow as $program)
+        <div style="background-color: #083259;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+          <div class="flex items-center space-x-4">
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2d5980;">
               <span>{{ $program['abbr1'] }}</span>
               <span>{{ $program['abbr2'] }}</span>
             </div>

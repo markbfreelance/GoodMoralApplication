@@ -52,6 +52,16 @@ class DeanController extends Controller
     $bstm = GoodMoralApplication::where('course_completed', 'BSTM')->count();
     $bspdmi = GoodMoralApplication::where('course_completed', 'BSPDMI')->count();
 
+    $baels = GoodMoralApplication::where('course_completed', 'BAELS')->count();
+    $bspsych = GoodMoralApplication::where('course_completed', 'BSPsych')->count();
+    $bsbio = GoodMoralApplication::where('course_completed', 'BSBio')->count();
+    $bssw = GoodMoralApplication::where('course_completed', 'BSSW')->count();
+    $bsbpa = GoodMoralApplication::where('course_completed', 'BSBPA')->count();
+    $bsbiomb = GoodMoralApplication::where('course_completed', 'BSBioMB')->count();
+    $bsed = GoodMoralApplication::where('course_completed', 'BSEd')->count();
+    $beed = GoodMoralApplication::where('course_completed', 'BEEd')->count();
+    $bped = GoodMoralApplication::where('course_completed', 'BPEd')->count();
+
     //For Pie Chart stats
     $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
     $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
@@ -60,32 +70,41 @@ class DeanController extends Controller
     //Pageinate
     $violationpage = Violation::paginate(10);
     return view('dean.dashboard', compact(
-    'minorpending', 
-    'minorcomplied', 
-    'majorpending', 
-    'majorcomplied', 
-    'violationpage', 
-    'bsit', 
-    'blis',
-    'bsce',
-    'bscpe',
-    'bsense',
-    'bsn',
-    'bsph',
-    'bsmt',
-    'bspt',
-    'bsrt',
-    'bsm', 
-    'bsa',
-    'bse',
-    'bsbamm',
-    'bsbamfm',
-    'bsbamop',
-    'bsma', 
-    'bshm',
-    'bstm',
-    'bspdmi',
-  ));
+      'minorpending',
+      'minorcomplied',
+      'majorpending',
+      'majorcomplied',
+      'violationpage',
+      'bsit',
+      'blis',
+      'bsce',
+      'bscpe',
+      'bsense',
+      'bsn',
+      'bsph',
+      'bsmt',
+      'bspt',
+      'bsrt',
+      'bsm',
+      'bsa',
+      'bse',
+      'bsbamm',
+      'bsbamfm',
+      'bsbamop',
+      'bsma',
+      'bshm',
+      'bstm',
+      'bspdmi',
+      'baels',
+      'bspsych',
+      'bsbio',
+      'bssw',
+      'bsbpa',
+      'bsbiomb',
+      'bsed',
+      'beed',
+      'bped',
+    ));
   }
 
   public function application()
