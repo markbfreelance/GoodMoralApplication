@@ -1,50 +1,3 @@
-@php
-$SITEprograms = [
-['abbr1' => 'BS', 'abbr2' => 'IT', 'count' => $bsit],
-['abbr1' => 'BL', 'abbr2' => 'IS', 'count' => $blis],
-['abbr1' => 'BS', 'abbr2' => 'CE', 'count' => $bsce],
-['abbr1' => 'BS', 'abbr2' => 'CpE', 'count' => $bscpe],
-['abbr1' => 'BS', 'abbr2' => 'ENSE', 'count' => $bsense],
-];
-
-$SNAHSprograms = [
-['abbr1' => 'BS', 'abbr2' => 'N', 'count' => $bsn],
-['abbr1' => 'BS', 'abbr2' => 'Ph', 'count' => $bsph],
-['abbr1' => 'BS', 'abbr2' => 'MT', 'count' => $bsmt],
-['abbr1' => 'BS', 'abbr2' => 'PT', 'count' => $bspt],
-['abbr1' => 'BS', 'abbr2' => 'RT', 'count' => $bsrt],
-['abbr1' => 'BS', 'abbr2' => 'M', 'count' => $bsm],
-];
-
-$SBAHMprograms = [
-['abbr1' => 'BS', 'abbr2' => 'A', 'count' => $bsa],
-['abbr1' => 'BS', 'abbr2' => 'E', 'count' => $bse],
-['abbr1' => 'BSBA', 'abbr2' => 'MM', 'count' => $bsbamm],
-['abbr1' => 'BSBA', 'abbr2' => 'MFM', 'count' => $bsbamfm],
-['abbr1' => 'BSBA', 'abbr2' => 'MOP', 'count' => $bsbamop],
-['abbr1' => 'BS', 'abbr2' => 'MA', 'count' => $bsma],
-['abbr1' => 'BS', 'abbr2' => 'HM', 'count' => $bshm],
-['abbr1' => 'BS', 'abbr2' => 'TM', 'count' => $bstm],
-['abbr1' => 'BS', 'abbr2' => 'PDMI', 'count' => $bspdmi],
-];
-$SBAHMfirstRow = array_slice($SBAHMprograms, 0, 4);
-$SBAHMsecondRow = array_slice($SBAHMprograms, 4, 5);
-
-$SASTEprograms = [
-['abbr1' => 'BA', 'abbr2' => 'ELS', 'count' => $bsa],
-['abbr1' => 'BS', 'abbr2' => 'Psych', 'count' => $bse],
-['abbr1' => 'BS', 'abbr2' => 'Bio', 'count' => $bsbamm],
-['abbr1' => 'BS', 'abbr2' => 'SW', 'count' => $bsbamfm],
-['abbr1' => 'BS', 'abbr2' => 'PA', 'count' => $bsbamop],
-['abbr1' => 'BS', 'abbr2' => 'Bio MB', 'count' => $bsma],
-['abbr1' => 'BS', 'abbr2' => 'Ed', 'count' => $bshm],
-['abbr1' => 'BE', 'abbr2' => 'Ed', 'count' => $bstm],
-['abbr1' => 'B', 'abbr2' => 'PEd', 'count' => $bspdmi],
-];
-$SASTEfirstRow = array_slice($SASTEprograms, 0, 4);
-$SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
-@endphp
-
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
@@ -94,8 +47,9 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
       <hr class="bg-gray-700">
 
       <!-- SITE Applications Overview -->
+      @if ($department === 'SITE')
       <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-5 gap-4 mb-4">
-        @foreach ($SITEprograms as $program)
+        @foreach ($programs as $program)
         <div style="background-color: #730073;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
             <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #a64ca6;">
@@ -110,10 +64,12 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         </div>
         @endforeach
       </div>
+      @endif
 
       <!-- SNAHS Applications Overview -->
+      @if ($department === 'SNAHS')
       <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-6 gap-4 mb-4">
-        @foreach ($SNAHSprograms as $program)
+        @foreach ($programs as $program)
         <div style="background-color: #de0f3f;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
             <div class="flex flex-col items-center justify-center h-20 w-20 rounded-full text-white text-2xl font-black" style="background-color: #f34a6b;">
@@ -128,11 +84,13 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         </div>
         @endforeach
       </div>
+      @endif
 
       <!-- SBAHM Applications Overview -->
-      <!-- First Row: grid-cols-5 -->
+      @if ($department === 'SBAHM')
+      <!-- First Row -->
       <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-4">
-        @foreach ($SBAHMfirstRow as $program)
+        @foreach ($programsRow1 as $program)
         <div style="background-color: #096735;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
             <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2e8c5d;">
@@ -148,9 +106,9 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         @endforeach
       </div>
 
-      <!-- Second Row: grid-cols-4 -->
+      <!-- Second Row -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-4">
-        @foreach ($SBAHMsecondRow as $program)
+        @foreach ($programsRow2 as $program)
         <div style="background-color: #096735;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
             <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2e8c5d;">
@@ -165,14 +123,16 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         </div>
         @endforeach
       </div>
+      @endif
 
       <!-- SASTE Applications Overview -->
-      <!-- First Row: grid-cols-5 -->
+      @if ($department === 'SASTE')
+      <!-- First Row -->
       <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-4">
-        @foreach ($SASTEfirstRow as $program)
-        <div style="background-color: #083259;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+        @foreach ($programsRow1 as $program)
+        <div style="background-color: #003865;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2d5980;">
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #3d5c77;">
               <span>{{ $program['abbr1'] }}</span>
               <span>{{ $program['abbr2'] }}</span>
             </div>
@@ -185,12 +145,12 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         @endforeach
       </div>
 
-      <!-- Second Row: grid-cols-4 -->
+      <!-- Second Row -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-4">
-        @foreach ($SASTEsecondRow as $program)
-        <div style="background-color: #083259;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
+        @foreach ($programsRow2 as $program)
+        <div style="background-color: #003865;" class="text-white p-6 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
-            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #2d5980;">
+            <div class="flex flex-col items-center justify-center h-24 w-24 rounded-full text-white text-2xl font-black" style="background-color: #3d5c77;">
               <span>{{ $program['abbr1'] }}</span>
               <span>{{ $program['abbr2'] }}</span>
             </div>
@@ -202,6 +162,7 @@ $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
         </div>
         @endforeach
       </div>
+      @endif
 
       <!-- Charts Section -->
       @php
