@@ -35,7 +35,7 @@
       <form method="POST" action="{{ route('logout') }}" class="inline-block">
         @csrf
         <button type="submit" class="px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-          Log In
+          Apply Now
         </button>
       </form>
       @else
