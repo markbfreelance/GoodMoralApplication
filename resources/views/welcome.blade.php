@@ -32,9 +32,12 @@
     <nav class="space-x-2">
       @if (Route::has('login'))
       @auth
-      <a href="{{ url('/dashboard') }}" class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-        Go to Dashboard
-      </a>
+      <form method="POST" action="{{ route('logout') }}" class="inline-block">
+        @csrf
+        <button type="submit" class="px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+          Log In
+        </button>
+      </form>
       @else
       <a href="{{ route('login') }}" class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
         Sign In
@@ -57,11 +60,14 @@
         Upholding strong values and integrity is at the heart of our community.
         Join us in fostering a culture of ethical excellence and accountability.
       </p>
-      <a href="{{ route('register') }}"
-        class="inline-block px-8 py-4 bg-green-700 text-white text-lg font-medium rounded-lg shadow-md 
-            hover:bg-green-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-        Apply Now
-      </a>
+      <form method="POST" action="{{ route('logout') }}" class="inline-block">
+        @csrf
+        <button type="submit"
+          class="px-8 py-4 bg-green-700 text-white text-lg font-medium rounded-lg shadow-md 
+               hover:bg-green-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+          Apply Now
+        </button>
+      </form>
     </section>
 
   </main>
