@@ -52,6 +52,80 @@ class DeanController extends Controller
     $bstm = GoodMoralApplication::where('course_completed', 'BSTM')->count();
     $bspdmi = GoodMoralApplication::where('course_completed', 'BSPDMI')->count();
 
+    $baels = GoodMoralApplication::where('course_completed', 'BAELS')->count();
+    $bspsych = GoodMoralApplication::where('course_completed', 'BSPsych')->count();
+    $bsbio = GoodMoralApplication::where('course_completed', 'BSBio')->count();
+    $bssw = GoodMoralApplication::where('course_completed', 'BSSW')->count();
+    $bsbpa = GoodMoralApplication::where('course_completed', 'BSBPA')->count();
+    $bsbiomb = GoodMoralApplication::where('course_completed', 'BSBioMB')->count();
+    $bsed = GoodMoralApplication::where('course_completed', 'BSEd')->count();
+    $beed = GoodMoralApplication::where('course_completed', 'BEEd')->count();
+    $bped = GoodMoralApplication::where('course_completed', 'BPEd')->count();
+
+    $SITEprograms = [
+      ['abbr1' => 'BS', 'abbr2' => 'IT', 'count' => $bsit],
+      ['abbr1' => 'BL', 'abbr2' => 'IS', 'count' => $blis],
+      ['abbr1' => 'BS', 'abbr2' => 'CE', 'count' => $bsce],
+      ['abbr1' => 'BS', 'abbr2' => 'CpE', 'count' => $bscpe],
+      ['abbr1' => 'BS', 'abbr2' => 'ENSE', 'count' => $bsense],
+    ];
+
+    $SNAHSprograms = [
+      ['abbr1' => 'BS', 'abbr2' => 'N', 'count' => $bsn],
+      ['abbr1' => 'BS', 'abbr2' => 'Ph', 'count' => $bsph],
+      ['abbr1' => 'BS', 'abbr2' => 'MT', 'count' => $bsmt],
+      ['abbr1' => 'BS', 'abbr2' => 'PT', 'count' => $bspt],
+      ['abbr1' => 'BS', 'abbr2' => 'RT', 'count' => $bsrt],
+      ['abbr1' => 'BS', 'abbr2' => 'M', 'count' => $bsm],
+    ];
+
+    $SBAHMprograms = [
+      ['abbr1' => 'BS', 'abbr2' => 'A', 'count' => $bsa],
+      ['abbr1' => 'BS', 'abbr2' => 'E', 'count' => $bse],
+      ['abbr1' => 'BSBA', 'abbr2' => 'MM', 'count' => $bsbamm],
+      ['abbr1' => 'BSBA', 'abbr2' => 'MFM', 'count' => $bsbamfm],
+      ['abbr1' => 'BSBA', 'abbr2' => 'MOP', 'count' => $bsbamop],
+      ['abbr1' => 'BS', 'abbr2' => 'MA', 'count' => $bsma],
+      ['abbr1' => 'BS', 'abbr2' => 'HM', 'count' => $bshm],
+      ['abbr1' => 'BS', 'abbr2' => 'TM', 'count' => $bstm],
+      ['abbr1' => 'BS', 'abbr2' => 'PDMI', 'count' => $bspdmi],
+    ];
+    $SBAHMfirstRow = array_slice($SBAHMprograms, 0, 4);
+    $SBAHMsecondRow = array_slice($SBAHMprograms, 4, 5);
+
+    $SASTEprograms = [
+      ['abbr1' => 'BA', 'abbr2' => 'ELS', 'count' => $bsa],
+      ['abbr1' => 'BS', 'abbr2' => 'Psych', 'count' => $bse],
+      ['abbr1' => 'BS', 'abbr2' => 'Bio', 'count' => $bsbamm],
+      ['abbr1' => 'BS', 'abbr2' => 'SW', 'count' => $bsbamfm],
+      ['abbr1' => 'BS', 'abbr2' => 'PA', 'count' => $bsbamop],
+      ['abbr1' => 'BS', 'abbr2' => 'Bio MB', 'count' => $bsma],
+      ['abbr1' => 'BS', 'abbr2' => 'Ed', 'count' => $bshm],
+      ['abbr1' => 'BE', 'abbr2' => 'Ed', 'count' => $bstm],
+      ['abbr1' => 'B', 'abbr2' => 'PEd', 'count' => $bspdmi],
+    ];
+    $SASTEfirstRow = array_slice($SASTEprograms, 0, 4);
+    $SASTEsecondRow = array_slice($SASTEprograms, 4, 5);
+
+    $dean = Auth::user();
+    $department = $dean->department;
+
+    $programs = [];
+    $programsRow1 = [];
+    $programsRow2 = [];
+
+    if ($department === 'SITE') {
+      $programs = $SITEprograms;
+    } elseif ($department === 'SNAHS') {
+      $programs = $SNAHSprograms;
+    } elseif ($department === 'SBAHM') {
+      $programsRow1 = $SBAHMfirstRow;
+      $programsRow2 = $SBAHMsecondRow;
+    } elseif ($department === 'SASTE') {
+      $programsRow1 = $SASTEfirstRow;
+      $programsRow2 = $SASTEsecondRow;
+    }
+
     //For Pie Chart stats
     $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
     $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
@@ -60,32 +134,24 @@ class DeanController extends Controller
     //Pageinate
     $violationpage = Violation::paginate(10);
     return view('dean.dashboard', compact(
-    'minorpending', 
-    'minorcomplied', 
-    'majorpending', 
-    'majorcomplied', 
-    'violationpage', 
-    'bsit', 
-    'blis',
-    'bsce',
-    'bscpe',
-    'bsense',
-    'bsn',
-    'bsph',
-    'bsmt',
-    'bspt',
-    'bsrt',
-    'bsm', 
-    'bsa',
-    'bse',
-    'bsbamm',
-    'bsbamfm',
-    'bsbamop',
-    'bsma', 
-    'bshm',
-    'bstm',
-    'bspdmi',
-  ));
+      'minorpending',
+      'minorcomplied',
+      'majorpending',
+      'majorcomplied',
+      'violationpage',
+      'SITEprograms',
+      'SNAHSprograms',
+      'SBAHMprograms',
+      'SASTEprograms',
+      'SBAHMfirstRow',
+      'SBAHMsecondRow',
+      'SASTEfirstRow',
+      'SASTEsecondRow',
+      'department',
+      'programs',
+      'programsRow1',
+      'programsRow2',
+    ));
   }
 
   public function application()
