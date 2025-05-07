@@ -43,6 +43,7 @@ class ApplicationController extends Controller
   }
   public function applyForGoodMoralCertificate(Request $request)
   {
+    $accountType = Auth::user()?->account_type;
 
     $prefix = 'REF'; // You can customize the prefix
     $timestamp = time(); // Current timestamp
@@ -58,12 +59,12 @@ class ApplicationController extends Controller
     ]);
 
     // Validate additional fields if the student is undergraduate
-    if ($request->is_undergraduate === 'yes') {
+    if ($accountType === 'student') {
       $request->validate([
         'last_course_year_level' => ['required', 'string', 'max:255'],
         'last_semester_sy' => ['required', 'string', 'max:255'],
       ]);
-    } else if ($request->is_undergraduate === 'no') {
+    } else if ($accountType === 'alumni') {
       $request->validate([
         'course_completed' => ['required', 'string', 'max:255'],
         'graduation_date' => ['required', 'date'],
@@ -94,12 +95,12 @@ class ApplicationController extends Controller
       'reason' => $selectedReason,
       'student_id' => $studentId,
       'department' => $studentDepartment,
-      'course_completed' => $request->course_completed, // Allowing this to be null
-      'graduation_date' => $request->graduation_date,
+      'course_completed' => $request->course_completed ?? null, // Allowing this to be null
+      'graduation_date' => $request->graduation_date ?? null,
       'application_status' => null,
       'is_undergraduate' => $request->is_undergraduate === 'yes',
-      'last_course_year_level' => $request->is_undergraduate === 'yes' ? $request->last_course_year_level : null,
-      'last_semester_sy' => $request->is_undergraduate === 'yes' ? $request->last_semester_sy : null,
+      'last_course_year_level' => $request->last_course_year_level ?? null,
+      'last_semester_sy' => $request->last_semester_sy ?? null,
       'status' => 'pending',
     ]);
 
@@ -110,12 +111,12 @@ class ApplicationController extends Controller
       'reason' => $selectedReason,
       'student_id' => $studentId,
       'department' => $studentDepartment,
-      'course_completed' => $request->course_completed, // Allowing this to be null
-      'graduation_date' => $request->graduation_date,
+      'course_completed' => $request->course_completed ?? null, // Allowing this to be null
+      'graduation_date' => $request->graduation_date ?? null,
       'application_status' => null,
       'is_undergraduate' => $request->is_undergraduate === 'yes',
-      'last_course_year_level' => $request->is_undergraduate === 'yes' ? $request->last_course_year_level : null,
-      'last_semester_sy' => $request->is_undergraduate === 'yes' ? $request->last_semester_sy : null,
+      'last_course_year_level' => $request->last_course_year_level ?? null,
+      'last_semester_sy' => $request->last_semester_sy ?? null,
       'status' => '0',
     ]);
 

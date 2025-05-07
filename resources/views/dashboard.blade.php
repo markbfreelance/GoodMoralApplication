@@ -7,7 +7,7 @@
 
   <div class="flex">
     <!-- Sidebar -->
-    @include('sidebar')  <!-- This includes the sidebar -->
+    @include('sidebar')
 
     <div class="py-12 flex-1">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -38,15 +38,15 @@
               <div class="mt-6">
                 <x-input-label :value="__('Reason of Application (check one only)')" />
                 <div class="mt-2 space-y-2">
-                  @foreach([ 
-                  'Transfer to another school', 
-                  'Employment', 
-                  'Scholarship', 
-                  'Board Examination', 
-                  'Government examination', 
-                  'VISA/Passport application', 
-                  'PSG Election', 
-                  'Cross enrollment' 
+                  @foreach([
+                  'Transfer to another school',
+                  'Employment',
+                  'Scholarship',
+                  'Board Examination',
+                  'Government examination',
+                  'VISA/Passport application',
+                  'PSG Election',
+                  'Cross enrollment'
                   ] as $reason)
                   <label class="flex items-center">
                     <input type="radio" name="reason" value="{{ $reason }}" required class="text-green-600">
@@ -64,92 +64,78 @@
                 <x-input-error :messages="$errors->get('reason')" class="mt-2" />
               </div>
 
-              <!-- Undergraduate Section: Only for Students -->
+              <!-- Alumni Fields Only -->
               @php
               $accountType = Auth::user()->account_type;
               @endphp
 
               @if ($accountType === 'alumni')
-              <!-- Are you an undergraduate? -->
+              <!-- Date of Graduation -->
               <div class="mt-6">
-                <x-input-label for="is_undergraduate" :value="__('Are you an Undergraduate?')" />
-                <select id="is_undergraduate" name="is_undergraduate" class="mt-1 block w-full">
-                  <option value="no" {{ old('is_undergraduate') === 'no' ? 'selected' : '' }}>No</option>
-                  <option value="yes" {{ old('is_undergraduate') === 'yes' ? 'selected' : '' }}>Yes</option>
-                </select>
-                <x-input-error :messages="$errors->get('is_undergraduate')" class="mt-2" />
-              </div>
-
-              <!-- Extra fields for undergraduates -->
-              <div id="undergraduateFields" class="mt-6 hidden">
-                <p class="text-sm font-medium text-gray-700 mb-2">If undergraduate, please fill out the following:</p>
-
-                <div class="mb-4">
-                  <x-input-label for="last_course_year_level" :value="__('Course and Year Level of Last School Attended in SPUP')" />
-                  <x-text-input id="last_course_year_level" name="last_course_year_level" type="text" class="mt-1 block w-full" :value="old('last_course_year_level')" />
-                  <x-input-error :messages="$errors->get('last_course_year_level')" class="mt-2" />
-                </div>
-
-                <div>
-                  <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP')" />
-                  <x-text-input id="last_semester_sy" name="last_semester_sy" type="text" class="mt-1 block w-full" :value="old('last_semester_sy')" />
-                  <x-input-error :messages="$errors->get('last_semester_sy')" class="mt-2" />
-                </div>
-              </div>
-
-              <!-- Date of Graduation: Only if not an Undergraduate -->
-              <div id="graduationDateField" class="mt-4 hidden">
                 <x-input-label for="graduation_date" :value="__('Date of Graduation')" />
                 <x-text-input id="graduation_date" name="graduation_date" type="date" class="mt-1 block w-full" :value="old('graduation_date')" />
                 <x-input-error :messages="$errors->get('graduation_date')" class="mt-2" />
               </div>
 
               <!-- Course Completed -->
-              <div id="courseCompletedField" class="mt-4 hidden">
+              <div class="mt-6">
                 <x-input-label for="course_completed" :value="__('Course Completed')" />
                 <x-text-input id="course_completed" name="course_completed" type="text" class="mt-1 block w-full" :value="old('course_completed')" />
                 <x-input-error :messages="$errors->get('course_completed')" class="mt-2" />
               </div>
-              @endif
-
-              <!-- Submit Button -->
-              <div class="mt-4">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                  Apply for Good Moral Certificate
-                </button>
+              @elseif ($accountType === 'student')
+              <div class="mb-6">
+                <x-input-label for="last_course_year_level" :value="__('Course and Year Level of Last School Attended in SPUP')" />
+                <x-text-input id="last_course_year_level" name="last_course_year_level" type="text" class="mt-1 block w-full" :value="old('last_course_year_level')" />
+                <x-input-error :messages="$errors->get('last_course_year_level')" class="mt-2" />
               </div>
-            </form>
-          </div>
 
-          <!-- Violations Section -->
-          <div class="p-6">
-            @if ($Violation->isEmpty())
-            <h3 class="text-lg font-semibold text-green-600">You have no existing violations. </h3>
-            @else
-            <h3 class="text-lg font-semibold mb-4 text-red-600">You have existing violation(s).</h3>
-            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-              <thead>
-                <tr class="text-left border-b bg-gray-100">
-                  <th class="py-2 px-4">Offense Type</th>
-                  <th class="py-2 px-4">Description</th>
-                  <th class="py-2 px-4">Date Committed</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($Violation as $violation)
-                <tr class="border-b">
-                  <td class="py-2 px-4">{{ $violation->offense_type }}</td>
-                  <td class="py-2 px-4">{{ $violation->violation }}</td>
-                  <td class="py-2 px-4">{{ $violation->created_at->format('M d, Y') }}</td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-            @endif
+              <div>
+                <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP')" />
+                <x-text-input id="last_semester_sy" name="last_semester_sy" type="text" class="mt-1 block w-full" :value="old('last_semester_sy')" />
+                <x-input-error :messages="$errors->get('last_semester_sy')" class="mt-2" />
+              </div>
           </div>
+          @endif
+
+          <!-- Submit Button -->
+          <div class="mt-4">
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Apply for Good Moral Certificate
+            </button>
+          </div>
+          </form>
+        </div>
+
+        <!-- Violations Section -->
+        <div class="p-6">
+          @if ($Violation->isEmpty())
+          <h3 class="text-lg font-semibold text-green-600">You have no existing violations.</h3>
+          @else
+          <h3 class="text-lg font-semibold mb-4 text-red-600">You have existing violation(s).</h3>
+          <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+            <thead>
+              <tr class="text-left border-b bg-gray-100">
+                <th class="py-2 px-4">Offense Type</th>
+                <th class="py-2 px-4">Description</th>
+                <th class="py-2 px-4">Date Committed</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($Violation as $violation)
+              <tr class="border-b">
+                <td class="py-2 px-4">{{ $violation->offense_type }}</td>
+                <td class="py-2 px-4">{{ $violation->violation }}</td>
+                <td class="py-2 px-4">{{ $violation->created_at->format('M d, Y') }}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+          @endif
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <!-- JavaScript -->
@@ -159,7 +145,6 @@
       const otherInput = document.getElementById('reasonOtherInput');
       const allRadios = document.querySelectorAll('input[name="reason"]');
 
-      // Handle "Others" radio input
       allRadios.forEach(radio => {
         radio.addEventListener('change', function() {
           if (otherRadio.checked) {
@@ -172,32 +157,6 @@
           }
         });
       });
-
-      const isUndergradSelect = document.getElementById('is_undergraduate');
-      const undergradFields = document.getElementById('undergraduateFields');
-      const graduationDateField = document.getElementById('graduationDateField');
-      const courseCompletedField = document.getElementById('courseCompletedField');
-      const graduationDateInput = document.getElementById('graduation_date');
-      const courseCompletedInput = document.getElementById('course_completed');
-
-      if (isUndergradSelect) {
-        function toggleFields() {
-          const isUndergrad = isUndergradSelect.value === 'yes';
-
-          undergradFields.classList.toggle('hidden', !isUndergrad);
-          graduationDateField.classList.toggle('hidden', isUndergrad);
-          courseCompletedField.classList.toggle('hidden', isUndergrad);
-
-          // If undergraduate is "No", set graduation date and course completed to null
-          if (!isUndergrad) {
-            graduationDateInput.value = null;
-            courseCompletedInput.value = null;
-          }
-        }
-
-        isUndergradSelect.addEventListener('change', toggleFields);
-        toggleFields(); // Initialize the visibility on page load
-      }
     });
   </script>
 </x-app-layout>
