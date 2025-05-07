@@ -85,13 +85,13 @@
               </div>
               @elseif ($accountType === 'student')
               <div class="mb-6">
-                <x-input-label for="last_course_year_level" :value="__('Course and Year Level of Last School Attended in SPUP')" />
+                <x-input-label for="last_course_year_level" :value="__('Course of Last School Attended in SPUP (Bachelor of Arts/Science in Social Work)')" />
                 <x-text-input id="last_course_year_level" name="last_course_year_level" type="text" class="mt-1 block w-full" :value="old('last_course_year_level')" />
                 <x-input-error :messages="$errors->get('last_course_year_level')" class="mt-2" />
               </div>
 
               <div>
-                <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP')" />
+                <x-input-label for="last_semester_sy" :value="__('Semester and School Year of Last Attendance in SPUP (First/Second Semester of 2000-2001)')" />
                 <x-text-input id="last_semester_sy" name="last_semester_sy" type="text" class="mt-1 block w-full" :value="old('last_semester_sy')" />
                 <x-input-error :messages="$errors->get('last_semester_sy')" class="mt-2" />
               </div>

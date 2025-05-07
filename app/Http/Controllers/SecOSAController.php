@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\SecOSAApplication;
 use App\Models\NotifArchive;
+use App\Models\RoleAccount;
+use App\Models\StudentRegistration;
 use App\Traits\RoleCheck;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentViolation;
@@ -52,14 +54,12 @@ class SecOSAController extends Controller
   public function approve(Request $request, $id)
   {
     try {
-      // 1. Find the application
       $application = SecOSAApplication::findOrFail($id);
+      $studentDetails = StudentRegistration::where('student_id', $application->student_id)->get();
 
-      // 2. Update application status
       $application->status = 'approved';
       $application->save();
 
-      // 3. Get current user
       $sec_osa = Auth::user();
 
       NotifArchive::create([
@@ -69,46 +69,33 @@ class SecOSAController extends Controller
         'reason' => $application->reason,
         'student_id' => $application->student_id,
         'department' =>  $application->department,
-        'course_completed' =>  $application->course_completed,  // Allowing this to be null
+        'course_completed' =>  $application->course_completed,
         'graduation_date' => $application->graduation_date,
         'application_status' => null,
         'is_undergraduate' => $application->is_undergraduate,
-        'last_course_year_level'=> $application->last_course_year_level,
+        'last_course_year_level' => $application->last_course_year_level,
         'last_semester_sy' => $application->last_semester_sy,
         'status' => '4',
       ]);
 
-      // 4. Prepare data for the PDF
       $data = [
         'title' => 'Application Approved',
         'application' => $application,
         'approved_by' => $sec_osa->fullname,
+        'studentDetails' => $studentDetails,
       ];
 
-      // 5. Generate PDF
       $pdf = Pdf::loadView('pdf.my_pdf_view', $data);
-      Log::info('PDF generated successfully.');
-
-      // 6. Ensure directory exists
       Storage::makeDirectory('public/pdfs');
-
-      // 7. Save the file
       $filename = "application_{$application->reference_number}.pdf";
       $relativePath = "public/pdfs/{$filename}";
       $saved = Storage::put($relativePath, $pdf->output());
 
       if ($saved) {
-        $fullPath = Storage::path($relativePath);
-        Log::info("PDF saved to: " . $fullPath);
-
-        if (file_exists($fullPath)) {
-          return response()->download($fullPath);
-        } else {
-          Log::error("File not found at path: $fullPath");
-          return back()->withErrors("PDF saved but not found.");
-        }
+        $url = asset("storage/pdfs/{$filename}");
+        // 🔁 Redirect back with the PDF URL in session
+        return redirect()->back()->with('pdf_url', $url);
       } else {
-        Log::error("PDF could not be saved.");
         return back()->withErrors("PDF could not be saved.");
       }
     } catch (\Exception $e) {
@@ -116,6 +103,8 @@ class SecOSAController extends Controller
       return back()->withErrors("An error occurred: " . $e->getMessage());
     }
   }
+
+
   public function reject($id)
   {
     $application = SecOSAApplication::findOrFail($id);
@@ -125,4 +114,3 @@ class SecOSAController extends Controller
     return redirect()->route('sec_osa.dashboard')->with('status', 'Application rejected!');
   }
 }
-

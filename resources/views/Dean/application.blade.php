@@ -221,7 +221,7 @@
       document.getElementById('modalGraduationDate').innerText = application.graduation_date ?? 'N/A';
       document.getElementById('modalUndergraduate').innerText = (application.is_undergraduate !== null && application.is_undergraduate !== 0) ? 'Yes' : 'N/A';
       document.getElementById('modalLastCourseYearLevel').innerText = application.last_course_year_level ?? 'N/A';
-      document.getElementById('modalLastSemesterSY').innerText = application.last_semester_s ?? 'N/A';
+      document.getElementById('modalLastSemesterSY').innerText = application.last_semester_sy ?? 'N/A';
     }
 
 
