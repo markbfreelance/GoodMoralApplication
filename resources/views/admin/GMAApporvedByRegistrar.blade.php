@@ -20,7 +20,7 @@
 
     <!-- Main Content -->
     <main class="flex-1 p-4">
-    <div class="flex flex-wrap justify-between items-center mb-6">
+      <div class="flex flex-wrap justify-between items-center mb-6">
         <div class="flex items-center gap-2 font-medium text-base text-gray-500">
           <label>Select period:</label>
           <input type="date" class="border-gray-500 rounded-lg">
@@ -40,7 +40,7 @@
           <button class="bg-gray-100 pe-4">Filter</button>
         </div>
       </div>
-      
+
       <hr class="bg-gray-700">
       <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
         <form method="GET" action="{{ route('adminApplicationSearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg" hidden>
@@ -73,7 +73,7 @@
         @else
         <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
-            <tr class="text-left border-b">
+            <tr class="text-left border-b bg-gray-100">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>

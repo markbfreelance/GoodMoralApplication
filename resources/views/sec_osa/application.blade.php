@@ -36,13 +36,14 @@
             window.open("{{ session('pdf_url') }}", '_blank');
           });
         </script>
+        
         @endif
         @if($applications->isEmpty())
         <p>No applications available.</p>
         @else
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
-            <tr class="text-left border-b">
+          <tr class="text-left border-b bg-gray-100">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
