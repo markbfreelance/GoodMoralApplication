@@ -93,11 +93,11 @@
 
 
                 <!-- Reject -->
-                <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
+                <!-- <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-                </form>
+                </form> -->
                 @else
                 <span class="text-gray-500">Already Printed</span>
                 @endif
