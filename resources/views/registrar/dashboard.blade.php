@@ -173,7 +173,7 @@
   </div>
 
   <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 items-center justify-center z-50 hidden">
+  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg max-w-lg w-full">
       <h3 class="text-xl font-semibold mb-4">Application Details</h3>
       <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>

@@ -41,9 +41,9 @@
                       @elseif($notification->status == '1')
                         border-yellow-500 border
                       @elseif($notification->status == '2')
-                        border-yellow-500 border                      
+                        border-green-500 border                      
                       @elseif($notification->status == '3')
-                        border-green-500 border
+                        border-yellow-500 border
                       @elseif($notification->status == '4')
                         border-green-500 border                       
                       @elseif($notification->status == '-1')
@@ -74,9 +74,9 @@
                           @elseif($notification->status == '1')
                             bg-yellow-500
                           @elseif($notification->status == '2')
-                            bg-yellow-500                          
+                            bg-green-500                          
                           @elseif($notification->status == '3')
-                            bg-green-500
+                            bg-yellow-500
                           @elseif($notification->status == '4')
                             bg-green-500
                           @elseif($notification->status == '-1')

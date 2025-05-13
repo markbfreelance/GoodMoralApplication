@@ -169,6 +169,7 @@ class DeanController extends Controller
     return view('dean.application', [
       'applications' => $applications,
       'department' => $dean->department, // pass department to view
+      
     ]);
   }
 
