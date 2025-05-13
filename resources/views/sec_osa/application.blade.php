@@ -20,8 +20,9 @@
     @include('sec_osa.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+    <main class="flex-1 p-4">
+      <div class="flex flex-wrap justify-between items-center mb-6">
+
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if(session('success'))

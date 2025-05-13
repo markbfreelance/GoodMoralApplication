@@ -54,7 +54,7 @@
 
         <!-- Navigation Bar to Filter by Status -->
 
-        <div class="mb-4 flex justify-between">
+        <div class="mb-4 flex justify-between hidden">
           <nav class="flex items-center space-x-2 rounded-md p-2 bg-gray-700 shadow-sm">
             <!-- Pending -->
             <a href="{{ route('dean.application', ['status' => 'pending']) }}"
@@ -91,24 +91,24 @@
           </nav>
 
           <!-- Filter for records per page -->
-          <div class="mb-4 flex items-center">
-            <form action="{{ url()->current() }}" method="GET" class="flex items-center">
-              <label for="recordsPerPage" class="mr-2 text-sm font-medium text-gray-700">Show</label>
-              <select
-                name="perPage"
-                id="recordsPerPage"
-                class="border border-gray-300 rounded-md p-2 text-sm w-20"
-                onchange="this.form.submit()">
-                <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
-                <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
-                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
-              </select>
-              <span class="ml-2 text-sm text-gray-700">entries</span>
-            </form>
-          </div>
+        </div>
+        <div class="mb-4 flex items-center">
+          <form action="{{ url()->current() }}" method="GET" class="flex items-center">
+            <label for="recordsPerPage" class="mr-2 text-sm font-medium text-gray-700">Show</label>
+            <select
+              name="perPage"
+              id="recordsPerPage"
+              class="border border-gray-300 rounded-md p-2 text-sm w-20"
+              onchange="this.form.submit()">
+              <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+              <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
+              <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+            </select>
+            <span class="ml-2 text-sm text-gray-700">entries</span>
+          </form>
         </div>
 
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
             <tr class="text-left border-b">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
