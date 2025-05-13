@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "1",
+        'status' => "5",
         'account_type' => $request->account_type,
       ]);
 
