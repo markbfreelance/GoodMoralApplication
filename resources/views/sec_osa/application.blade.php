@@ -9,7 +9,7 @@
   </x-slot>
 
   <div class="flex">
-    <!-- Sidebar Toggle Button (Positioned Below Header) -->
+    <!-- Sidebar Toggle Button -->
     <div class="sm:hidden w-full bg-gray-100 border-b border-gray-300 py-2 flex justify-between px-4">
       <button id="sidebarToggle" class="bg-gray-800 text-white p-2 rounded-md">
         ☰ Menu
@@ -21,93 +21,83 @@
 
     <!-- Main Content -->
     <main class="flex-1 p-4">
+      <!-- Date and Search -->
       <div class="flex flex-wrap justify-between items-center mb-6">
+        <div class="flex items-center gap-2 font-medium text-base text-gray-500">
+          <label>Select period:</label>
+          <input type="date" class="border-gray-500 rounded-lg">
+          <input type="date" class="border-gray-500 rounded-lg">
+        </div>
+        <div class="flex items-center gap-2 mt-2 sm:mt-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-7 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <input type="text" placeholder="Search..." class="border-none bg-gray-100 px-2 py-1">
+          <div class="h-8 border border-gray-500 mx-4"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-7 text-gray-500 ms-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+          </svg>
+          <button class="bg-gray-100 pe-4">Filter</button>
+        </div>
+      </div>
 
-        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
-
-        @if(session('success'))
-        <div class="bg-gray-500 text-white p-4 rounded-md mb-4">
+      <!-- Flash Messages -->
+      @if(session('success'))
+        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
           {{ session('success') }}
         </div>
-        @endif
-        @if(session('pdf_url'))
+      @endif
+
+      @if(session('pdf_url'))
         <script>
-          window.addEventListener('load', function() {
+          window.addEventListener('load', function () {
             window.open("{{ session('pdf_url') }}", '_blank');
           });
         </script>
-        
-        @endif
+      @endif
+
+      <!-- Applications Table -->
+      <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
+        <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
+
         @if($applications->isEmpty())
-        <p>No applications available.</p>
+          <p>No applications available.</p>
         @else
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
-          <thead>
-          <tr class="text-left border-b bg-gray-100">
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($applications as $application)
-            <tr class="border-b">
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+          <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
+            <thead>
+              <tr class="text-left border-b bg-gray-100">
+                <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+                <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
+                <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
+                <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+                <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($applications as $application)
+              <tr class="border-b">
+                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">
+                  <button data-application='@json($application)' onclick="openModal(this)"
+                    class="bg-blue-500 text-white p-2 rounded-md">View Details</button>
 
-              <!-- hidden -->
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->created_at->format('Y-m-d') }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->reason }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->course_completed }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>{{ $application->graduation_date }}</td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->graduation_date ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->is_undergraduate ? $application->is_undergraduate : 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_course_year_level ?? 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-600" hidden>
-                {{ $application->last_semester_s ?? 'N/A' }}
-              </td>
-              <!-- hidden -->
-
-              <!-- Actions -->
-              <td class="px-6 py-4 text-sm text-gray-600">
-                <!-- View Details Button -->
-                <button data-application='@json($application)' onclick="openModal(this)"
-                  class="bg-blue-500 text-white p-2 rounded-md">
-                  View Details
-                </button>
-                @if($application->status == 'pending')
-                <!-- Approve -->
-                <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('PATCH') <!-- This tells the form to use the PATCH HTTP method -->
-                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Print</button>
-                </form>
-
-
-                <!-- Reject -->
-                <!-- <form action="{{ route('dean.reject', $application->id) }}" method="POST" style="display:inline;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reject</button>
-                </form> -->
-                @else
-                <span class="text-gray-500">Already Printed</span>
-                @endif
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+                  @if($application->status === 'pending')
+                  <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" class="inline">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Print</button>
+                  </form>
+                  @else
+                  <span class="text-gray-500">Already Printed</span>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         @endif
       </div>
     </main>
@@ -134,25 +124,23 @@
     </div>
   </div>
 
+  <!-- Modal Script -->
   <script>
-    // Open the modal and populate it with data
     function openModal(button) {
-      const application = JSON.parse(button.getAttribute('data-application'));
+      const app = JSON.parse(button.getAttribute('data-application'));
       document.getElementById('modal').classList.remove('hidden');
-      document.getElementById('modalFullName').innerText = application.student.fullname;
-      document.getElementById('modalrefnum').innerText = application.reference_number;
-      document.getElementById('modalnumcop').innerText = application.number_of_copies;
-      document.getElementById('modalStatus').innerText = application.status;
-      document.getElementById('modalReason').innerText = application.reason;
-      document.getElementById('modalCourseCompleted').innerText = application.course_completed ?? 'N/A';
-      document.getElementById('modalGraduationDate').innerText = application.graduation_date ?? 'N/A';
-      document.getElementById('modalUndergraduate').innerText = (application.is_undergraduate !== null && application.is_undergraduate !== 0) ? 'Yes' : 'N/A';
-      document.getElementById('modalLastCourseYearLevel').innerText = application.last_course_year_level ?? 'N/A';
-      document.getElementById('modalLastSemesterSY').innerText = application.last_semester_sy ?? 'N/A';
+      document.getElementById('modalFullName').innerText = app.student.fullname;
+      document.getElementById('modalrefnum').innerText = app.reference_number ?? 'N/A';
+      document.getElementById('modalnumcop').innerText = app.number_of_copies ?? 'N/A';
+      document.getElementById('modalStatus').innerText = app.status;
+      document.getElementById('modalReason').innerText = app.reason ?? 'N/A';
+      document.getElementById('modalCourseCompleted').innerText = app.course_completed ?? 'N/A';
+      document.getElementById('modalGraduationDate').innerText = app.graduation_date ?? 'N/A';
+      document.getElementById('modalUndergraduate').innerText = (app.is_undergraduate) ? 'Yes' : 'N/A';
+      document.getElementById('modalLastCourseYearLevel').innerText = app.last_course_year_level ?? 'N/A';
+      document.getElementById('modalLastSemesterSY').innerText = app.last_semester_sy ?? 'N/A';
     }
 
-
-    // Close the modal
     function closeModal() {
       document.getElementById('modal').classList.add('hidden');
     }
