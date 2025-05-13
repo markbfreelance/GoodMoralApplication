@@ -57,7 +57,7 @@
     @else
         <strong>[Unknown Department]</strong>
     @endif
-        under the program <strong>{{ $studentDetails->year_level }}</strong> for {{ $studentDetails->last_semester_sy }}. During the period of stay at the 
+        under the program <strong>{{ $studentDetails->year_level }}</strong> for {{ $studentDetails1->last_semester_sy }}. During the period of stay at the 
         University, no disciplinary sanctions were recorded. The student is recognized to be of good moral character.
     </p>
 
