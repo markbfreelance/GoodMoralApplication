@@ -9,6 +9,7 @@ use App\Models\StudentRegistration;
 use App\Models\ArchivedRoleAccount;
 use App\Models\HeadOSAApplication;
 use App\Models\NotifArchive;
+use App\Models\DeanApplication;
 use App\Traits\RoleCheck;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,8 +65,8 @@ class RegistrarController extends Controller
       return redirect()->route('registrar.dashboard')->with('error', 'Student not found.');
     }
 
-    // 4. Create the head_osa_application record for the single Head OSA
-    HeadOSAApplication::create([
+    // 4. Create the dean record for the single Head OSA
+    DeanApplication::create([
       'number_of_copies' => $application->number_of_copies,
       'reference_number' => $application->reference_number,
       'student_id' => $student->student_id,
@@ -97,7 +98,7 @@ class RegistrarController extends Controller
     ]);
 
 
-    return redirect()->route('registrar.dashboard')->with('status', 'Application approved and forwarded to Office of Student Affairs.');
+    return redirect()->route('registrar.dashboard')->with('status', 'Application approved and forwarded to Dean Office.');
   }
 
   /**

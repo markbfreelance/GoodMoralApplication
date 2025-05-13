@@ -13,6 +13,7 @@ use App\Models\HeadOSAApplication;
 use App\Models\DeanApplication;
 use App\Traits\RoleCheck;
 use App\Models\NotifArchive;
+use App\Models\SecOSAApplication;
 
 class AdminController extends Controller
 {
@@ -235,7 +236,7 @@ class AdminController extends Controller
     }
 
     // 4. Create the head_osa_application record for the single Head OSA
-    DeanApplication::create([
+    SecOSAApplication::create([
       'number_of_copies' => $application->number_of_copies,
       'reference_number' => $application->reference_number,
       'student_id' => $student->student_id,
@@ -268,7 +269,7 @@ class AdminController extends Controller
 
     return redirect()->route('admin.GMAApporvedByRegistrar')->with(
       'status',
-      'Application approved and forwarded to ' . $application->student->department . ' Dean.'
+      'Application approved and ready to print'
     );
   }
 }

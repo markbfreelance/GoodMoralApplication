@@ -94,15 +94,15 @@
                       @elseif($notification->status == '-1')
                       Your application has been rejected by the registrar.
                       @elseif($notification->status == '-2')
-                      Your application has been rejected by the Administrator.
+                      Your application has been rejected by the Dean.
                       @elseif($notification->status == '-3')
-                      Your application has been rejected by the dean.
+                      Your application has been rejected by the Administrator.
                       @elseif($notification->status == '1')
                       Your application has been approved by the registrar.
                       @elseif($notification->status == '2')
-                      Your application has been approved by the Administrator.
+                      Your application has been approved by the Dean.
                       @elseif($notification->status == '3')
-                      Your application has been approved by the dean.
+                      Your application has been approved by the Administrator.
                       @elseif($notification->status == '4')
                       Your application is now ready for pick up.
                       @else

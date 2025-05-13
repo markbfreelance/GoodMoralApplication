@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\RoleCheck;
 use App\Models\StudentViolation;
 use App\Models\Violation;
+use App\Models\HeadOSAApplication;
 
 class DeanController extends Controller
 {
@@ -215,7 +216,7 @@ class DeanController extends Controller
       $goodMoralApplication->save();
     }
 
-    SecOSAApplication::create([
+    HeadOSAApplication::create([
       'number_of_copies' => $application->number_of_copies,
       'reference_number' => $application->reference_number,
       'student_id' => $student->student_id,
