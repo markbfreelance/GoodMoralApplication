@@ -40,6 +40,7 @@
         <option value="registrar">Registrar</option>
         <option value="sec_osa">Moderator</option>
         <option value="dean">Dean</option>
+        <option value="prog_coor">Program Coordinator</option>
         <option value="psg_officer">PSG Officer</option>
         <option value="alumni">Alumni</option>
         <option value="student">Student</option>

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ProgramCoordinatorController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HeadOSAController;
@@ -175,5 +175,9 @@ Route::middleware('auth')->group(function () {
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+// Program Coordinator ROUTES ======================================================================================
+Route::get('/prog_coor/dashboard', [ProgramCoordinatorController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('prog_coor.dashboard');
 
 require __DIR__ . '/auth.php';

@@ -35,7 +35,7 @@ class RegisteredAccountController extends Controller
       'department' => ['required', 'string', 'max:255'],
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
       'student_id' => ['nullable', 'string', 'max:20', 'unique:role_account,student_id'],
-      'account_type' => ['required', 'string', 'in:dean,psg_officer,registar,moderator'],
+      'account_type' => ['required', 'string', 'in:dean,psg_officer,registar,moderator,prog_coor'],
     ]);
 
     $user = RoleAccount::create([
@@ -47,10 +47,6 @@ class RegisteredAccountController extends Controller
       'status' => "1",
       'account_type' => $request->account_type,
     ]);
-
-    event(new Registered($user));
-
-    Auth::login($user);
 
     return redirect()->route('admin.AddAccount')->with('success', 'Account successfully created!');
   }

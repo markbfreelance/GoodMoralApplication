@@ -42,6 +42,7 @@
               <option value="dean">Dean</option>
               <option value="sec_osa">Moderator</option>
               <option value="registar">Registar</option>
+              <option value="prog_coor">Program Coordinator</option>
             </select>
 
             <x-input-error :messages="$errors->get('account_type')" class="mt-2" />
