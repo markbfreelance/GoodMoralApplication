@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\ViolationNotif;
 use App\Models\GoodMoralApplication;
 use App\Models\SecOSAApplication;
 use App\Models\NotifArchive;
@@ -15,6 +15,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request; // Add this line
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class SecOSAController extends Controller
 {
@@ -139,20 +140,30 @@ class SecOSAController extends Controller
 
   public function uploadDocument(Request $request, $id)
   {
-    // Validate the file
     $request->validate([
-      'document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // 2MB max
+      'document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
     ]);
 
     $violation = StudentViolation::findOrFail($id);
 
-    // Store the file
     $path = $request->file('document')->store('violations_documents', 'public');
 
-    // Save file path to database (add a `document_path` column in your model/table)
+    // Generate case number format: "CASE-YYYYMMDD-UNIQUE"
+    $date = date('Ymd');
+    $unique = strtoupper(Str::random(6));  // 6 random uppercase letters/numbers
+    $caseNumber = "CASE-{$date}-{$unique}";
+
     $violation->document_path = $path;
+    $violation->ref_num = $caseNumber;
+    $violation->status = "1";
     $violation->save();
 
-    return back()->with('success', 'Document uploaded successfully!');
+    ViolationNotif::create([
+      'ref_num' => $caseNumber,
+      'student_id' => $violation->student_id,
+      'status' => 0,  // or whatever initial status you want
+    ]);
+
+    return back()->with('success', "Document uploaded successfully! Case No: {$caseNumber}");
   }
 }
