@@ -33,7 +33,7 @@
           </div>
         </div>
         <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
-        <a href="PsgOfficer/Violator" class="mt-4 inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Clear</a>
+        <a href="{{ route('PsgOfficer.Violator') }}" class="mt-4 inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Clear</a>
       </form>
 
       <!-- Violators Table -->
