@@ -3,7 +3,7 @@
     <div class="flex items-center space-x-4">
       <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hello Dean
+        Hello Program Dean, {{ Auth::user()->department ?? 'Unknown Department' }}
       </h2>
     </div>
   </x-slot>
@@ -110,7 +110,7 @@
 
         <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
           <thead>
-          <tr class="text-left border-b bg-gray-100">
+            <tr class="text-left border-b bg-gray-100">
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
               <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>

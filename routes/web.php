@@ -178,6 +178,7 @@ Route::middleware(['auth', 'verified'])->prefix('dean')->name('dean.')->group(fu
   Route::get('/application', [DeanController::class, 'application'])->name('application');
   Route::patch('/application/{id}/approve', [DeanController::class, 'approve'])->name('approve');
   Route::delete('/application/{id}/reject', [DeanController::class, 'reject'])->name('reject');
+  Route::get('/major', [DeanController::class, 'major'])->name('major');
 });
 
 Route::middleware('auth')->group(function () {

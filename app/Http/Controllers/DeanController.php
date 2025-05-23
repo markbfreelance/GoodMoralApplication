@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\DeanApplication;
 use App\Models\SecOSAApplication;
 use App\Models\GoodMoralApplication;
@@ -169,7 +170,7 @@ class DeanController extends Controller
     return view('dean.application', [
       'applications' => $applications,
       'department' => $dean->department, // pass department to view
-      
+
     ]);
   }
 
@@ -316,5 +317,33 @@ class DeanController extends Controller
     if ($application->department !== $dean->department) {
       return redirect()->route('dean.dashboard')->with('error', 'Unauthorized access to application.');
     }
+  }
+  public function major()
+  {
+    $userDepartment = Auth::user()->department;
+
+    $students = StudentViolation::where('department', $userDepartment)
+      ->orderBy('updated_at', 'asc') // oldest first
+      ->paginate(10);
+
+    return view('dean.major', compact('students'));
+  }
+  public function DeanMajorSearch(Request $request)
+  {
+    $userDepartment = Auth::user()->department;
+
+    $query = StudentViolation::where('department', $userDepartment);
+
+    if ($request->filled('ref_num')) {
+      $query->where('ref_num', 'like', '%' . $request->ref_num . '%');
+    }
+    if ($request->filled('student_id')) {
+      $query->where('student_id', 'like', '%' . $request->student_id . '%');
+    }
+    if ($request->filled('last_name')) {
+      $query->where('last_name', 'like', '%' . $request->last_name . '%');
+    }
+    $students = $query->paginate(10); // Get paginated results
+    return view('dean.major', compact('students'));
   }
 }

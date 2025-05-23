@@ -19,6 +19,16 @@
       </svg>
       <span class="text-white whitespace-nowrap">Applications</span>
     </a>
+    <!-- Major Violations -->
+    <a href="{{ route('dean.major') }}"
+      class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v3.75m0 3.75h.008M10.29 3.86L1.82 18a1.5 1.5 0 001.29 2.25h17.78a1.5 1.5 0 001.29-2.25L13.71 3.86a1.5 1.5 0 00-2.42 0z" />
+      </svg>
+      <span class="text-white">Major Violations</span>
+    </a>
 
     <!-- Logout -->
     <form method="POST" action="{{ route('logout') }}">

@@ -3,7 +3,7 @@
     <div class="flex items-center space-x-4">
       <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hello Dean
+        Hello Program Dean, {{ Auth::user()->department ?? 'Unknown Department' }}
       </h2>
     </div>
   </x-slot>

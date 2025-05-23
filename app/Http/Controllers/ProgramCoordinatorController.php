@@ -45,7 +45,9 @@ class ProgramCoordinatorController extends Controller
 
   public function CoorMajorSearch(Request $request)
   {
-    $query = StudentViolation::query();
+    $userDepartment = Auth::user()->department;
+
+    $query = StudentViolation::here('department', $userDepartment);
 
     if ($request->filled('ref_num')) {
       $query->where('ref_num', 'like', '%' . $request->ref_num . '%');
