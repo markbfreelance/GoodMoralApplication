@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisteredAccountController;
 use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\SecOSAController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProgramCoordinatorController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -86,4 +87,7 @@ Route::middleware('auth')->group(function () {
 
   Route::get('violationsearch', [AdminController::class, 'violationsearch'])
     ->name('violationsearch');
+
+  Route::get('CoorMajorSearch', [ProgramCoordinatorController::class, 'CoorMajorSearch'])
+    ->name('CoorMajorSearch');
 });

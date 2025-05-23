@@ -3,7 +3,7 @@
     <div class="flex items-center space-x-4">
       <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Program Coordinator
+        Hello Program Coordinator, {{ Auth::user()->department ?? 'Unknown Department' }}
       </h2>
     </div>
   </x-slot>
