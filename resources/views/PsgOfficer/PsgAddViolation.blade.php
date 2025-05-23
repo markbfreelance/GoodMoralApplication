@@ -68,6 +68,22 @@
             <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
           </div>
 
+          <div class="mt-4">
+            <x-input-label for="department" :value="__('Department')" />
+            <select
+              id="department"
+              name="department"
+              class="block mt-1 w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+              required>
+              <option value="" disabled selected>Select Department</option>
+              <option value="SITE">SITE</option>
+              <option value="SASTE">SASTE</option>
+              <option value="SBAHM">SBAHM</option>
+              <option value="SNAHS">SNAHS</option>
+            </select>
+            <x-input-error :messages="$errors->get('department')" class="mt-2" />
+          </div>
+
           <div x-data="{ showExtraInput: false }" class="mt-4">
             <x-input-label for="violation" :value="__('Violation Type')" />
             <select

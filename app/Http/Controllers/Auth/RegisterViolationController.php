@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Traits\RoleCheck;
+
 class RegisterViolationController extends Controller
 {
   /**
@@ -50,6 +51,7 @@ class RegisterViolationController extends Controller
       'last_name' => ['required', 'string', 'max:255'],
       'student_id' => ['required', 'string', 'max:20'],
       'violation' => ['required', 'string', 'max:255'],
+      'department' => ['required', 'string', 'max:255'],
       'others' => ['nullable', 'string', 'max:255'],
     ]);
 
@@ -60,6 +62,7 @@ class RegisterViolationController extends Controller
     if ($request->violation !== 'Others') {
       $user = StudentViolation::create([
         'first_name' => $request->first_name,
+        'department' => $request->department,
         'last_name' => $request->last_name,
         'violation' => $description,
         'student_id' => $request->student_id,
@@ -73,6 +76,7 @@ class RegisterViolationController extends Controller
       return redirect()->route('PsgOfficer.PsgAddViolation')->with('success', 'Violator Added Successfully!');
     } else {
       $user = StudentViolation::create([
+        'department' => $request->department,
         'first_name' => $request->first_name,
         'last_name' => $request->last_name,
         'violation' => $request->others,

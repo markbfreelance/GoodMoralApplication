@@ -21,6 +21,7 @@ class StudentViolation extends Authenticatable
     'added_by',
     'violation',
     'unique_id',
+    'department',
   ];
 
   /**

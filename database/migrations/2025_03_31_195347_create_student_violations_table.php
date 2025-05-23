@@ -17,6 +17,7 @@ return new class extends Migration {
       $table->string('student_id');
       $table->string('added_by');
       $table->string('unique_id');
+      $table->string('department');
       $table->string('document_path')->nullable();
       $table->string('ref_num')->nullable();
       $table->timestamps();
