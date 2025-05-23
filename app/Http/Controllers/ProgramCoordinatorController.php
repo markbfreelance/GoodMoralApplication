@@ -14,7 +14,7 @@ use App\Models\HeadOSAApplication;
 
 class ProgramCoordinatorController extends Controller
 {
-      use RoleCheck;
+  use RoleCheck;
 
   public function __construct()
   {
@@ -23,7 +23,16 @@ class ProgramCoordinatorController extends Controller
   }
 
   public function dashboard()
-{
+  {
     return view('prog_coor.dashboard'); // Ensure this view exists
-}
+  }
+  public function minor()
+  {
+    return view('prog_coor.minor'); // Ensure this view exists
+  }
+
+    public function major()
+  {
+    return view('prog_coor.major'); // Ensure this view exists
+  }
 }

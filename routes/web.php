@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ProgramCoordinatorController;
 use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ApplicationController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\DeanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
   return view('welcome');
@@ -179,5 +180,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/prog_coor/dashboard', [ProgramCoordinatorController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('prog_coor.dashboard');
+
+Route::get('/prog_coor/minor', [ProgramCoordinatorController::class, 'minor'])
+  ->middleware(['auth', 'verified'])
+  ->name('prog_coor.minor');
+
+Route::get('/prog_coor/major', [ProgramCoordinatorController::class, 'major'])
+  ->middleware(['auth', 'verified'])
+  ->name('prog_coor.major');
 
 require __DIR__ . '/auth.php';
