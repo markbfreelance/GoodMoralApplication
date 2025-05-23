@@ -12,7 +12,8 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('violation_notifs', function (Blueprint $table) {
-      $table->string('ref_num')->unique();
+      $table->id();
+      $table->string('ref_num');
       $table->string('student_id');
       $table->string('status');
       $table->string('notif');

@@ -138,7 +138,6 @@ class SecOSAController extends Controller
 
     return view('sec_osa.minor', compact('students'));
   }
-
   public function uploadDocument(Request $request, $id)
   {
     $request->validate([
@@ -149,10 +148,14 @@ class SecOSAController extends Controller
 
     $path = $request->file('document')->store('violations_documents', 'public');
 
-    // Generate case number format: "CASE-YYYYMMDD-UNIQUE"
     $date = date('Ymd');
-    $unique = strtoupper(Str::random(6));  // 6 random uppercase letters/numbers
-    $caseNumber = "CASE-{$date}-{$unique}";
+
+    // Generate unique case number with a retry loop
+    do {
+      $unique = strtoupper(Str::random(6));  // 6 random uppercase letters/numbers
+      $caseNumber = "CASE-{$date}-{$unique}";
+      $exists = StudentViolation::where('ref_num', $caseNumber)->exists();
+    } while ($exists);
 
     $violation->document_path = $path;
     $violation->ref_num = $caseNumber;
@@ -163,8 +166,8 @@ class SecOSAController extends Controller
     ViolationNotif::create([
       'ref_num' => $caseNumber,
       'student_id' => $violation->student_id,
-      'status' => 0,  // or whatever initial status you want
-      'notif' => "Uploaded the proceedings with case number: $caseNumber ",
+      'status' => 0,  // initial status
+      'notif' => "Uploaded the proceedings with case number: $caseNumber",
     ]);
 
     return back()->with('success', "Document uploaded successfully! Case No: {$caseNumber}");

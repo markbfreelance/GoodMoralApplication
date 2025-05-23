@@ -61,6 +61,10 @@ Route::get('/admin/GMAApporvedByRegistrar', [AdminController::class, 'GMAApporve
   ->middleware(['auth', 'verified'])
   ->name('admin.GMAApporvedByRegistrar');
 
+Route::get('/admin/violation', [AdminController::class, 'violation'])
+  ->middleware(['auth', 'verified'])
+  ->name('admin.violation');
+
 Route::patch('/admin/application/{id}/approve', [AdminController::class, 'approveGMA'])
   ->middleware(['auth', 'verified'])
   ->name('admin.approveGMA');

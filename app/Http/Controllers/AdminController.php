@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ViolationNotif;
 use App\Models\GoodMoralApplication;
 use App\Models\StudentViolation;
 use App\Models\RoleAccount;
@@ -201,7 +202,7 @@ class AdminController extends Controller
       'graduation_date' => $application->graduation_date,
       'application_status' => null,
       'is_undergraduate' => $application->is_undergraduate,
-      'last_course_year_level'=> $application->last_course_year_level,
+      'last_course_year_level' => $application->last_course_year_level,
       'last_semester_sy' => $application->last_semester_sy,
       'status' => '-2',
     ]);
@@ -262,7 +263,7 @@ class AdminController extends Controller
       'graduation_date' => $application->graduation_date,
       'application_status' => null,
       'is_undergraduate' => $application->is_undergraduate,
-      'last_course_year_level'=> $application->last_course_year_level,
+      'last_course_year_level' => $application->last_course_year_level,
       'last_semester_sy' => $application->last_semester_sy,
       'status' => '2',
     ]);
@@ -271,5 +272,54 @@ class AdminController extends Controller
       'status',
       'Application approved and ready to print'
     );
+  }
+  public function violation()
+  {
+    $students = StudentViolation::orderBy('updated_at', 'asc') // oldest first
+      ->paginate(10);
+
+    return view('admin.violation', compact('students'));
+  }
+
+  public function markDownloaded($id)
+  {
+    $violation = StudentViolation::findOrFail($id);
+    $violation->downloaded = true;
+    $violation->save();
+
+    return back()->with('success', 'Marked as downloaded.');
+  }
+
+  public function closeCase($id)
+  {
+    $violation = StudentViolation::findOrFail($id);
+    $violation->status = '2'; // or 2, or whatever means "closed"
+    $violation->save();
+
+    ViolationNotif::create([
+      'ref_num' => $violation->ref_num,
+      'student_id' => $violation->student_id,
+      'status' => 1,  // or whatever initial status you want
+      'notif' => "Violation was solve with case number: $violation->ref_num ",
+    ]);
+
+    return back()->with('success', 'Case closed successfully.');
+  }
+
+    public function violationsearch(Request $request)
+  {
+    $query = StudentViolation::query();
+
+    if ($request->filled('ref_num')) {
+      $query->where('ref_num', 'like', '%' . $request->ref_num . '%');
+    }
+    if ($request->filled('student_id')) {
+      $query->where('student_id', 'like', '%' . $request->student_id . '%');
+    }
+    if ($request->filled('last_name')) {
+      $query->where('last_name', 'like', '%' . $request->last_name . '%');
+    }
+    $students = $query->paginate(10); // Get paginated results
+    return view('admin.violation', compact('students'));
   }
 }

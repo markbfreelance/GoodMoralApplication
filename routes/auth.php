@@ -80,4 +80,10 @@ Route::middleware('auth')->group(function () {
 
   Route::get('sec_osaSearch', [SecOSAController::class, 'search'])
     ->name('sec_osaSearch');
+
+  Route::post('/violations/{id}/mark-downloaded', [AdminController::class, 'markDownloaded'])->name('violations.markDownloaded');
+  Route::post('/violations/{id}/close', [AdminController::class, 'closeCase'])->name('violations.closeCase');
+
+  Route::get('violationsearch', [AdminController::class, 'violationsearch'])
+    ->name('violationsearch');
 });
