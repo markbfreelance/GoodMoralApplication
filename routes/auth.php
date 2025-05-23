@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\RegisteredAccountController;
 use App\Http\Controllers\Auth\RegisterViolationController;
+use App\Http\Controllers\SecOSAController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,4 +77,7 @@ Route::middleware('auth')->group(function () {
 
   Route::get('adminApplicationSearch', [AdminController::class, 'search'])
     ->name('adminApplicationSearch');
+
+  Route::get('sec_osaSearch', [SecOSAController::class, 'search'])
+    ->name('sec_osaSearch');
 });

@@ -22,7 +22,7 @@
       @endif
 
       <!-- Search Form -->
-      <form method="GET" action="{{ route('psgsearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg">
+      <form method="GET" action="{{ route('sec_osaSearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label for="student_id" class="block text-gray-700 font-medium">Student ID</label>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\ViolationNotif;
 use App\Models\GoodMoralApplication;
 use App\Models\SecOSAApplication;
@@ -156,14 +157,40 @@ class SecOSAController extends Controller
     $violation->document_path = $path;
     $violation->ref_num = $caseNumber;
     $violation->status = "1";
+
     $violation->save();
 
     ViolationNotif::create([
       'ref_num' => $caseNumber,
       'student_id' => $violation->student_id,
       'status' => 0,  // or whatever initial status you want
+      'notif' => "Uploaded the proceedings with case number: $caseNumber ",
     ]);
 
     return back()->with('success', "Document uploaded successfully! Case No: {$caseNumber}");
+  }
+
+  public function search(Request $request)
+  {
+    $query = StudentViolation::query();
+
+    if ($request->filled('first_name')) {
+      $query->where('first_name', 'like', '%' . $request->first_name . '%');
+    }
+
+    if ($request->filled('last_name')) {
+      $query->where('last_name', 'like', '%' . $request->last_name . '%');
+    }
+
+    if ($request->filled('student_id')) {
+      $query->where('student_id', 'like', '%' . $request->student_id . '%');
+    }
+
+    // Add filters for 'status' and 'notif'
+    $query->where('status', '0')->where('offense_type', 'major');
+
+    $students = $query->paginate(10);
+
+    return view('sec_osa.major', compact('students'));
   }
 }

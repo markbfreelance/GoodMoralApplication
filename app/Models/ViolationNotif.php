@@ -13,6 +13,7 @@ class ViolationNotif extends Model
     'ref_num',
     'student_id',
     'status',
+    'notif',
   ];
 
 }
