@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ViolationNotif;
 use Illuminate\Support\Str;
 use App\Models\GoodMoralApplication;
 use App\Models\RoleAccount;
@@ -37,7 +38,9 @@ class ApplicationController extends Controller
 
     $studentId = $student->student_id;
     $fullname = $student->fullname;
-    $Violation = StudentViolation::where('student_id', $studentId)->get(); // fetches a collection
+    $Violation = StudentViolation::where('student_id', $studentId)
+      ->where('status', '!=', 2)
+      ->get(); // fetches a collection
 
     return view('dashboard', compact('Violation', 'fullname'));
   }
@@ -132,5 +135,16 @@ class ApplicationController extends Controller
 
     // Return the view with the notifications
     return view('notification', compact('notifications'));
+  }
+
+  public function notificationViolation()
+  {
+    // Fetch notifications for the authenticated user using the student_id
+    $notifications = ViolationNotif::where('student_id', Auth::user()->student_id) // Assuming student_id is stored in the users table
+      ->orderBy('created_at', 'desc') // Optional: Order by latest notifications first
+      ->get();
+
+    // Return the view with the notifications
+    return view('notificationViolation', compact('notifications'));
   }
 }

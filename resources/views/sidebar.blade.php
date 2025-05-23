@@ -11,6 +11,7 @@
       </svg>
       <span class="text-white">Application</span>
     </a>
+
     <a href="{{ route('notification') }}"
       class="gap-2 h-20 items-center flex px-4 py-2 {{ request()->routeIs('notification') ? 'bg-gray-700 text-white' : 'text-gray-700 hover:bg-gray-700 hover:text-gray-300' }}">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -18,7 +19,17 @@
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M12 2C9.79 2 8 3.79 8 6v5.26a6.94 6.94 0 00-1.7.96L5 13v3h14v-3l-1.3-1.78a6.94 6.94 0 00-1.7-.96V6c0-2.21-1.79-4-4-4z" />
       </svg>
-      <span class="text-white">Notifications</span>
+      <span class="text-white">Application Notifications</span>
+    </a>
+
+    <a href="{{ route('notificationViolation') }}"
+      class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 2c.414 0 .75.336.75.75v1.5a.75.75 0 01-1.5 0v-1.5C11.25 2.336 11.586 2 12 2zM4.222 5.636a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM19.778 5.636a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM12 6.75a5.25 5.25 0 015.25 5.25v3.75H6.75v-3.75A5.25 5.25 0 0112 6.75zM6.75 18a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H6.75z" />
+      </svg>
+      <span class="text-white">Notification Violations</span>
     </a>
 
 

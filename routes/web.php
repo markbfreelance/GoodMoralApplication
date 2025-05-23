@@ -25,6 +25,10 @@ Route::get('/notification', [ApplicationController::class, 'notification'])
   ->middleware(['auth', 'verified'])
   ->name('notification');
 
+Route::get('/notificationViolation', [ApplicationController::class, 'notificationViolation'])
+  ->middleware(['auth', 'verified'])
+  ->name('notificationViolation');
+
 //admin route==================================================================================================================================================================
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
