@@ -156,6 +156,17 @@ Route::delete('/sec_osa/application/{id}/reject', [SecOSAController::class, 'rej
   ->middleware(['auth', 'verified'])
   ->name('sec_osa.reject');
 
+Route::get('/sec_osa/minor', [SecOSAController::class, 'minor'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.minor');
+
+Route::get('/sec_osa/major', [SecOSAController::class, 'major'])
+  ->middleware(['auth', 'verified'])
+  ->name('sec_osa.major');
+
+Route::post('/sec_osa/upload/{id}', [SecOSAController::class, 'uploadDocument'])
+  ->name('sec_osa.document');
+
 
 // DEAN ROUTES ======================================================================================
 Route::middleware(['auth', 'verified'])->prefix('dean')->name('dean.')->group(function () {

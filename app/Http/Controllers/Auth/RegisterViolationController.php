@@ -64,7 +64,7 @@ class RegisterViolationController extends Controller
         'violation' => $description,
         'student_id' => $request->student_id,
         'added_by' => $userName,
-        'status' => 'Pending',
+        'status' => '0',
         'offense_type' => $offenseType,
         'unique_id' => $uniqueID,
       ]);
@@ -78,7 +78,7 @@ class RegisterViolationController extends Controller
         'violation' => $request->others,
         'student_id' => $request->student_id,
         'added_by' => $userName,
-        'status' => 'Pending',
+        'status' => '0',
         'offense_type' => $request->OtherType,
         'unique_id' => $uniqueID,
       ]);

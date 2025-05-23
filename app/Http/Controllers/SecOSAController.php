@@ -116,4 +116,43 @@ class SecOSAController extends Controller
 
     return redirect()->route('sec_osa.dashboard')->with('status', 'Application rejected!');
   }
+
+  public function major()
+  {
+    // Fetch student violations with status 0 and type 'minor', then paginate
+    $students = StudentViolation::where('status', 0)
+      ->where('offense_type', 'major')
+      ->paginate(10);
+
+    return view('sec_osa.major', compact('students'));
+  }
+
+  public function minor()
+  {
+    // Fetch student violations with status 0 and type 'minor', then paginate
+    $students = StudentViolation::where('status', 0)
+      ->where('offense_type', 'minor')
+      ->paginate(10);
+
+    return view('sec_osa.minor', compact('students'));
+  }
+
+  public function uploadDocument(Request $request, $id)
+  {
+    // Validate the file
+    $request->validate([
+      'document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // 2MB max
+    ]);
+
+    $violation = StudentViolation::findOrFail($id);
+
+    // Store the file
+    $path = $request->file('document')->store('violations_documents', 'public');
+
+    // Save file path to database (add a `document_path` column in your model/table)
+    $violation->document_path = $path;
+    $violation->save();
+
+    return back()->with('success', 'Document uploaded successfully!');
+  }
 }
