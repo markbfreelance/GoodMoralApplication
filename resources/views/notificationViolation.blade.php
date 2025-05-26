@@ -13,7 +13,7 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900">
-            <h3 class="text-lg font-semibold text-gray-700">Your Application Status</h3>
+            <h3 class="text-lg font-semibold text-gray-700">Your Violation Status</h3>
 
             <!-- Display application status -->
             <div class="mt-4">

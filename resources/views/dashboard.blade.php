@@ -135,7 +135,7 @@
               <tbody>
                 @foreach ($Violation as $violation)
                 <tr class="border-b">
-                  <td class="py-2 px-4">{{ $violation->offense_type }}</td>
+                  <td class="py-2 px-4">{{ ucfirst($violation->offense_type) }}</td>
                   <td class="py-2 px-4">{{ $violation->violation }}</td>
                   <td class="py-2 px-4">{{ $violation->created_at->format('M d, Y') }}</td>
                 </tr>
