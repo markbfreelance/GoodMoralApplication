@@ -37,10 +37,10 @@ class SecOSAController extends Controller
     $snahs = SecOSAApplication::where('department', 'SNAHS')->count();
 
     //For Pie Chart stats
-    $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
-    $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
-    $majorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'major')->count();
-    $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
+    $minorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'minor')->count();
+    $minorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'minor')->count();
+    $majorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'major')->count();
+    $majorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'major')->count();
     //Pageinate
     $violationpage = Violation::paginate(10);
 
