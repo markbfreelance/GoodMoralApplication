@@ -12,6 +12,8 @@ use App\Traits\RoleCheck;
 use App\Models\StudentViolation;
 use App\Models\Violation;
 use App\Models\HeadOSAApplication;
+use Illuminate\Support\Str;
+use App\Models\ViolationNotif;
 
 class DeanController extends Controller
 {
@@ -378,5 +380,30 @@ class DeanController extends Controller
     }
     $students = $query->paginate(10); // Get paginated results
     return view('dean.minor', compact('students'));
+  }
+
+  public function deanviolationapprove($id)
+  {
+    $userDepartment = Auth::user()->department;
+
+    $violation = StudentViolation::findOrFail($id);
+    $date = date('Ymd');
+    do {
+      $unique = strtoupper(Str::random(6));  // 6 random uppercase letters/numbers
+      $caseNumber = "CASE-{$date}-{$unique}";
+      $exists = StudentViolation::where('ref_num', $caseNumber)->exists();
+    } while ($exists);
+    $violation->ref_num = $caseNumber;
+    $violation->status = "1";
+
+    $violation->save();
+    ViolationNotif::create([
+      'ref_num' => $caseNumber,
+      'student_id' => $violation->student_id,
+      'status' => 0,  // initial status
+      'notif' => "Approve the proceedings by Dean, with case number: $caseNumber",
+    ]);
+
+    return back()->with('success', "Approve the proceedings with Case number: {$caseNumber}");
   }
 }

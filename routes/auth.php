@@ -97,4 +97,7 @@ Route::middleware('auth')->group(function () {
 
   Route::get('DeanMajorSearch', [DeanController::class, 'DeanMajorSearch'])
     ->name('DeanMajorSearch');
+
+  Route::post('dean/violation/approve/{id}', [DeanController::class, 'deanviolationapprove'])
+    ->name('dean.violation.approve');
 });

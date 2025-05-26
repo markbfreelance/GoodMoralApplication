@@ -86,13 +86,16 @@
                 </td>
 
                 <td class="py-3 px-6">
-                  @if ($student->status == 0 || !$student->document_path)
-                  <span class="text-gray-400 italic">No Documents</span>
+                  @if ($student->status != 0)
+                  <span class="text-blue-600 font-semibold italic">Already Approved and Submitted to Admin</span>
                   @else
-                  <a href="{{ asset('storage/' . $student->document_path) }}" download
-                    class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition block text-center">
-                    Download
-                  </a>
+                 <form action="{{ route('dean.violation.approve', $student->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                      class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition block text-center w-full">
+                      Approve
+                    </button>
+                  </form>
                   @endif
                 </td>
 
