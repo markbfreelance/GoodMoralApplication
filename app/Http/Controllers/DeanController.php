@@ -129,10 +129,10 @@ class DeanController extends Controller
     }
 
     //For Pie Chart stats
-    $minorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'minor')->count();
-    $minorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'minor')->count();
-    $majorpending = StudentViolation::where('status', 'pending')->where('offense_type', 'major')->count();
-    $majorcomplied = StudentViolation::where('status', 'complied')->where('offense_type', 'major')->count();
+    $minorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'minor')->count();
+    $minorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'minor')->count();
+    $majorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'major')->count();
+    $majorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'major')->count();
     //Pageinate
     $violationpage = Violation::paginate(10);
     return view('dean.dashboard', compact(
@@ -323,6 +323,7 @@ class DeanController extends Controller
     $userDepartment = Auth::user()->department;
 
     $students = StudentViolation::where('department', $userDepartment)
+      ->where('offense_type', 'major')
       ->orderBy('updated_at', 'asc') // oldest first
       ->paginate(10);
 
@@ -332,7 +333,8 @@ class DeanController extends Controller
   {
     $userDepartment = Auth::user()->department;
 
-    $query = StudentViolation::where('department', $userDepartment);
+    $query = StudentViolation::where('department', $userDepartment)
+      ->where('offense_type', 'major');
 
     if ($request->filled('ref_num')) {
       $query->where('ref_num', 'like', '%' . $request->ref_num . '%');
@@ -345,5 +347,36 @@ class DeanController extends Controller
     }
     $students = $query->paginate(10); // Get paginated results
     return view('dean.major', compact('students'));
+  }
+
+  public function minor()
+  {
+    $userDepartment = Auth::user()->department;
+
+    $students = StudentViolation::where('department', $userDepartment)
+      ->where('offense_type', 'minor')
+      ->orderBy('updated_at', 'asc') // oldest first
+      ->paginate(10);
+
+    return view('dean.minor', compact('students'));
+  }
+  public function DeanMinorSearch(Request $request)
+  {
+    $userDepartment = Auth::user()->department;
+
+    $query = StudentViolation::where('department', $userDepartment)
+      ->where('offense_type', 'minor');
+
+    if ($request->filled('ref_num')) {
+      $query->where('ref_num', 'like', '%' . $request->ref_num . '%');
+    }
+    if ($request->filled('student_id')) {
+      $query->where('student_id', 'like', '%' . $request->student_id . '%');
+    }
+    if ($request->filled('last_name')) {
+      $query->where('last_name', 'like', '%' . $request->last_name . '%');
+    }
+    $students = $query->paginate(10); // Get paginated results
+    return view('dean.minor', compact('students'));
   }
 }

@@ -21,7 +21,7 @@
     </a>
     <!-- Major Violations -->
     <a href="{{ route('dean.major') }}"
-      class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300">
+      class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300 {{ request()->routeIs('dean.major') ? 'bg-gray-700 text-white' : 'text-gray-700 hover:bg-gray-700 hover:text-gray-300' }}">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
         stroke="currentColor" class="size-10">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -29,6 +29,17 @@
       </svg>
       <span class="text-white">Major Violations</span>
     </a>
+
+    <a href="{{ route('dean.minor') }}"
+      class="gap-2 h-20 items-center flex px-4 py-2 text-gray-700 hover:bg-gray-700 hover:text-gray-300 {{ request()->routeIs('dean.minor') ? 'bg-gray-700 text-white' : 'text-gray-700 hover:bg-gray-700 hover:text-gray-300' }}">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M6 3v18m0 0h.01M6 3h8.25a1.5 1.5 0 011.18 2.42L13.5 9l1.93 3.58a1.5 1.5 0 01-1.18 2.42H6" />
+      </svg>
+      <span class="text-white">Minor Violations</span>
+    </a>
+
 
     <!-- Logout -->
     <form method="POST" action="{{ route('logout') }}">

@@ -92,6 +92,9 @@ Route::middleware('auth')->group(function () {
   Route::get('CoorMajorSearch', [ProgramCoordinatorController::class, 'CoorMajorSearch'])
     ->name('CoorMajorSearch');
 
+  Route::get('DeanMinorSearch', [DeanController::class, 'DeanMinorSearch'])
+    ->name('DeanMinorSearch');
+
   Route::get('DeanMajorSearch', [DeanController::class, 'DeanMajorSearch'])
     ->name('DeanMajorSearch');
 });

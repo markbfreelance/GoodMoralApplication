@@ -219,7 +219,14 @@
           </div>
         </div>
       </div>
-
+      @php
+      $total = $majorpending + $majorcomplied;
+      // Calculate the percentages for Pending and Complied
+      $pendingPercent = $total > 0 ? ($majorpending / $total) * 100 : 0;
+      $compliedPercent = 100 - $pendingPercent;
+      // Prepare the dash array for the SVG donut chart
+      $dashArray = $pendingPercent . ' ' . $compliedPercent;
+      @endphp
       <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
         <!-- Pie Chart Minor Offenses -->
         <div class="bg-white p-4 rounded-xl shadow">
@@ -266,14 +273,7 @@
         </div>
       </div>
 
-      @php
-      $total = $majorpending + $majorcomplied;
-      // Calculate the percentages for Pending and Complied
-      $pendingPercent = $total > 0 ? ($majorpending / $total) * 100 : 0;
-      $compliedPercent = 100 - $pendingPercent;
-      // Prepare the dash array for the SVG donut chart
-      $dashArray = $pendingPercent . ' ' . $compliedPercent;
-      @endphp
+
 
   </div>
   </main>
