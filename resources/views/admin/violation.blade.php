@@ -36,10 +36,17 @@
             <label for="last_name" class="block text-gray-700 font-medium">Last Name</label>
             <input type="text" id="last_name" name="last_name" class="w-full p-2 border border-gray-300 rounded-md" value="{{ old('last_name', request('last_name')) }}" placeholder="Enter Last Name">
           </div>
+          <div>
+            <label for="offense_type" class="block text-gray-700 font-medium">Offense Type</label>
+            <select id="offense_type" name="offense_type" class="w-full p-2 border border-gray-300 rounded-md">
+              <option value="">-- All --</option>
+              <option value="minor" {{ request('offense_type') == 'minor' ? 'selected' : '' }}>Minor</option>
+              <option value="major" {{ request('offense_type') == 'major' ? 'selected' : '' }}>Major</option>
+            </select>
+          </div>
         </div>
         <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
         <a href="admin/violation" class="mt-4 inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Clear</a>
-
       </form>
 
       <!-- Violators Table -->
@@ -67,11 +74,21 @@
                 <td class="py-3 px-6">{{ $student->student_id }}</td>
                 <td class="py-3 px-6">{{ $student->first_name }}</td>
                 <td class="py-3 px-6">{{ $student->last_name }}</td>
-                <td class="py-3 px-6">{{ $student->offense_type.': '.$student->violation}}</td>
+                <td class="py-3 px-6">{{ ucfirst($student->offense_type.': '.$student->violation)}}</td>
                 <td class="py-3 px-6">
                   @if ($student->status == 2)
                   <span class="text-gray-500 font-semibold">Resolved</span>
                   @else
+                  @if ($student->offense_type === 'minor')
+                  {{-- If offense is minor, show only Close Case button --}}
+                  <form method="POST" action="{{ route('violations.closeCase', $student->id) }}">
+                    @csrf
+                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 w-full">
+                      Close Case
+                    </button>
+                  </form>
+                  @else
+                  {{-- Otherwise, show the normal download + mark downloaded flow --}}
                   @if ($student->document_path)
                   <div class="space-y-1">
                     <a href="{{ asset('storage/' . $student->document_path) }}" download
@@ -99,7 +116,9 @@
                   <span class="text-gray-400 italic">No document</span>
                   @endif
                   @endif
+                  @endif
                 </td>
+
 
               </tr>
               @endforeach

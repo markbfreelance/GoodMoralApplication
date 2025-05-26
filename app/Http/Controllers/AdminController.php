@@ -306,7 +306,7 @@ class AdminController extends Controller
     return back()->with('success', 'Case closed successfully.');
   }
 
-    public function violationsearch(Request $request)
+  public function violationsearch(Request $request)
   {
     $query = StudentViolation::query();
 
@@ -318,6 +318,9 @@ class AdminController extends Controller
     }
     if ($request->filled('last_name')) {
       $query->where('last_name', 'like', '%' . $request->last_name . '%');
+    }
+    if ($request->filled('offense_type')) {
+      $query->where('offense_type', $request->offense_type);
     }
     $students = $query->paginate(10); // Get paginated results
     return view('admin.violation', compact('students'));
