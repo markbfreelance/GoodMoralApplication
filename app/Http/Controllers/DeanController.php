@@ -250,7 +250,7 @@ class DeanController extends Controller
       'status' => '3',
     ]);
 
-    return redirect()->route('dean.dashboard')->with('status', 'Application approved and forwarded to Office of Student Affairs.');
+    return back()->with('status', 'Application approved and forwarded to Office of Student Affairs.');
   }
 
   /**

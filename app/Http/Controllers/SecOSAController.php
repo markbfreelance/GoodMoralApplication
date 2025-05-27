@@ -61,6 +61,7 @@ class SecOSAController extends Controller
       $application = SecOSAApplication::findOrFail($id);
       $studentDetails = StudentRegistration::where('student_id', $application->student_id)->first();
       $studentDetails1 = GoodMoralApplication::where('reference_number', $application->reference_number)->first();
+
       // 2. Update application status
       $application->status = 'approved';
       $application->save();
@@ -77,14 +78,19 @@ class SecOSAController extends Controller
         'studentDetails1' => $studentDetails1,
       ];
 
-      // 5. Generate PDF
-      $pdf = Pdf::loadView('pdf.my_pdf_view', $data);
+      // 5. Choose view based on account_type
+      $view = ($studentDetails->account_type === 'student')
+        ? 'pdf.student_certificate'
+        : 'pdf.other_certificate';
+
+      // 6. Generate PDF
+      $pdf = Pdf::loadView($view, $data);
       Log::info('PDF generated successfully.');
 
-      // 6. Ensure directory exists
+      // 7. Ensure directory exists
       Storage::makeDirectory('public/pdfs');
 
-      // 7. Save the file
+      // 8. Save the file
       $filename = "application_{$id}.pdf";
       $relativePath = "public/pdfs/{$filename}";
       $saved = Storage::put($relativePath, $pdf->output());
@@ -108,6 +114,7 @@ class SecOSAController extends Controller
       return back()->withErrors("An error occurred: " . $e->getMessage());
     }
   }
+
 
 
   public function reject($id)
