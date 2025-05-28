@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Old English Text MT Std";
+  src: url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.eot");
+  src: url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a0f33b8a3febb69aa498dba7d9e8cab2.svg#Old English Text MT Std")format("svg");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
