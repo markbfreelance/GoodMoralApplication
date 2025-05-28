@@ -1,5 +1,7 @@
 <header class="w-full max-w-4xl mx-auto p-6 flex items-center justify-between">
-  <span class="text-green-800 font-semibold text-2xl">St. Paul University Philippines</span>
+  <span style="font-family: 'Old English Text MT Std', serif; font-size: 2rem; color: green;">
+    St. Paul University Philippines
+  </span>
   <nav class="space-x-2">
     @if (Route::has('login'))
     @auth

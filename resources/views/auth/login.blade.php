@@ -1,5 +1,7 @@
 <header class="w-full max-w-4xl mx-auto p-6 flex items-center justify-between">
-  <span class="text-green-800 font-semibold text-2xl">St. Paul University Philippines</span>
+  <span style="font-family: 'Old English Text MT Std', serif; font-size: 2rem; color: green;">
+    St. Paul University Philippines
+  </span>
   <nav class="space-x-2">
     @if (Route::has('login'))
     @auth
@@ -7,19 +9,19 @@
       class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
       Go to Dashboard
     </a>
-  @else
-  <a href="{{ route('login') }}"
-    class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-    Sign In
-  </a>
-  @if (Route::has('register'))
-    <a href="{{ route('register') }}"
-    class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
-    Create an Account
+    @else
+    <a href="{{ route('login') }}"
+      class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      Sign In
     </a>
-  @endif
-@endauth
-  @endif
+    @if (Route::has('register'))
+    <a href="{{ route('register') }}"
+      class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      Create an Account
+    </a>
+    @endif
+    @endauth
+    @endif
   </nav>
 </header>
 <x-guest-layout>
@@ -82,10 +84,10 @@
     <div class="flex items-center justify-end mt-4">
       @if (Route::has('password.request'))
       <a class="underline text-sm text-gray-600 hover:text-yellow-800 focus:outline-none focus:ring-0 focus:ring-offset-0"
-      href="{{ route('password.request') }}">
-      {{ __('Forgot your password?') }}
+        href="{{ route('password.request') }}">
+        {{ __('Forgot your password?') }}
       </a>
-    @endif
+      @endif
 
       <x-primary-button class="ms-3 bg-green-700 hover:bg-green-900">
         {{ __('Log in') }}
