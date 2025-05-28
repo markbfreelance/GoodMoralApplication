@@ -15,6 +15,10 @@ export default {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
         oldEnglish: ['"Old English Text MT Std"', 'serif'],
       },
+      colors: {
+        spupGreen: '#026634',
+        spupGold: '#fecb04',
+      },
     },
   },
 

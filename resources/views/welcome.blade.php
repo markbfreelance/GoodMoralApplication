@@ -28,12 +28,14 @@
 
 <body class="text-[#1b1b18] flex flex-col min-h-screen">
   <header class="w-full max-w-4xl mx-auto p-6 flex items-center justify-between">
-    <span class="font-oldEnglish">
-      St. Paul University Philippines
-    </span>
+    <div class="flex items-center">
+      <img src="{{ asset('images/backgrounds/spup-logo.png') }}" alt="Logo" class="h-16 w-auto mr-4"> <!-- Adjust height as needed -->
+      <span class="font-oldEnglish text-spupGreen text-2xl">
+        St. Paul University Philippines
+      </span>
+    </div>
 
-
-    <nav class="space-x-2">
+    <nav>
       @if (Route::has('login'))
       @auth
       <form method="POST" action="{{ route('logout') }}" class="inline-block">
@@ -43,11 +45,11 @@
         </button>
       </form>
       @else
-      <a href="{{ route('login') }}" class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      <a href="{{ route('login') }}" class="inline-block px-5 py-2 text-gray-600 font-medium hover:text-spupGold">
         Sign In
       </a>
       @if (Route::has('register'))
-      <a href="{{ route('register') }}" class="inline-block px-5 py-2 text-gray-600 border border-green-700 hover:bg-yellow-400 hover:text-white rounded-md">
+      <a href="{{ route('register') }}" class="inline-block px-5 py-2 text-gray-600 font-medium hover:text-spupGold">
         Create an Account
       </a>
       @endif
