@@ -24,10 +24,16 @@
     background: url('{{ asset("/images/backgrounds/spup-logo.png") }}') center/contain no-repeat;
     background-size: 40%;
   }
+
+  .mainBg {
+    background: url('{{ asset("/images/backgrounds/mainBg.jpg") }}') top right no-repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 </style>
 
 <body class="text-[#1b1b18] flex flex-col min-h-screen">
-  <header class="w-full max-w-4xl mx-auto p-6 flex items-center justify-between">
+  <header class="w-full max-w-7xl mx-auto p-6 flex items-center justify-between">
     <div class="flex items-center">
       <img src="{{ asset('images/backgrounds/spup-logo.png') }}" alt="Logo" class="h-16 w-auto mr-4"> <!-- Adjust height as needed -->
       <span class="font-oldEnglish text-spupGreen text-2xl">
@@ -58,28 +64,30 @@
     </nav>
   </header>
 
-  <main class="bg-custom flex flex-col items-center justify-center flex-grow text-center relative">
-    <div class="bg-white/60 backdrop-blur-sm absolute inset-0 w-full h-full"></div>
-    <section class="relative z-10 max-w-5xl p-10 text-center">
-      <h1 class="text-6xl font-extrabold text-gray-900 mb-6 tracking-tighter">GOOD MORAL APPLICATION</h1>
-      <p class="text-xl text-gray-700 leading-relaxed mb-8">
+  <main class="mainBg w-full flex-grow flex flex-col items-center justify-center text-center">
+    <section class="relative z-10 max-w-3xl px-6 py-12 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6">
+        Good Moral Application
+      </h1>
+      <p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
         Upholding strong values and integrity is at the heart of our community.
         Join us in fostering a culture of ethical excellence and accountability.
       </p>
-      <form method="POST" action="{{ route('logout') }}" class="inline-block">
+      <p class="text-xl font-semibold text-gray-600 italic mb-10">
+        Caritas. Veritas. Scientia.
+      </p>
+      <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit"
-          class="px-8 py-4 bg-green-700 text-white text-lg font-medium rounded-lg shadow-md 
-               hover:bg-green-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+          class="px-8 py-3 text-white bg-spupGreen hover:bg-spupGold transition-all duration-300 ease-in-out text-lg font-medium rounded-md shadow-md">
           Apply Now
         </button>
       </form>
     </section>
-
   </main>
 
-  <footer class="bg-gray-200 text-center py-4">
-    <p class="text-sm text-gray-600">© {{ date('Y') }} Good Moral Certification Portal. All rights reserved.</p>
+  <footer class="bg-gray-200 text-center py-2">
+    <p class="text-xs text-gray-600">© {{ date('Y') }} Good Moral Certification Portal. All rights reserved.</p>
   </footer>
 </body>
 
