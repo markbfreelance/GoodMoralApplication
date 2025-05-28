@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'ui-sans-serif', 'system-ui'],
+        sans: ['Poppins', ...defaultTheme.fontFamily.sans],
         oldEnglish: ['"Old English Text MT Std"', 'serif'],
       },
     },
