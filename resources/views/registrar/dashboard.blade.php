@@ -1,12 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
-      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-12 h-12 rounded-md object-cover">
+      <span class="font-oldEnglish text-spupGreen text-3xl tracking-widest">
         Registrar
-      </h2>
+      </span>
     </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div class="flex">
     <!-- Sidebar Toggle Button (Positioned Below Header) -->
