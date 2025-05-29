@@ -40,7 +40,7 @@
       <x-auth-session-status class="mb-4" :status="session('status')" />
       <x-input-label for="account_type" :value="__('Seclect Account Type')" />
       <select id="account_type" name="account_type"
-        class="block mt-1 w-full border-gray-300 focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100 rounded-md shadow-sm">
+        class="block mt-1 w-full border-gray-300 focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100 rounded-md shadow-sm">
         <option value="" disabled selected>Select Account Type</option>
         <option value="admin">Administrator</option>
         <option value="registrar">Registrar</option>
@@ -58,7 +58,7 @@
     <div class="mt-4">
       <x-input-label for="email" :value="__('Email')" />
       <x-text-input id="email"
-        class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+        class="block mt-1 w-full focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100"
         type="email" name="email" :value="old('email')" required autofocus autocomplete="username"
         placeholder="Enter Email" />
       <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -69,7 +69,7 @@
       <x-input-label for="password" :value="__('Password')" />
 
       <x-text-input id="password"
-        class="block mt-1 w-full focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:ring-opacity-100"
+        class="block mt-1 w-full focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100"
         type="password" name="password" required autofocus autocomplete="current-password"
         placeholder="Enter Password" />
 

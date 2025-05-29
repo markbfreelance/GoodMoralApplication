@@ -21,17 +21,22 @@
     background: url('{{ asset("/images/backgrounds/spup-logo.png") }}') center/contain no-repeat;
     background-size: 40%;
   }
+
+  .mainBg {
+    background: url('{{ asset("/images/backgrounds/mainBg3.jpg") }}') top right no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 </style>
 
-<body class="text-[#1b1b18] flex flex-col min-h-screen">
+<body class="text-[#1b1b18] flex flex-col min-h-screen mainBg">
 
-  <main class="bg-custom flex flex-col items-center justify-center flex-grow text-center relative">
-    <div class="bg-white/60 backdrop-blur-sm absolute inset-0 w-full h-full"></div>
-    <div class="relative z-10 max-w-5xl p-10 text-center">
+  <main class="w-full flex-grow flex flex-col items-center justify-center text-center">
     {{ $slot }}
-    </div>
-
   </main>
+  <footer class="bg-gray-200 text-center py-2">
+    <p class="text-xs text-gray-600">© {{ date('Y') }} Good Moral Certification Portal. All rights reserved.</p>
+  </footer>
 </body>
 
 

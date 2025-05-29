@@ -26,13 +26,13 @@
   }
 
   .mainBg {
-    background: url('{{ asset("/images/backgrounds/mainBg.jpg") }}') top right no-repeat;
-    background-size: contain;
+    background: url('{{ asset("/images/backgrounds/mainBg3.jpg") }}') top right no-repeat;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 </style>
 
-<body class="text-[#1b1b18] flex flex-col min-h-screen">
+<body class="text-[#1b1b18] flex flex-col min-h-screen mainBg">
   <header class="w-full max-w-7xl mx-auto p-6 flex items-center justify-between">
     <div class="flex items-center">
       <img src="{{ asset('images/backgrounds/spup-logo.png') }}" alt="Logo" class="h-16 w-auto mr-4"> <!-- Adjust height as needed -->
@@ -64,7 +64,7 @@
     </nav>
   </header>
 
-  <main class="mainBg w-full flex-grow flex flex-col items-center justify-center text-center">
+  <main class="w-full flex-grow flex flex-col items-center justify-center text-center">
     <section class="relative z-10 max-w-3xl px-6 py-12 text-center">
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6">
         Good Moral Application
