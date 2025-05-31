@@ -26,7 +26,10 @@ class SecOSAApplication extends Model
     'last_semester_sy',   // New field
     'status',
   ];
-
+  public function receipt()
+  {
+    return $this->hasOne(Receipt::class, 'reference_num', 'reference_number');
+  }
   public function student()
   {
     return $this->belongsTo(RoleAccount::class, 'student_id', 'student_id');

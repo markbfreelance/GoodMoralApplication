@@ -43,17 +43,17 @@
 
       <!-- Flash Messages -->
       @if(session('success'))
-        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
-          {{ session('success') }}
-        </div>
+      <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+        {{ session('success') }}
+      </div>
       @endif
 
       @if(session('pdf_url'))
-        <script>
-          window.addEventListener('load', function () {
-            window.open("{{ session('pdf_url') }}", '_blank');
-          });
-        </script>
+      <script>
+        window.addEventListener('load', function() {
+          window.open("{{ session('pdf_url') }}", '_blank');
+        });
+      </script>
       @endif
 
       <!-- Applications Table -->
@@ -61,43 +61,49 @@
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if($applications->isEmpty())
-          <p>No applications available.</p>
+        <p>No applications available.</p>
         @else
-          <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
-            <thead>
-              <tr class="text-left border-b bg-gray-100">
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($applications as $application)
-              <tr class="border-b">
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">
-                  <button data-application='@json($application)' onclick="openModal(this)"
-                    class="bg-blue-500 text-white p-2 rounded-md">View Details</button>
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
+          <thead>
+            <tr class="text-left border-b bg-gray-100">
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($applications as $application)
+            <tr class="border-b">
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">
+                <button data-application='@json($application)' onclick="openModal(this)"
+                  class="bg-blue-500 text-white p-2 rounded-md">View Details</button>
 
-                  @if($application->status === 'pending')
-                  <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" class="inline">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Print</button>
-                  </form>
-                  @else
-                  <span class="text-gray-500">Already Printed</span>
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+                @if($application->status === 'pending')
+                <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" class="inline">
+                  @csrf
+                  @method('PATCH')
+                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md">Print</button>
+                </form>
+                @if(!empty($application->receipt?->document_path))
+                <a href="{{ asset('storage/' . $application->receipt->document_path) }}" target="_blank"
+                  class="bg-blue-600 text-white p-2 rounded-md ml-2 inline-block">
+                  View Receipt
+                </a>
+                @endif
+                @else
+                <span class="text-gray-500">Already Printed</span>
+                @endif
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
         @endif
       </div>
     </main>

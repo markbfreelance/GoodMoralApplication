@@ -50,10 +50,10 @@ class SecOSAController extends Controller
 
   public function application()
   {
-    $applications = SecOSAApplication::get();
-
+    $applications = SecOSAApplication::with('receipt')->get();
     return view('sec_osa.Application', compact('applications'));
   }
+
   public function approve(Request $request, $id)
   {
     try {
