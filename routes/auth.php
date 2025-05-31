@@ -100,4 +100,9 @@ Route::middleware('auth')->group(function () {
 
   Route::post('dean/violation/approve/{id}', [DeanController::class, 'deanviolationapprove'])
     ->name('dean.violation.approve');
+
+  Route::get('/admin/AddAccount', [AdminController::class, 'AddAccountnt'])
+    ->name('admin.AddAccount');
+
+
 });

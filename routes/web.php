@@ -34,9 +34,6 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
   ->middleware(['auth', 'verified'])
   ->name('admin.dashboard');
 
-Route::get('/admin/AddAccount', function () {
-  return view('admin.AddAccount');
-})->middleware(['auth', 'verified'])->name('admin.AddAccount');
 
 Route::get('/admin/Application', [AdminController::class, 'applicationDashboard'])
   ->middleware(['auth', 'verified'])

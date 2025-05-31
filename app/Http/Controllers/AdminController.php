@@ -325,4 +325,10 @@ class AdminController extends Controller
     $students = $query->paginate(10); // Get paginated results
     return view('admin.violation', compact('students'));
   }
+
+  public function AddAccountnt()
+  {
+    $students = RoleAccount::paginate(10); // Show 10 accounts per page
+    return view('admin.AddAccount', compact('students'));
+  }
 }
