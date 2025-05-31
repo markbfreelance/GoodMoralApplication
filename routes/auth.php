@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisterViolationController;
 use App\Http\Controllers\SecOSAController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeanController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProgramCoordinatorController;
 use Illuminate\Support\Facades\Route;
 
@@ -104,5 +105,5 @@ Route::middleware('auth')->group(function () {
   Route::get('/admin/AddAccount', [AdminController::class, 'AddAccountnt'])
     ->name('admin.AddAccount');
 
-
+  Route::post('/receipt/upload', [ApplicationController::class, 'upload'])->name('receipt.upload');
 });

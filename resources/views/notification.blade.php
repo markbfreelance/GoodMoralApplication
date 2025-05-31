@@ -7,7 +7,7 @@
 
   <div class="flex">
     <!-- Sidebar -->
-    @include('sidebar') <!-- This includes the sidebar -->
+    @include('sidebar')
 
     <div class="py-12 flex-1">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -24,7 +24,7 @@
               @endif
             </div>
 
-            <!-- Application Notification List (Floating Cards) -->
+            <!-- Application Notification List -->
             <div class="mt-6 space-y-4">
               <h4 class="text-xl font-medium text-gray-600">Notifications</h4>
 
@@ -34,28 +34,18 @@
               <div class="space-y-4">
                 @foreach ($notifications as $notification)
                 <div class="p-4 bg-white shadow-lg rounded-lg 
-                      @if($notification->status == 'approved')
-                        border-green-500 border
-                      @elseif($notification->status == '0')
-                        border-yellow-500 border
-                      @elseif($notification->status == '1')
-                        border-yellow-500 border
-                      @elseif($notification->status == '2')
-                        border-green-500 border                      
-                      @elseif($notification->status == '3')
-                        border-yellow-500 border
-                      @elseif($notification->status == '4')
-                        border-green-500 border                       
-                      @elseif($notification->status == '-1')
-                        border-red-500 border
-                      @elseif($notification->status == '-2')
-                        border-red-500 border
-                      @elseif($notification->status == '-3')
-                        border-red-500 border
-                      @else
-                        border-gray-300 border
-                      @endif
-                    ">
+                    @if($notification->status == 'approved')
+                      border-green-500 border
+                    @elseif(in_array($notification->status, ['0','1','3']))
+                      border-yellow-500 border
+                    @elseif(in_array($notification->status, ['2','4']))
+                      border-green-500 border
+                    @elseif(in_array($notification->status, ['-1','-2','-3']))
+                      border-red-500 border
+                    @else
+                      border-gray-300 border
+                    @endif
+                  ">
                   <div class="flex justify-between items-center">
                     <h5 class="text-lg font-semibold text-gray-800">{{ $notification->title }}</h5>
                     <span class="text-sm text-gray-500">{{ $notification->created_at->format('M d, Y') }}</span>
@@ -67,49 +57,58 @@
 
                   <div class="mt-4">
                     <span class="px-3 py-1 text-sm font-semibold text-white rounded-full 
-                          @if($notification->status == 'approved')
-                            bg-green-500
-                          @elseif($notification->status == '0')
-                            bg-yellow-500
-                          @elseif($notification->status == '1')
-                            bg-yellow-500
-                          @elseif($notification->status == '2')
-                            bg-green-500                          
-                          @elseif($notification->status == '3')
-                            bg-yellow-500
-                          @elseif($notification->status == '4')
-                            bg-green-500
-                          @elseif($notification->status == '-1')
-                            bg-red-500
-                          @elseif($notification->status == '-2')
-                            bg-red-500                          
-                          @elseif($notification->status == '-3')
-                            bg-red-500
-                          @else
-                            bg-gray-500
-                          @endif
-                        ">
-                      @if($notification->status == '0')
-                      Your application is now with the registrar.
-                      @elseif($notification->status == '-1')
-                      Your application has been rejected by the registrar.
-                      @elseif($notification->status == '-2')
-                      Your application has been rejected by the Dean.
-                      @elseif($notification->status == '-3')
-                      Your application has been rejected by the Administrator.
-                      @elseif($notification->status == '1')
-                      Your application has been approved by the registrar.
-                      @elseif($notification->status == '2')
-                      Your application has been approved by the Dean.
-                      @elseif($notification->status == '3')
-                      Your application has been approved by the Administrator.
-                      @elseif($notification->status == '4')
-                      Your application is now ready for pick up.
-                      @else
-                      {{ ucfirst($notification->status) }}
-                      @endif
+                        @switch($notification->status)
+                          @case('approved') bg-green-500 @break
+                          @case('0') bg-yellow-500 @break
+                          @case('1') bg-yellow-500 @break
+                          @case('2') bg-green-500 @break
+                          @case('3') bg-yellow-500 @break
+                          @case('4') bg-green-500 @break
+                          @case('-1') bg-red-500 @break
+                          @case('-2') bg-red-500 @break
+                          @case('-3') bg-red-500 @break
+                          @default bg-gray-500
+                        @endswitch
+                      ">
+                      @switch($notification->status)
+                        @case('0') Your application is now with the registrar. @break
+                        @case('-1') Your application has been rejected by the registrar. @break
+                        @case('-2') Your application has been rejected by the Dean. @break
+                        @case('-3') Your application has been rejected by the Administrator. @break
+                        @case('1') Your application has been approved by the registrar. @break
+                        @case('2') Your application has been approved by the Dean. @break
+                        @case('3') Your application has been approved by the Administrator. @break
+                        @case('4') Your application is now ready for pick up. @break
+                        @default {{ ucfirst($notification->status) }}
+                      @endswitch
                     </span>
                   </div>
+
+                  {{-- Upload receipt document if status is 4 and no receipt exists --}}
+                  @if($notification->status == '3')
+                    @php
+                      $receipt = $receipts[$notification->reference_number] ?? null;
+                    @endphp
+
+                    @if($receipt && $receipt->document_path)
+                      <div class="mt-4 text-green-700 font-medium">
+                        ✅ Receipt already uploaded.
+                      </div>
+                    @else
+                      <form action="{{ route('receipt.upload') }}" method="POST" enctype="multipart/form-data" class="mt-4">
+                        @csrf
+                        <input type="hidden" name="reference_num" value="{{ $notification->reference_number }}">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Upload Receipt Document</label>
+                        <input type="file" name="document_path" required
+                          class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
+                                 file:rounded-full file:border-0 file:text-sm file:font-semibold 
+                                 file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                        <button type="submit" class="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                          Upload
+                        </button>
+                      </form>
+                    @endif
+                  @endif
 
                 </div>
                 @endforeach

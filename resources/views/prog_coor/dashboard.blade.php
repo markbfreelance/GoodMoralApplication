@@ -38,7 +38,7 @@
 
       <div class="bg-white shadow-sm sm:rounded-lg p-6 mt-4">
         <div class="flex justify-between">
-          <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
+          <h3 class="text-lg font-semibold mb-4">Violation Management</h3>
 
           <div class="mb-4 flex items-center">
             <form action="#" method="GET" class="flex items-center">

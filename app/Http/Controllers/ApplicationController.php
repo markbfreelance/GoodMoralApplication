@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ViolationNotif;
+use App\Models\Receipt;
 use Illuminate\Support\Str;
 use App\Models\GoodMoralApplication;
 use App\Models\RoleAccount;
@@ -133,8 +134,11 @@ class ApplicationController extends Controller
       ->orderBy('created_at', 'desc') // Optional: Order by latest notifications first
       ->get();
 
+    $receipts = Receipt::whereIn('reference_num', $notifications->pluck('reference_number'))
+      ->get()
+      ->keyBy('reference_num');
     // Return the view with the notifications
-    return view('notification', compact('notifications'));
+    return view('notification', compact('notifications','receipts'));
   }
 
   public function notificationViolation()
@@ -146,5 +150,23 @@ class ApplicationController extends Controller
 
     // Return the view with the notifications
     return view('notificationViolation', compact('notifications'));
+  }
+  public function upload(Request $request)
+  {
+    $request->validate([
+      'reference_num' => 'required|string',
+      'document_path' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+    ]);
+
+    // Store the file
+    $path = $request->file('document_path')->store('receipts', 'public');
+
+    // Save to database
+    Receipt::create([
+      'reference_num' => $request->reference_num,
+      'document_path' => $path,
+    ]);
+
+    return back()->with('status', 'Receipt uploaded successfully!');
   }
 }
