@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
-      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-12 h-12 rounded-md object-cover">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
       <span class="font-oldEnglish text-spupGreen text-3xl tracking-widest">
         Registrar
       </span>
