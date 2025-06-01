@@ -8,7 +8,7 @@
     body {
       font-family: "Times New Roman", Times, serif;
       margin: 50px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .center {
