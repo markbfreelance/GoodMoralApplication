@@ -22,8 +22,8 @@
     @include('admin.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+    <main class="flex-1 p-4">
+      <div class="bg-white shadow-sm sm:rounded-lg">
         <h3 class="text-lg font-semibold mb-4">PSG Account Applications</h3>
 
         @if(session('status'))

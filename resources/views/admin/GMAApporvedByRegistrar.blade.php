@@ -25,7 +25,7 @@
 
     <!-- Main Content -->
     <main class="flex-1 p-4">
-      <div class="flex flex-wrap justify-between items-center mb-6">
+      <div class="flex flex-wrap justify-between items-center mb-6 p-2">
         <div class="flex items-center gap-2 font-medium text-base text-gray-500">
           <label>Select period:</label>
           <input type="date" class="border-gray-500 rounded-lg">

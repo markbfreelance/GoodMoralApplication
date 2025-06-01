@@ -23,13 +23,13 @@
     @include('admin.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
+    <main class="flex-1 p-4">
       @if (session('success'))
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 p-2 rounded-md mt-4">
         {{ session('success') }}
       </div>
       @endif
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+      <div class="bg-white shadow-sm sm:rounded-lg">
         <h3 class="text-lg font-semibold mb-4">Add Account</h3>
         <!-- Form -->
         <form method="POST" action="{{ route('registeraccount') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg space-y-6">

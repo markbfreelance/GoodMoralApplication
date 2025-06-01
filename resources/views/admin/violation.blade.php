@@ -15,7 +15,7 @@
     @include('admin.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 bg-gray-100 min-h-screen">
+    <main class="flex-1 p-4">
       <!-- Flash Message -->
       @if (session('success'))
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
@@ -24,7 +24,7 @@
       @endif
 
       <!-- Search Form -->
-      <form method="GET" action="{{ route('violationsearch') }}" class="mb-4 p-4 bg-white shadow-md rounded-lg">
+      <form method="GET" action="{{ route('violationsearch') }}" class="mb-4 p-2 bg-white shadow-md rounded-lg">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label for="student_id" class="block text-gray-700 font-medium">Student ID</label>
