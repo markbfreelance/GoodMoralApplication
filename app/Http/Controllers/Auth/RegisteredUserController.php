@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller
         'department' => $request->department,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "5",
+        'status' => "1",
         'account_type' => $request->account_type,
         'year_level' => $request->year_level,
       ]);
@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "5",
+        'status' => "1",
         'account_type' => $request->account_type,
       ]);
 
@@ -81,7 +81,7 @@ class RegisteredUserController extends Controller
         'department' => $request->department,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "4",
+        'status' => "5",
         'account_type' => $request->account_type,
         'year_level' => $request->year_level,
       ]);
@@ -92,7 +92,7 @@ class RegisteredUserController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password), // Always hash passwords
         'student_id' => $request->student_id,
-        'status' => "4",
+        'status' => "5",
         'account_type' => $request->account_type,
       ]);
 
