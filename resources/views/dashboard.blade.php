@@ -1,18 +1,23 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Dashboard') }}
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="font-oldEnglish text-spupGreen text-3xl tracking-widest">
+        Student
+      </span>
+    </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div class="flex">
     <!-- Sidebar -->
     @include('sidebar')
 
     <div class="py-12 flex-1">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 text-gray-900">
+          <div class="p-6 text-gray-900 text-2xl font-medium italic">
             Welcome, {{ $fullname }}
           </div>
 
@@ -40,15 +45,15 @@
                 <x-input-label :value="__('Reason of Application (check one only)')" />
                 <div class="mt-2 space-y-2">
                   @foreach([
-                    'Transfer to another school',
-                    'Employment',
-                    'Scholarship',
-                    'Board Examination',
-                    'Government examination',
-                    'VISA/Passport application',
-                    'PSG Election',
-                    'Cross enrollment'
-                    ] as $reason)
+                  'Transfer to another school',
+                  'Employment',
+                  'Scholarship',
+                  'Board Examination',
+                  'Government examination',
+                  'VISA/Passport application',
+                  'PSG Election',
+                  'Cross enrollment'
+                  ] as $reason)
                   <label class="flex items-center">
                     <input type="radio" name="reason" value="{{ $reason }}" required class="text-green-600">
                     <span class="ml-2">{{ $reason }}</span>
@@ -151,13 +156,13 @@
 
   <!-- JavaScript -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const otherRadio = document.getElementById('reasonOthers');
       const otherInput = document.getElementById('reasonOtherInput');
       const allRadios = document.querySelectorAll('input[name="reason"]');
 
       allRadios.forEach(radio => {
-        radio.addEventListener('change', function () {
+        radio.addEventListener('change', function() {
           if (otherRadio.checked) {
             otherInput.disabled = false;
             otherInput.required = true;

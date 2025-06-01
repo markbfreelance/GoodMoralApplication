@@ -1,16 +1,21 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Application Status & Notifications') }}
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="text-2xl">
+        Application Status & Notifications
+      </span>
+    </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div class="flex">
     <!-- Sidebar -->
     @include('sidebar')
 
     <div class="py-12 flex-1">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900">
             <h3 class="text-lg font-semibold text-gray-700">Your Application Status</h3>
@@ -71,43 +76,43 @@
                         @endswitch
                       ">
                       @switch($notification->status)
-                        @case('0') Your application is now with the registrar. @break
-                        @case('-1') Your application has been rejected by the registrar. @break
-                        @case('-2') Your application has been rejected by the Dean. @break
-                        @case('-3') Your application has been rejected by the Administrator. @break
-                        @case('1') Your application has been approved by the registrar. @break
-                        @case('2') Your application has been approved by the Dean. @break
-                        @case('3') Your application has been approved by the Administrator. @break
-                        @case('4') Your application is now ready for pick up. @break
-                        @default {{ ucfirst($notification->status) }}
+                      @case('0') Your application is now with the registrar. @break
+                      @case('-1') Your application has been rejected by the registrar. @break
+                      @case('-2') Your application has been rejected by the Dean. @break
+                      @case('-3') Your application has been rejected by the Administrator. @break
+                      @case('1') Your application has been approved by the registrar. @break
+                      @case('2') Your application has been approved by the Dean. @break
+                      @case('3') Your application has been approved by the Administrator. @break
+                      @case('4') Your application is now ready for pick up. @break
+                      @default {{ ucfirst($notification->status) }}
                       @endswitch
                     </span>
                   </div>
 
                   {{-- Upload receipt document if status is 4 and no receipt exists --}}
                   @if($notification->status == '3')
-                    @php
-                      $receipt = $receipts[$notification->reference_number] ?? null;
-                    @endphp
+                  @php
+                  $receipt = $receipts[$notification->reference_number] ?? null;
+                  @endphp
 
-                    @if($receipt && $receipt->document_path)
-                      <div class="mt-4 text-green-700 font-medium">
-                        ✅ Receipt already uploaded.
-                      </div>
-                    @else
-                      <form action="{{ route('receipt.upload') }}" method="POST" enctype="multipart/form-data" class="mt-4">
-                        @csrf
-                        <input type="hidden" name="reference_num" value="{{ $notification->reference_number }}">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Upload Receipt Document</label>
-                        <input type="file" name="document_path" required
-                          class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
+                  @if($receipt && $receipt->document_path)
+                  <div class="mt-4 text-green-700 font-medium">
+                    ✅ Receipt already uploaded.
+                  </div>
+                  @else
+                  <form action="{{ route('receipt.upload') }}" method="POST" enctype="multipart/form-data" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="reference_num" value="{{ $notification->reference_number }}">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Receipt Document</label>
+                    <input type="file" name="document_path" required
+                      class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
                                  file:rounded-full file:border-0 file:text-sm file:font-semibold 
                                  file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
-                        <button type="submit" class="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                          Upload
-                        </button>
-                      </form>
-                    @endif
+                    <button type="submit" class="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                      Upload
+                    </button>
+                  </form>
+                  @endif
                   @endif
 
                 </div>
