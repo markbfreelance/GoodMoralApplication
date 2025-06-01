@@ -54,7 +54,7 @@
             <img src="/images/deptLogos/logoSASTE.png" alt="SASTE Logo" class="h-28 object-contain" />
             <div>
               <div class="text-7xl font-bold">{{ $saste }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
+              <div class="text-xl text-gray-300">Total Violator</div>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
             <img src="/images/deptLogos/logoSBAHM.png" alt="SBAHM Logo" class="h-28 object-contain" />
             <div>
               <div class="text-7xl font-bold">{{ $sbahm }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
+              <div class="text-xl text-gray-300">Total Violator</div>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
             <img src="/images/deptLogos/logoSITE.png" alt="SITE Logo" class="h-28 object-contain" />
             <div>
               <div class="text-7xl font-bold">{{ $site }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
+              <div class="text-xl text-gray-300">Total Violator</div>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@
             <img src="/images/deptLogos/logoSNAHS.png" alt="SNAHS Logo" class="h-28 object-contain" />
             <div>
               <div class="text-7xl font-bold">{{ $snahs }}</div>
-              <div class="text-xl text-gray-300">Total Applicants</div>
+              <div class="text-xl text-gray-300">Total Violator</div>
             </div>
           </div>
         </div>

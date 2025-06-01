@@ -6,102 +6,125 @@
   <title>Certificate</title>
   <style>
     body {
-      font-family: 'Times New Roman', serif;
+      font-family: "Times New Roman", Times, serif;
       margin: 50px;
+      line-height: 1.6;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .header,
+    .footer {
+      text-align: center;
+    }
+
+    /* Flex container for logo + university info */
+    .header-content {
+      display: flex;
+      align-items: flex-start;
+      /* Align text top with image */
+      gap: 15px;
+      /* space between image and text */
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Logo size */
+    .header-content img {
+      width: 60px;
+      height: auto;
+      display: block;
+    }
+
+    /* University info text block */
+    .university-info {
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.3;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Two-tone line: top half yellow, bottom half green */
+    .two-tone-line {
+      width: 1000px;
+      height: 6px;
+      margin: 10px -100px;
+      background-color: rgb(255, 217, 0);
       position: relative;
+      overflow: hidden;
     }
 
-    header,
-    footer {
-      text-align: center;
-    }
-
-    header img {
-      height: 80px;
-    }
-
-    .school-info {
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .line {
-      border-top: 2px solid #8dc63f;
-      margin: 10px 0;
-    }
-
-    .certificate-title {
-      text-align: center;
-      font-weight: bold;
-      font-size: 18px;
-      letter-spacing: 4px;
-      margin-top: 30px;
+    .two-tone-line::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      background-color: rgb(149, 255, 0);
     }
 
     .content {
-      margin-top: 40px;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .content strong {
-      font-weight: bold;
+      margin-top: 50px;
     }
 
     .signature {
-      margin-top: 60px;
+      margin-top: 80px;
+      text-align: left;
     }
 
-    .signature strong {
-      display: block;
-      margin-bottom: 2px;
+    .note {
+      margin-top: 50px;
+      font-style: italic;
     }
 
-    .footer-note {
-      font-size: 10px;
-      position: absolute;
-      bottom: 60px;
-      left: 50px;
+    .footer-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
     }
 
-    footer {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      text-align: center;
-    }
-
-    footer img {
-      height: 30px;
+    .footer-logos img {
+      height: 40px;
       margin: 0 10px;
     }
 
-    footer .footer-line {
-      border-top: 3px solid #8dc63f;
-      margin-bottom: 5px;
-    }
-
-    footer .footer-slogan {
-      font-size: 10px;
+    .tagline {
+      font-size: 12px;
       color: #666;
-      font-style: italic;
+      margin-top: 5px;
     }
   </style>
 </head>
+@php
+$logo = base64_encode(file_get_contents(public_path('images/logo/logo.png')));
+$log1 = base64_encode(file_get_contents(public_path('images/logo/log1.png')));
+$log2 = base64_encode(file_get_contents(public_path('images/logo/log2.png')));
+$log3 = base64_encode(file_get_contents(public_path('images/logo/log3.png')));
+$log4 = base64_encode(file_get_contents(public_path('images/logo/log4.png')));
+$log5 = base64_encode(file_get_contents(public_path('images/logo/log5.png')));
+@endphp
 
 <body>
-  <header>
-    <img src="path/to/spup-logo.png" alt="SPUP Logo">
-    <div class="school-info">
-      <strong>St. Paul University Philippines</strong><br>
-      Tuguegarao City, Cagayan 3500<br>
-      Tel: 396-1987-1994 | Fax: 078-844-4356<br>
-      www.spup.edu.ph<br>
-      <strong>OFFICE OF STUDENT AFFAIRS</strong>
+  <div class="header">
+    <div class="header-content">
+      <img src="data:image/png;base64,{{ $logo }}" alt="University Logo" />
+      <div class="university-info">
+        <strong>St. Paul University Philippines</strong><br />
+        Tuguegarao City, Cagayan 3500<br />
+        Tel: 396-1987-1994 Fax: 078-8464305<br />
+        <a href="http://www.spup.edu.ph">www.spup.edu.ph</a>
+      </div>
     </div>
-    <div class="line"></div>
-  </header>
+
+    <h3 style="margin-top: 20px;">OFFICE OF STUDENT AFFAIRS</h3>
+    <div class="two-tone-line"></div>
+  </div>
 
   <div class="certificate-title">CERTIFICATION</div>
 
@@ -128,21 +151,20 @@
     <div class="signature">
       <strong>RUCEL J.D. PUGEDA, MIT</strong>
       Head, Student Affairs
+    </div><br><br>
+  </div>
+  <div class="footer-note">Not valid without University Dry Seal</div>
+  <br>
+  <div class="footer">
+    <div class="two-tone-line"></div>
+    <div class="footer-logos">
+      <img src="data:image/png;base64,{{ $log1 }}" alt="Logo 1" />
+      <img src="data:image/png;base64,{{ $log2 }}" alt="Logo 2" />
+      <img src="data:image/png;base64,{{ $log3 }}" alt="Logo 3" />
+      <img src="data:image/png;base64,{{ $log4 }}" alt="Logo 4" style="margin-right: 95px;" />
+      <img src="data:image/png;base64,{{ $log5 }}" alt="Logo 5" />
     </div>
   </div>
-
-  <div class="footer-note">Not valid without University Dry Seal</div>
-
-  <footer>
-    <div class="footer-line"></div>
-    <div>
-      <img src="path/to/logo1.png" alt="Logo 1">
-      <img src="path/to/logo2.png" alt="Logo 2">
-      <img src="path/to/logo3.png" alt="Logo 3">
-      <img src="path/to/logo4.png" alt="Logo 4">
-    </div>
-    <div class="footer-slogan">MAKING A DIFFERENCE GLOBALLY</div>
-  </footer>
 </body>
 
 </html>

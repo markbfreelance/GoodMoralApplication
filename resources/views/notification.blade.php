@@ -78,11 +78,11 @@
                       @switch($notification->status)
                       @case('0') Your application is now with the registrar. @break
                       @case('-1') Your application has been rejected by the registrar. @break
-                      @case('-2') Your application has been rejected by the Dean. @break
-                      @case('-3') Your application has been rejected by the Administrator. @break
+                      @case('-2') Your application has been rejected by the Administrator . @break
+                      @case('-3') Your application has been rejected by the Dean. @break
                       @case('1') Your application has been approved by the registrar. @break
-                      @case('2') Your application has been approved by the Dean. @break
-                      @case('3') Your application has been approved by the Administrator. @break
+                      @case('2') Your application has been approved by the Administrator . @break
+                      @case('3') Your application has been approved by the Dean. @break
                       @case('4') Your application is now ready for pick up. @break
                       @default {{ ucfirst($notification->status) }}
                       @endswitch
@@ -90,7 +90,7 @@
                   </div>
 
                   {{-- Upload receipt document if status is 4 and no receipt exists --}}
-                  @if($notification->status == '3')
+                  @if($notification->status == '2')
                   @php
                   $receipt = $receipts[$notification->reference_number] ?? null;
                   @endphp
