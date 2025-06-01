@@ -1,12 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
-      <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hello Moderator
-      </h2>
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="text-2xl">
+        Applications
+      </span>
     </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div class="flex">
     <!-- Sidebar Toggle Button -->
@@ -43,17 +45,17 @@
 
       <!-- Flash Messages -->
       @if(session('success'))
-        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
-          {{ session('success') }}
-        </div>
+      <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+        {{ session('success') }}
+      </div>
       @endif
 
       @if(session('pdf_url'))
-        <script>
-          window.addEventListener('load', function () {
-            window.open("{{ session('pdf_url') }}", '_blank');
-          });
-        </script>
+      <script>
+        window.addEventListener('load', function() {
+          window.open("{{ session('pdf_url') }}", '_blank');
+        });
+      </script>
       @endif
 
       <!-- Applications Table -->
@@ -61,48 +63,48 @@
         <h3 class="text-lg font-semibold mb-4">Good Moral Certificate Applications</h3>
 
         @if($applications->isEmpty())
-          <p>No applications available.</p>
+        <p>No applications available.</p>
         @else
-          <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
-            <thead>
-              <tr class="text-left border-b bg-gray-100">
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
-                <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($applications as $application)
-              <tr class="border-b">
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
-                <td class="px-6 py-4 text-sm text-gray-600">
-                  <button data-application='@json($application)' onclick="openModal(this)"
-                    class="bg-blue-500 text-white p-2 rounded-md">View Details</button>
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg table-fixed border-collapse">
+          <thead>
+            <tr class="text-left border-b bg-gray-100">
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Student ID</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Department</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Full Name</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Status</th>
+              <th class="px-6 py-3 text-sm font-medium text-gray-500">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($applications as $application)
+            <tr class="border-b">
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->student_id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->department }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ $application->student->fullname }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($application->status) }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600">
+                <button data-application='@json($application)' onclick="openModal(this)"
+                  class="bg-blue-500 text-white p-2 rounded-md">View Details</button>
 
-                  @if(!empty($application->receipt?->document_path))
-                    <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" class="inline">
-                      @csrf
-                      @method('PATCH')
-                      <button type="submit" class="bg-green-500 text-white p-2 rounded-md ml-2">Print</button>
-                    </form>
+                @if(!empty($application->receipt?->document_path))
+                <form action="{{ route('sec_osa.approve', $application->id) }}" method="POST" class="inline">
+                  @csrf
+                  @method('PATCH')
+                  <button type="submit" class="bg-green-500 text-white p-2 rounded-md ml-2">Print</button>
+                </form>
 
-                    <a href="{{ asset('storage/' . $application->receipt->document_path) }}" target="_blank" 
-                       class="bg-indigo-600 text-white p-2 rounded-md ml-2 inline-block">
-                      View Receipt
-                    </a>
-                  @else
-                    <span class="ml-4 text-gray-500 italic">No document uploaded</span>
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+                <a href="{{ asset('storage/' . $application->receipt->document_path) }}" target="_blank"
+                  class="bg-indigo-600 text-white p-2 rounded-md ml-2 inline-block">
+                  View Receipt
+                </a>
+                @else
+                <span class="ml-4 text-gray-500 italic">No document uploaded</span>
+                @endif
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
         @endif
       </div>
     </main>

@@ -1,19 +1,21 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center space-x-4">
-      <img src="https://placehold.co/40x40" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hello Moderator
-      </h2>
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="text-2xl">
+        Minor Violations
+      </span>
     </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div x-data="{ sidebarOpen: false }" class="flex min-h-screen">
     <!-- Sidebar -->
     @include('sec_osa.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 bg-gray-100 min-h-screen">
+    <main class="flex-1 p-4 bg-gray-100 min-h-screen">
       <!-- Flash Message -->
       @if (session('success'))
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mt-4">
