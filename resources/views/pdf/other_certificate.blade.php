@@ -108,6 +108,37 @@ $log2 = base64_encode(file_get_contents(public_path('images/logo/log2.png')));
 $log3 = base64_encode(file_get_contents(public_path('images/logo/log3.png')));
 $log4 = base64_encode(file_get_contents(public_path('images/logo/log4.png')));
 $log5 = base64_encode(file_get_contents(public_path('images/logo/log5.png')));
+
+
+$programs = [
+'BAELS' => 'Bachelor of Arts in English Language Studies',
+'BS Psych' => 'Bachelor of Science in Psychology',
+'BS Bio' => 'Bachelor of Science in Biology',
+'BSSW' => 'Bachelor of Science in Social Work',
+'BSPA' => 'Bachelor of Science in Public Administration',
+'BS Bio MB' => 'Bachelor of Science in Biology Major in Microbiology',
+'BSEd' => 'Bachelor of Secondary Education',
+'BEEd' => 'Bachelor of Elementary Education',
+'BPEd' => 'Bachelor of Physical Education',
+
+'BSA' => 'Bachelor of Science in Accountancy',
+'BSE' => 'Bachelor of Science in Entrepreneurship',
+'BSBAMM' => 'Bachelor of Science in Business Administration major in Marketing Management',
+'BSBA MFM' => 'Bachelor of Science in Business Administration major in Financial Management',
+'BSBA MOP' => 'Bachelor of Science in Business Administration major in Operations Management',
+'BSMA' => 'Bachelor of Science in Management Accounting',
+'BSHM' => 'Bachelor of Science in Hospitality Management',
+'BSTM' => 'Bachelor of Science in Tourism Management',
+'BSPDMI' => 'Bachelor of Science in Product Design and Marketing Innovation',
+
+'BSIT' => 'Bachelor of Science in Information Technology',
+'BLIS' => 'Bachelor of Library and Information Science',
+'BSCE' => 'Bachelor of Science in Civil Engineering',
+'BS ENSE' => 'Bachelor of Science in Environmental and Sanitary Engineering',
+'BS CpE' => 'Bachelor of Science in Computer Engineering',
+];
+
+$programCode = $studentDetails->year_level ?? null;
 @endphp
 
 <body>
@@ -141,7 +172,11 @@ $log5 = base64_encode(file_get_contents(public_path('images/logo/log5.png')));
       <strong>SCHOOL OF BUSINESS, ACCOUNTANCY AND HOSPITALITY MANAGEMENT</strong>
       @else
       <strong>[Unknown Department]</strong>
-      @endif under the program <strong>{{ $studentDetails->year_level }}</strong> in <strong>{{ $studentDetails1->graduation_date }}</strong>.
+      @endif under the program <strong> @if($programCode && isset($programs[$programCode]))
+        {{ $programs[$programCode] }}
+        @else
+        [Unknown Program]
+        @endif</strong> in <strong>{{ $studentDetails1->graduation_date }}</strong>.
     </p>
 
     <p>This certification is issued on <strong>{{ now()->format('jS \\of F Y') }}</strong> in connection with the application for <strong>{{ $application->reason }}</strong>.</p>
