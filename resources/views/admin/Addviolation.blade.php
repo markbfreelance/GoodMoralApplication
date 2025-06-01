@@ -1,9 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      Admin Dashboard
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="text-2xl">
+        Add Violation
+      </span>
+    </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div x-data="{ sidebarOpen: false, showEditModal: false, selectedViolation: {} }" class="flex">
 
