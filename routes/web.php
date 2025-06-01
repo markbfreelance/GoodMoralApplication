@@ -207,4 +207,8 @@ Route::get('/prog_coor/major', [ProgramCoordinatorController::class, 'major'])
   ->middleware(['auth', 'verified'])
   ->name('prog_coor.major');
 
+Route::get('/prog_coor/dashboard', [ProgramCoordinatorController::class, 'dashboard'])
+  ->middleware(['auth', 'verified'])
+  ->name('prog_coor.dashboard');
+
 require __DIR__ . '/auth.php';
