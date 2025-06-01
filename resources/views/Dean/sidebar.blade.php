@@ -45,7 +45,7 @@
     <form method="POST" action="{{ route('logout') }}">
       @csrf
       <a href="{{ route('logout') }}"
-        class="flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-800 hover:text-red-600"
+        class="flex h-20 items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-800 hover:text-red-600"
         onclick="event.preventDefault(); this.closest('form').submit();">
         <x-icon-logout class="w-10 h-10" />
         LOGOUT
