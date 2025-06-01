@@ -25,8 +25,22 @@ class ProgramCoordinatorController extends Controller
 
   public function dashboard()
   {
-    return view('prog_coor.dashboard'); // Ensure this view exists
+    //Applicants per department
+    $site = StudentViolation::where('department', 'SITE')->count();
+    $saste = StudentViolation::where('department', 'SASTE')->count();
+    $sbahm = StudentViolation::where('department', 'SBAHM')->count();
+    $snahs = StudentViolation::where('department', 'SNAHS')->count();
+
+    //For Pie Chart stats
+    $minorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'minor')->count();
+    $minorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'minor')->count();
+    $majorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'major')->count();
+    $majorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'major')->count();
+    //Pageinate
+    $violationpage = Violation::paginate(10);
+    return view('prog_coor.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
   }
+
   public function minor()
   {
     return view('prog_coor.minor'); // Ensure this view exists
