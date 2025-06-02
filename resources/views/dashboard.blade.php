@@ -28,7 +28,11 @@
           @endif
 
           <div class="p-6">
-            @if ($Violation->isEmpty())
+            @php
+              $accountType = Auth::user()->account_type;
+            @endphp
+
+            @if ($accountType === 'alumni' || $Violation->isEmpty())
             <form method="POST" action="{{ route('apply.good_moral_certificate') }}">
               @csrf
               <div class="mt-4">
@@ -71,10 +75,6 @@
                 <x-input-error :messages="$errors->get('reason')" class="mt-2" />
               </div>
 
-              @php
-              $accountType = Auth::user()->account_type;
-              @endphp
-
               @if ($accountType === 'alumni')
               <!-- Date of Graduation -->
               <div class="mt-6">
@@ -116,7 +116,7 @@
                 </button>
               </div>
             </form>
-            @else
+            @elseif ($accountType === 'student' && !$Violation->isEmpty())
             <div class="p-4 bg-red-100 text-red-700 rounded">
               You are not allowed to request a Good Moral Certificate due to existing violation(s).
             </div>
