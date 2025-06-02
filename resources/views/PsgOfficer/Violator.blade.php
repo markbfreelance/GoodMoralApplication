@@ -1,7 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin Dashboard</h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="text-2xl">
+        Violators
+      </span>
+    </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div x-data="{ sidebarOpen: false }" class="flex min-h-screen">
     <!-- Sidebar -->
@@ -21,15 +28,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label for="student_id" class="block text-gray-700 font-medium">Student ID</label>
-            <input type="text" id="student_id" name="student_id" class="w-full p-2 border border-gray-300 rounded-md" value="{{ old('student_id', request('student_id')) }}" placeholder="Enter Student ID">
+            <input type="text" id="student_id" name="student_id" class="w-full p-2 border border-gray-300 rounded-md focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100" value="{{ old('student_id', request('student_id')) }}" placeholder="Enter Student ID">
           </div>
           <div>
             <label for="first_name" class="block text-gray-700 font-medium">First Name</label>
-            <input type="text" id="first_name" name="first_name" class="w-full p-2 border border-gray-300 rounded-md" value="{{ old('first_name', request('first_name')) }}" placeholder="Enter First Name">
+            <input type="text" id="first_name" name="first_name" class="w-full p-2 border border-gray-300 rounded-md focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100" value="{{ old('first_name', request('first_name')) }}" placeholder="Enter First Name">
           </div>
           <div>
             <label for="last_name" class="block text-gray-700 font-medium">Last Name</label>
-            <input type="text" id="last_name" name="last_name" class="w-full p-2 border border-gray-300 rounded-md" value="{{ old('last_name', request('last_name')) }}" placeholder="Enter Last Name">
+            <input type="text" id="last_name" name="last_name" class="w-full p-2 border border-gray-300 rounded-md focus:border-spupGreen focus:ring-1 focus:ring-spupGreen focus:ring-opacity-100" value="{{ old('last_name', request('last_name')) }}" placeholder="Enter Last Name">
           </div>
         </div>
         <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
