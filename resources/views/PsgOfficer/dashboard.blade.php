@@ -1,9 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      PSG Officer Dashboard
-    </h2>
+    <div class="flex items-center space-x-4">
+      <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
+      <span class="font-oldEnglish text-spupGreen text-3xl tracking-widest">
+        PSG
+      </span>
+    </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
 
   <div x-data="{ sidebarOpen: false }" class="flex">
 
@@ -19,8 +24,8 @@
     @include('PsgOfficer.sidebar')
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 sm:px-8 lg:px-12">
-      <div class="bg-white shadow-sm sm:rounded-lg p-6">
+    <main class="flex-1 p-4">
+      <div class="bg-white shadow-sm sm:rounded-lg p-2">
         <h3 class="text-lg font-semibold">Statistics Section</h3>
         <p>Data and analytics go here.</p>
       </div>

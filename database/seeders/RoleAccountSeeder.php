@@ -121,6 +121,28 @@ class RoleAccountSeeder extends Seeder
         'created_at' => now(),
         'updated_at' => now(),
       ],
+      [
+        'email' => 'psg@admin.com',
+        'student_id' => 'PSG_ADMIN',
+        'department' => 'PSG_ADMIN',
+        'password' => Hash::make('admin123'),
+        'account_type' => 'psg_officer',
+        'status' => '1',
+        'fullname' => 'sample,name',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'email' => 'progcoor@admin.com',
+        'student_id' => 'PROG_COOR',
+        'department' => 'PROG_COOR',
+        'password' => Hash::make('admin123'),
+        'account_type' => 'prog_coor',
+        'status' => '1',
+        'fullname' => 'sample,name',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
     ]);
   }
 }
