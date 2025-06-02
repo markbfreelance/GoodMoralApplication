@@ -2,11 +2,14 @@
   <x-slot name="header">
     <div class="flex items-center space-x-4">
       <img src="/images/backgrounds/spup-logo.png" alt="Admin Picture" class="w-16 h-16 rounded-md object-cover">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hello Program Coordinator, {{ Auth::user()->department ?? 'Unknown Department' }}
-      </h2>
+      <span class="text-2xl">
+        Minor Violations
+      </span>
     </div>
   </x-slot>
+  <hr class="h-1 bg-spupGreen border-0">
+  <hr class="h-1 bg-spupGold border-0">
+
 
   <div class="flex">
     <div class="sm:hidden w-full bg-gray-100 border-b border-gray-300 py-2 flex justify-between px-4">
