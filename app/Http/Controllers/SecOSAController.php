@@ -36,16 +36,68 @@ class SecOSAController extends Controller
     $sbahm = SecOSAApplication::where('department', 'SBAHM')->count();
     $snahs = SecOSAApplication::where('department', 'SNAHS')->count();
 
-    //For Pie Chart stats
+    // For Pie Chart stats
     $minorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'minor')->count();
     $minorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'minor')->count();
     $majorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'major')->count();
     $majorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'major')->count();
-    //Pageinate
+
+    // Percentages for minor offenses
+    $totalMinor = $minorpending + $minorcomplied;
+    $pendingPercent = $totalMinor > 0 ? ($minorpending / $totalMinor) * 100 : 0;
+    $compliedPercent = 100 - $pendingPercent;
+    $dashArray = $pendingPercent . ' ' . $compliedPercent;
+
+    // ✅ Percentages for major offenses
+    $totalMajor = $majorpending + $majorcomplied;
+    $majorPendingPercent = $totalMajor > 0 ? ($majorpending / $totalMajor) * 100 : 0;
+    $majorCompliedPercent = 100 - $majorPendingPercent;
+    $majorDashArray = $majorPendingPercent . ' ' . $majorCompliedPercent;
+
+    // Departments array for looping
+    $departments = ['SITE', 'SASTE', 'SBAHM', 'SNAHS'];
+
+    // Prepare arrays for counts
+    $majorCounts = [];
+    $minorCounts = [];
+
+    foreach ($departments as $dept) {
+      $majorCounts[$dept] = StudentViolation::where('offense_type', 'major')
+        ->where('department', $dept)
+        ->count();
+
+      $minorCounts[$dept] = StudentViolation::where('offense_type', 'minor')
+        ->where('department', $dept)
+        ->count();
+    }
+
+    //Pagination
     $violationpage = Violation::paginate(10);
 
+
+
     $applications = SecOSAApplication::where('status', 'pending')->get();
-    return view('sec_osa.dashboard', compact('applications', 'site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
+    return view('sec_osa.dashboard', compact(
+      'applications',
+      'site',
+      'sbahm',
+      'saste',
+      'snahs',
+      'minorpending',
+      'minorcomplied',
+      'majorpending',
+      'majorcomplied',
+      'pendingPercent',
+      'compliedPercent',
+      'dashArray',
+      'majorPendingPercent',
+      'majorCompliedPercent',
+      'majorDashArray',
+      'violationpage',
+      'departments',
+      'majorCounts',
+      'minorCounts'
+    ));
   }
 
   public function application()
