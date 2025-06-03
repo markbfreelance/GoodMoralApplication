@@ -97,15 +97,6 @@
 
 
       <!-- Charts Section -->
-      @php
-      $total = $minorpending + $minorcomplied;
-      // Calculate the percentages for Pending and Complied
-      $pendingPercent = $total > 0 ? ($minorpending / $total) * 100 : 0;
-      $compliedPercent = 100 - $pendingPercent;
-      // Prepare the dash array for the SVG donut chart
-      $dashArray = $pendingPercent . ' ' . $compliedPercent;
-      @endphp
-
       <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-4">
         <!-- Pie Chart Minor Offenses -->
         <div class="bg-white p-4 rounded-xl shadow">
@@ -153,7 +144,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
-        <!-- Pie Chart Minor Offenses -->
+        <!-- Pie Chart Major Offenses -->
         <div class="bg-white p-4 rounded-xl shadow">
           <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
           <div class="flex justify-center">
@@ -170,14 +161,14 @@
                 fill="none"
                 stroke="#f87171"
                 stroke-width="25"
-                stroke-dasharray="{{ $dashArray }}"
+                stroke-dasharray="{{ $majorDashArray }}"
                 stroke-dashoffset="25"
                 transform="rotate(-90 60 60)" />
             </svg>
           </div>
           <div class="text-sm text-center mt-2">
-            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
-            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+            <div class="text-red-500">Pending: {{ number_format($majorPendingPercent, 1) }}%</div>
+            <div>Complied: {{ number_format($majorCompliedPercent, 1) }}%</div>
           </div>
         </div>
         <!-- Overall Report Offenses -->

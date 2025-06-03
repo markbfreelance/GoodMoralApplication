@@ -27,20 +27,51 @@ class AdminController extends Controller
   }
   public function dashboard()
   {
-    //Applicants per department
+    // Applicants per department
     $site = GoodMoralApplication::where('department', 'SITE')->count();
     $saste = GoodMoralApplication::where('department', 'SASTE')->count();
     $sbahm = GoodMoralApplication::where('department', 'SBAHM')->count();
     $snahs = GoodMoralApplication::where('department', 'SNAHS')->count();
 
-    //For Pie Chart stats
+    // For Pie Chart stats
     $minorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'minor')->count();
     $minorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'minor')->count();
     $majorpending = StudentViolation::where('status', '!=', 2)->where('offense_type', 'major')->count();
     $majorcomplied = StudentViolation::where('status', '=', 2)->where('offense_type', 'major')->count();
-    //Pageinate
+
+    // Percentages for minor offenses
+    $totalMinor = $minorpending + $minorcomplied;
+    $pendingPercent = $totalMinor > 0 ? ($minorpending / $totalMinor) * 100 : 0;
+    $compliedPercent = 100 - $pendingPercent;
+    $dashArray = $pendingPercent . ' ' . $compliedPercent;
+
+    // ✅ Percentages for major offenses
+    $totalMajor = $majorpending + $majorcomplied;
+    $majorPendingPercent = $totalMajor > 0 ? ($majorpending / $totalMajor) * 100 : 0;
+    $majorCompliedPercent = 100 - $majorPendingPercent;
+    $majorDashArray = $majorPendingPercent . ' ' . $majorCompliedPercent;
+
+    // Pagination
     $violationpage = Violation::paginate(10);
-    return view('admin.dashboard', compact('site', 'sbahm', 'saste', 'snahs', 'minorpending', 'minorcomplied', 'majorpending', 'majorcomplied', 'violationpage'));
+
+    // Pass all to view
+    return view('admin.dashboard', compact(
+      'site',
+      'sbahm',
+      'saste',
+      'snahs',
+      'minorpending',
+      'minorcomplied',
+      'majorpending',
+      'majorcomplied',
+      'pendingPercent',
+      'compliedPercent',
+      'dashArray',
+      'majorPendingPercent',
+      'majorCompliedPercent',
+      'majorDashArray',
+      'violationpage'
+    ));
   }
 
   public function create(Request $request)
