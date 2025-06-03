@@ -102,7 +102,7 @@
         <div class="bg-white p-4 rounded-xl shadow">
           <span class="font-normal text-lg border-b-2 mb-4">Minor Offenses</span>
           <div class="flex justify-center">
-            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
+            <svg viewBox="0 0 120 120" class="w-48 h-48 mt-8" preserveAspectRatio="xMidYMid meet">
               <!-- Background circle -->
               <circle
                 cx="60" cy="60" r="45"
@@ -127,20 +127,77 @@
         </div>
         <!-- Overall Report Offenses -->
         <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
-          <!-- Inside: two equal width boxes -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            <!-- Box 1 -->
-            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
-              <span class="text-lg mb-2">Overall Report on Major Offenses</span>
-              <div class="text-center flex-grow">[Placeholder for content]</div>
+
+            <!-- Box 1: Major Offenses -->
+            <div class="w-full bg-white rounded-lg shadow-sm p-6 flex flex-col">
+              <div class="flex justify-between pb-4 mb-4 border-b border-gray-200">
+                <span class="text-gray-900">Overall Report on Major Offenses</span>
+              </div>
+
+              <div class="flex items-end justify-between w-full gap-4">
+                @php
+                $maxMajor = max($majorCounts);
+                $minHeight = 10;
+                $colors = ['bg-[#730073]', 'bg-[#083259]', 'bg-[#096735]', 'bg-[#DE0F3F]'];
+                @endphp
+
+                @foreach ($departments as $index => $dept)
+                @php
+                $count = $majorCounts[$dept] ?? 0;
+                $heightPx = $maxMajor > 0 ? max(($count / $maxMajor) * 200, $minHeight) : 0;
+                $colorClass = $colors[$index % count($colors)];
+                @endphp
+
+                <div class="flex flex-col items-center flex-1 mx-8">
+                  <div
+                    class="{{ $colorClass }} w-full rounded-t-md transition-all duration-500"
+                    style="height: {{ $heightPx }}px"
+                    title="{{ $dept }}: {{ $count }} major offenses">
+                  </div>
+                  <span class="mt-2 font-medium text-gray-700 text-center">{{ $dept }}</span>
+                  <span class="text-sm text-gray-900">{{ $count }}</span>
+                </div>
+                @endforeach
+              </div>
+
             </div>
-            <!-- Box 2 -->
-            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
-              <span class="text-lg mb-2">Overall Report on Minor Offenses</span>
-              <div class="text-center flex-grow">[Placeholder for content]</div>
+
+            <!-- Box 2: Minor Offenses -->
+            <div class="w-full bg-white rounded-lg shadow-sm p-6 flex flex-col">
+              <div class="flex justify-between pb-4 mb-4 border-b border-gray-200">
+                <span class="text-gray-900">Overall Report on Minor Offenses</span>
+              </div>
+
+              <div class="flex items-end justify-between w-full gap-4">
+                @php
+                $maxMinor = max($minorCounts);
+                $minHeight = 10;
+                $colors = ['bg-[#730073]', 'bg-[#083259]', 'bg-[#096735]', 'bg-[#DE0F3F]'];
+                @endphp
+
+                @foreach ($departments as $index => $dept)
+                @php
+                $count = $minorCounts[$dept] ?? 0;
+                $heightPx = $maxMinor > 0 ? max(($count / $maxMinor) * 200, $minHeight) : 0;
+                $colorClass = $colors[$index % count($colors)];
+                @endphp
+
+                <div class="flex flex-col items-center flex-1 mx-8">
+                  <div
+                    class="{{ $colorClass }} w-full rounded-t-md transition-all duration-500"
+                    style="height: {{ $heightPx }}px"
+                    title="{{ $dept }}: {{ $count }} minor offenses">
+                  </div>
+                  <span class="mt-2 font-medium text-gray-700 text-center">{{ $dept }}</span>
+                  <span class="text-sm text-gray-900">{{ $count }}</span>
+                </div>
+                @endforeach
+              </div>
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
@@ -148,7 +205,7 @@
         <div class="bg-white p-4 rounded-xl shadow">
           <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
           <div class="flex justify-center">
-            <svg viewBox="0 0 120 120" class="w-48 h-48" preserveAspectRatio="xMidYMid meet">
+            <svg viewBox="0 0 120 120" class="w-48 h-48 mt-8" preserveAspectRatio="xMidYMid meet">
               <!-- Background circle -->
               <circle
                 cx="60" cy="60" r="45"

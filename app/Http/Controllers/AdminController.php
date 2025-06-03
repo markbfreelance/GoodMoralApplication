@@ -51,6 +51,23 @@ class AdminController extends Controller
     $majorCompliedPercent = 100 - $majorPendingPercent;
     $majorDashArray = $majorPendingPercent . ' ' . $majorCompliedPercent;
 
+    // Departments array for looping
+    $departments = ['SITE', 'SASTE', 'SBAHM', 'SNAHS'];
+
+    // Prepare arrays for counts
+    $majorCounts = [];
+    $minorCounts = [];
+
+    foreach ($departments as $dept) {
+      $majorCounts[$dept] = StudentViolation::where('offense_type', 'major')
+        ->where('department', $dept)
+        ->count();
+
+      $minorCounts[$dept] = StudentViolation::where('offense_type', 'minor')
+        ->where('department', $dept)
+        ->count();
+    }
+
     // Pagination
     $violationpage = Violation::paginate(10);
 
@@ -70,7 +87,10 @@ class AdminController extends Controller
       'majorPendingPercent',
       'majorCompliedPercent',
       'majorDashArray',
-      'violationpage'
+      'violationpage',
+      'departments',
+      'majorCounts',
+      'minorCounts'
     ));
   }
 
