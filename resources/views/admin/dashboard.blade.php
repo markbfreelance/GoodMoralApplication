@@ -24,7 +24,7 @@
     @include('admin.sidebar')
 
     <!-- Main Content -->
-    <main :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 p-4 transition-all duration-300">
+    <main :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 p-4 transition-all duration-300 bg-gray-200">
       <!-- Date and Search -->
       <!-- <div class="flex flex-wrap justify-between items-center mb-6">
         <div class="flex items-center gap-2 font-medium text-base text-gray-500">
@@ -98,33 +98,64 @@
 
       <!-- Charts Section -->
       <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-4">
-        <!-- Pie Chart Minor Offenses -->
-        <div class="bg-white p-4 rounded-xl shadow">
-          <span class="font-normal text-lg border-b-2 mb-4">Minor Offenses</span>
-          <div class="flex justify-center">
-            <svg viewBox="0 0 120 120" class="w-48 h-48 mt-8" preserveAspectRatio="xMidYMid meet">
-              <!-- Background circle -->
-              <circle
-                cx="60" cy="60" r="45"
-                fill="none"
-                stroke="#e5e7eb"
-                stroke-width="20" />
-              <!-- Data circle -->
-              <circle
-                cx="60" cy="60" r="45"
-                fill="none"
-                stroke="#f87171"
-                stroke-width="25"
-                stroke-dasharray="{{ $dashArray }}"
-                stroke-dashoffset="25"
-                transform="rotate(-90 60 60)" />
-            </svg>
+        <div class="space-y-4">
+          <!-- Pie Chart Minor Offenses -->
+          <div class="bg-white p-4 rounded-xl shadow">
+            <span class="font-normal text-lg border-b-2 mb-4">Minor Offenses</span>
+            <div class="flex justify-center">
+              <svg viewBox="0 0 120 120" class="w-40 h-40" preserveAspectRatio="xMidYMid meet">
+                <!-- Background circle -->
+                <circle
+                  cx="60" cy="60" r="45"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  stroke-width="20" />
+                <!-- Data circle -->
+                <circle
+                  cx="60" cy="60" r="45"
+                  fill="none"
+                  stroke="#f87171"
+                  stroke-width="25"
+                  stroke-dasharray="{{ $dashArray }}"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 60 60)" />
+              </svg>
+            </div>
+            <div class="text-sm text-center mt-2">
+              <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
+              <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+            </div>
           </div>
-          <div class="text-sm text-center mt-2">
-            <div class="text-red-500">Pending: {{ number_format($pendingPercent, 1) }}%</div>
-            <div>Complied: {{ number_format($compliedPercent, 1) }}%</div>
+
+          <!-- Pie Chart Major Offenses -->
+          <div class="bg-white p-4 rounded-xl shadow">
+            <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
+            <div class="flex justify-center">
+              <svg viewBox="0 0 120 120" class="w-40 h-40" preserveAspectRatio="xMidYMid meet">
+                <!-- Background circle -->
+                <circle
+                  cx="60" cy="60" r="45"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  stroke-width="20" />
+                <!-- Data circle -->
+                <circle
+                  cx="60" cy="60" r="45"
+                  fill="none"
+                  stroke="#f87171"
+                  stroke-width="25"
+                  stroke-dasharray="{{ $majorDashArray }}"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 60 60)" />
+              </svg>
+            </div>
+            <div class="text-sm text-center mt-2">
+              <div class="text-red-500">Pending: {{ number_format($majorPendingPercent, 1) }}%</div>
+              <div>Complied: {{ number_format($majorCompliedPercent, 1) }}%</div>
+            </div>
           </div>
         </div>
+
         <!-- Overall Report Offenses -->
         <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
@@ -134,8 +165,7 @@
               <div class="flex justify-between pb-4 mb-4 border-b border-gray-200">
                 <span class="text-gray-900">Overall Report on Major Offenses</span>
               </div>
-
-              <div class="flex items-end justify-between w-full gap-4">
+              <div class="flex items-end justify-between w-full h-full gap-4">
                 @php
                 $maxMajor = max($majorCounts);
                 $minHeight = 10;
@@ -145,7 +175,7 @@
                 @foreach ($departments as $index => $dept)
                 @php
                 $count = $majorCounts[$dept] ?? 0;
-                $heightPx = $maxMajor > 0 ? max(($count / $maxMajor) * 200, $minHeight) : 0;
+                $heightPx = $maxMajor > 0 ? max(($count / $maxMajor) * 350, $minHeight) : 0;
                 $colorClass = $colors[$index % count($colors)];
                 @endphp
 
@@ -160,7 +190,6 @@
                 </div>
                 @endforeach
               </div>
-
             </div>
 
             <!-- Box 2: Minor Offenses -->
@@ -169,7 +198,7 @@
                 <span class="text-gray-900">Overall Report on Minor Offenses</span>
               </div>
 
-              <div class="flex items-end justify-between w-full gap-4">
+              <div class="flex items-end w-full h-full gap-4">
                 @php
                 $maxMinor = max($minorCounts);
                 $minHeight = 10;
@@ -179,7 +208,7 @@
                 @foreach ($departments as $index => $dept)
                 @php
                 $count = $minorCounts[$dept] ?? 0;
-                $heightPx = $maxMinor > 0 ? max(($count / $maxMinor) * 200, $minHeight) : 0;
+                $heightPx = $maxMinor > 0 ? max(($count / $maxMinor) * 350, $minHeight) : 0;
                 $colorClass = $colors[$index % count($colors)];
                 @endphp
 
@@ -195,65 +224,11 @@
                 @endforeach
               </div>
             </div>
+
           </div>
         </div>
 
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
-        <!-- Pie Chart Major Offenses -->
-        <div class="bg-white p-4 rounded-xl shadow">
-          <span class="font-normal text-lg border-b-2 mb-4">Major Offenses</span>
-          <div class="flex justify-center">
-            <svg viewBox="0 0 120 120" class="w-48 h-48 mt-8" preserveAspectRatio="xMidYMid meet">
-              <!-- Background circle -->
-              <circle
-                cx="60" cy="60" r="45"
-                fill="none"
-                stroke="#e5e7eb"
-                stroke-width="20" />
-              <!-- Data circle -->
-              <circle
-                cx="60" cy="60" r="45"
-                fill="none"
-                stroke="#f87171"
-                stroke-width="25"
-                stroke-dasharray="{{ $majorDashArray }}"
-                stroke-dashoffset="25"
-                transform="rotate(-90 60 60)" />
-            </svg>
-          </div>
-          <div class="text-sm text-center mt-2">
-            <div class="text-red-500">Pending: {{ number_format($majorPendingPercent, 1) }}%</div>
-            <div>Complied: {{ number_format($majorCompliedPercent, 1) }}%</div>
-          </div>
-        </div>
-        <!-- Overall Report Offenses -->
-        <div class="lg:col-span-2 2xl:col-span-3 flex min-h-full">
-          <!-- Inside: two equal width boxes -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            <!-- Box 1 -->
-            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
-              <span class="text-lg mb-2">Minor Violations</span>
-              <div class="text-center flex-grow">[Placeholder for content]</div>
-            </div>
-            <!-- Box 2 -->
-            <div class="bg-gray-100 p-4 rounded-xl outline-1 outline outline-gray-400 flex flex-col justify-between">
-              <span class="text-lg mb-2">Officers Application</span>
-              <div class="text-center flex-grow">[Placeholder for content]</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      @php
-      $total = $majorpending + $majorcomplied;
-      // Calculate the percentages for Pending and Complied
-      $pendingPercent = $total > 0 ? ($majorpending / $total) * 100 : 0;
-      $compliedPercent = 100 - $pendingPercent;
-      // Prepare the dash array for the SVG donut chart
-      $dashArray = $pendingPercent . ' ' . $compliedPercent;
-      @endphp
 
   </div>
   </main>
