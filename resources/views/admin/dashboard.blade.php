@@ -26,30 +26,30 @@
     <!-- Main Content -->
     <main :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 p-4 transition-all duration-300">
       <!-- Date and Search -->
-      <div class="flex flex-wrap justify-between items-center mb-6">
+      <!-- <div class="flex flex-wrap justify-between items-center mb-6">
         <div class="flex items-center gap-2 font-medium text-base text-gray-500">
           <label>Select period:</label>
           <input type="date" class="border-gray-500 rounded-lg">
           <input type="date" class="border-gray-500 rounded-lg">
         </div>
         <div class="flex items-center gap-2 mt-2 sm:mt-0">
-          <!-- search -->
+          
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
           <input type="text" placeholder="Search..." class="border-none bg-gray-100 px-2 py-1">
           <div class="h-8 border border-gray-500 mx-4"></div>
-          <!-- filter -->
+          
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-gray-500 ms-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
           </svg>
           <button class="bg-gray-100 pe-4">Filter</button>
         </div>
       </div>
-      <hr class="bg-gray-700">
+      <hr class="bg-gray-700"> -->
 
       <!-- College Applications Overview -->
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mb-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mb-4">
         <!-- SASTE -->
         <div style="background-color: #083259;" class="text-white p-4 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-transform duration-200">
           <div class="flex items-center space-x-4">
